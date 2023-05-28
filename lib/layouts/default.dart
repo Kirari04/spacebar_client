@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:spacebar_client/api/login.dart';
 import 'package:spacebar_client/components/navigation.dart';
+import 'package:spacebar_client/data/auth.dart';
 
 class DefaultLayout extends StatefulWidget {
   const DefaultLayout({super.key});
@@ -9,6 +11,18 @@ class DefaultLayout extends StatefulWidget {
 }
 
 class _DefaultLayoutState extends State<DefaultLayout> {
+  LoginRes? loginSession;
+
+  @override
+  void initState() {
+    super.initState();
+    AuthData.getSession().then((session) {
+      setState(() {
+        loginSession = session;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +34,15 @@ class _DefaultLayoutState extends State<DefaultLayout> {
           direction: Axis.horizontal,
           clipBehavior: Clip.hardEdge,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
-            Navigation(),
+          children: [
+            const Navigation(),
+            Expanded(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                color: Colors.red,
+                child: Text("${loginSession?.token}"),
+              ),
+            ),
           ],
         ),
       ),

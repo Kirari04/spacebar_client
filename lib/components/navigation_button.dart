@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:spacebar_client/pages/login.dart';
 
 class NavigationButton extends StatefulWidget {
-  const NavigationButton(
-      {super.key,
-      required this.title,
-      this.image,
-      this.svg,
-      this.unrounded,
-      this.padding});
+  const NavigationButton({
+    super.key,
+    required this.title,
+    this.image,
+    this.svg,
+    this.unrounded,
+    this.padding,
+    required this.onPressed,
+  });
 
   final String title;
   final String? image;
   final String? svg;
   final bool? unrounded;
   final double? padding;
+  final void Function() onPressed;
 
   @override
   State<NavigationButton> createState() => _NavigationButtonState();
@@ -23,11 +25,14 @@ class NavigationButton extends StatefulWidget {
 
 class _NavigationButtonState extends State<NavigationButton> {
   bool focused = false;
+  bool? isLoading = false;
+
   double borderRadius = 0;
   double borderRadiusMax = 0;
   double borderRadiusMin = 0;
-
   double imagePadding = 0;
+
+  bool loads() => (isLoading != null && isLoading == true);
 
   @override
   void initState() {
@@ -69,11 +74,9 @@ class _NavigationButtonState extends State<NavigationButton> {
               });
             },
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
-                ),
-              );
+              if (!loads()) {
+                widget.onPressed();
+              }
             },
             child: AnimatedContainer(
               curve: Curves.ease,
