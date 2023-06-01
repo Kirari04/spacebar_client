@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:spacebar_client/components/navigation_line.dart';
 import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/space_y.dart';
-import 'package:spacebar_client/models/app_state.dart';
-import 'package:spacebar_client/models/theme_colors.dart';
+
+import '../models/app_state.dart';
+import '../models/colors.dart';
 
 class SubNavigation extends StatefulWidget {
   SubNavigation({super.key, required this.appState});
