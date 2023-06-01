@@ -1,4 +1,5 @@
-import 'package:spacebar_client/models/ping.dart';
+import 'package:spacebar_client/api_wrapper/get_users_me.dart';
+import 'package:spacebar_client/api_wrapper/ping.dart';
 
 class AppState {
   bool apiOnline = false;
@@ -20,6 +21,7 @@ class AppState {
 
   void run() {
     isApiOnlineLoop();
+    isUserAuthenticatedLoop();
   }
 
   void isApiOnlineLoop() async {
@@ -45,8 +47,22 @@ class AppState {
 
   void isUserAuthenticatedLoop() async {
     while (true) {
-      //authenticate here
-      await Future.delayed(Duration(seconds: apiOnline ? 30 : 5), () {});
+      apiGetUsersMe(this).then((value) {
+        if (value.statusCode == 200) {
+          setState!(() {
+            userAuthenticated = true;
+          });
+        } else {
+          setState!(() {
+            userAuthenticated = false;
+          });
+        }
+      }).catchError((err) {
+        setState!(() {
+          userAuthenticated = false;
+        });
+      });
+      await Future.delayed(const Duration(seconds: 60), () {});
     }
   }
 }

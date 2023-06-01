@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:spacebar_client/models/colors.dart';
+import 'package:spacebar_client/models/theme_colors.dart';
 
 class NavigationButton extends StatefulWidget {
   NavigationButton({

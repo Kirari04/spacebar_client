@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/layouts/default.dart';
 import 'package:spacebar_client/models/app_state.dart';
-import 'package:spacebar_client/models/colors.dart';
+import 'package:spacebar_client/models/theme_colors.dart';
 import 'package:spacebar_client/pages/home.dart';
 
 void main() {

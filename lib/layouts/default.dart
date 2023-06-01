@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/navigation.dart';
-import 'package:spacebar_client/data/auth.dart';
+import 'package:spacebar_client/data/auth_data.dart';
+import 'package:spacebar_client/layouts/chat_column.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
 import 'package:spacebar_client/pages/home.dart';
@@ -70,14 +71,17 @@ class _DefaultLayoutState extends State<DefaultLayout> {
                   appState: appState,
                 ),
                 Expanded(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: IndexedStack(
-                      index: appState.defaultLayoutPageState,
-                      children: [
-                        HomePage(appState: appState),
-                        MePage(appState: appState),
-                      ],
+                  child: ChatColumnLayout(
+                    appState: appState,
+                    slot: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: IndexedStack(
+                        index: appState.defaultLayoutPageState,
+                        children: [
+                          HomePage(appState: appState),
+                          MePage(appState: appState),
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class SpaceY extends StatelessWidget {
-  const SpaceY({super.key, required this.height});
+class SpaceX extends StatelessWidget {
+  const SpaceX({super.key, required this.width});
 
-  final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height,
+      width: width,
     );
   }
 }
