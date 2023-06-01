@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:spacebar_client/api/login.dart';
+import 'package:spacebar_client/models/login.dart';
 
 class AuthData {
   static Future<bool?> saveSession(LoginRes session) async {

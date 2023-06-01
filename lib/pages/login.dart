@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spacebar_client/api/login.dart';
-import 'package:spacebar_client/api/login_error.dart';
-import 'package:spacebar_client/api/res.dart';
 import 'package:spacebar_client/components/button.dart';
 import 'package:spacebar_client/components/h1.dart';
 import 'package:spacebar_client/components/input.dart';
@@ -9,6 +6,9 @@ import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/p_error.dart';
 import 'package:spacebar_client/components/space_x.dart';
 import 'package:spacebar_client/data/auth.dart';
+import 'package:spacebar_client/models/login.dart';
+import 'package:spacebar_client/models/login_error.dart';
+import 'package:spacebar_client/models/res.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

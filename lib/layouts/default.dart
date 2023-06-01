@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:spacebar_client/api/login.dart';
 import 'package:spacebar_client/components/navigation.dart';
 import 'package:spacebar_client/data/auth.dart';
+import 'package:spacebar_client/models/login.dart';
 
 class DefaultLayout extends StatefulWidget {
   const DefaultLayout({super.key});
