@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spacebar_client/models/colors.dart';
 
 class NavigationButton extends StatefulWidget {
-  const NavigationButton({
+  NavigationButton({
     super.key,
     required this.title,
     this.image,
@@ -10,6 +11,8 @@ class NavigationButton extends StatefulWidget {
     this.unrounded,
     this.padding,
     required this.onPressed,
+    this.isOnline = false,
+    this.showIsOnline = false,
   });
 
   final String title;
@@ -18,6 +21,8 @@ class NavigationButton extends StatefulWidget {
   final bool? unrounded;
   final double? padding;
   final void Function() onPressed;
+  bool isOnline = false;
+  bool showIsOnline = false;
 
   @override
   State<NavigationButton> createState() => _NavigationButtonState();
@@ -81,33 +86,59 @@ class _NavigationButtonState extends State<NavigationButton> {
             child: AnimatedContainer(
               curve: Curves.ease,
               duration: const Duration(milliseconds: 600),
-              clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(borderRadius),
               ),
-              child: AspectRatio(
-                aspectRatio: 1 / 1,
-                child: widget.image == null && widget.svg == null
-                    ? Padding(
-                        padding: EdgeInsets.all(focused ? 10 + 2 : 10),
-                        child: const Image(
-                            image: AssetImage("assets/no-image.png")),
-                      )
-                    : Padding(
-                        padding: EdgeInsets.all(
-                            focused ? imagePadding + 2 : imagePadding),
-                        child: widget.svg != null
-                            ? SvgPicture.asset(
-                                widget.svg!,
-                                fit: BoxFit.contain,
+              child: Stack(children: [
+                AspectRatio(
+                  aspectRatio: 1 / 1,
+                  child: widget.image == null && widget.svg == null
+                      ? Padding(
+                          padding: EdgeInsets.all(focused ? 10 + 2 : 10),
+                          child: const Image(
+                              image: AssetImage("assets/no-image.png")),
+                        )
+                      : Padding(
+                          padding: EdgeInsets.all(
+                              focused ? imagePadding + 2 : imagePadding),
+                          child: widget.svg != null
+                              ? SvgPicture.asset(
+                                  widget.svg!,
+                                  fit: BoxFit.contain,
+                                )
+                              : Image(
+                                  image: AssetImage(widget.image!),
+                                  fit: BoxFit.fill,
+                                ),
+                        ),
+                ),
+                !widget.showIsOnline
+                    ? const SizedBox.shrink()
+                    : Positioned(
+                        right: 0,
+                        child: Container(
+                          height: 12,
+                          width: 12,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: widget.isOnline
+                                    ? ThemeColors().successColor
+                                    : ThemeColors().errorColor,
+                                blurRadius: 10,
+                                blurStyle: BlurStyle.outer,
                               )
-                            : Image(
-                                image: AssetImage(widget.image!),
-                                fit: BoxFit.fill,
-                              ),
-                      ),
-              ),
+                            ],
+                            color: widget.isOnline
+                                ? ThemeColors().successColor
+                                : ThemeColors().errorColor,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(99),
+                            ),
+                          ),
+                        ))
+              ]),
             ),
           ),
         ),

@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/navigation.dart';
 import 'package:spacebar_client/data/auth.dart';
+import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
 
 class DefaultLayout extends StatefulWidget {
-  const DefaultLayout({super.key});
-
+  DefaultLayout({super.key, required this.appState});
+  AppState appState;
   @override
-  State<DefaultLayout> createState() => _DefaultLayoutState();
+  State<DefaultLayout> createState() => _DefaultLayoutState(
+        appState: appState,
+      );
 }
 
 class _DefaultLayoutState extends State<DefaultLayout> {
+  AppState appState;
+
+  _DefaultLayoutState({
+    required this.appState,
+  });
   LoginRes? loginSession;
 
   @override
@@ -35,12 +43,14 @@ class _DefaultLayoutState extends State<DefaultLayout> {
           clipBehavior: Clip.hardEdge,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Navigation(),
+            Navigation(
+              appState: appState,
+            ),
             Expanded(
               child: Container(
                 height: MediaQuery.of(context).size.height,
-                color: Colors.red,
-                child: Text("${loginSession?.token}"),
+                color: Colors.transparent,
+                child: Text("ApiServer Online: ${appState.apiOnline}"),
               ),
             ),
           ],

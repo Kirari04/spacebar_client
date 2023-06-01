@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/navigation_button.dart';
 import 'package:spacebar_client/components/navigation_line.dart';
+import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/pages/login.dart';
 
 class Navigation extends StatefulWidget {
-  const Navigation({super.key});
+  Navigation({
+    super.key,
+    required this.appState,
+  });
+
+  AppState appState;
 
   @override
-  State<Navigation> createState() => _NavigationState();
+  State<Navigation> createState() => _NavigationState(
+        appState: appState,
+      );
 }
 
 class _NavigationState extends State<Navigation> {
+  AppState appState;
+  _NavigationState({
+    required this.appState,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,6 +33,8 @@ class _NavigationState extends State<Navigation> {
       child: SingleChildScrollView(
         child: Column(children: [
           NavigationButton(
+            isOnline: appState.apiOnline,
+            showIsOnline: true,
             title: "Home",
             svg: 'assets/logo.svg',
             unrounded: true,
@@ -27,7 +42,9 @@ class _NavigationState extends State<Navigation> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
+                  builder: (context) => LoginPage(
+                    appState: appState,
+                  ),
                 ),
               );
             },
@@ -47,7 +64,7 @@ class _NavigationState extends State<Navigation> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
+                  builder: (context) => LoginPage(appState: appState),
                 ),
               );
             },

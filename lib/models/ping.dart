@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:spacebar_client/models/config.dart' as config;
 import 'package:spacebar_client/models/res.dart';
 
-Future<ApiRes<PingRes, dynamic>> apiGetPing() async {
-  final response = await http.get(Uri.parse('${config.apiEndpoint}/ping'));
+import 'app_state.dart';
+
+Future<ApiRes<PingRes, dynamic>> apiGetPing(
+  AppState appState,
+) async {
+  final response = await http.get(Uri.parse('${appState.apiEndpoint}/ping'));
 
   return ApiRes(
     statusCode: response.statusCode,

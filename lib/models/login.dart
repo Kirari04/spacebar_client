@@ -1,14 +1,18 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:spacebar_client/models/config.dart' as config;
 import 'package:spacebar_client/models/login_error.dart';
 import 'package:spacebar_client/models/res.dart';
 
+import 'app_state.dart';
+
 Future<ApiRes<LoginRes, LoginResError>> apiPostLogin(
-    String login, String password) async {
+  AppState appState,
+  String login,
+  String password,
+) async {
   final response = await http.post(
-    Uri.parse('${config.apiEndpoint}/auth/login'),
+    Uri.parse('${appState.apiEndpoint}/auth/login'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

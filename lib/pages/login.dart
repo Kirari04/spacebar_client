@@ -6,18 +6,29 @@ import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/p_error.dart';
 import 'package:spacebar_client/components/space_x.dart';
 import 'package:spacebar_client/data/auth.dart';
+import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
 import 'package:spacebar_client/models/login_error.dart';
 import 'package:spacebar_client/models/res.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
+  LoginPage({
+    super.key,
+    required this.appState,
+  });
+  AppState appState;
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState(
+        appState: appState,
+      );
 }
 
 class _LoginPageState extends State<LoginPage> {
+  AppState appState;
+  _LoginPageState({
+    required this.appState,
+  });
+
   ApiRes<LoginRes, LoginResError>? data;
   String username = "";
   String password = "";
@@ -31,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLoading = true;
     });
-    apiPostLogin(username, password)
+    apiPostLogin(appState, username, password)
         .then((value) => setState(() {
               isLoading = false;
               data = value;
