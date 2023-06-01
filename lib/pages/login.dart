@@ -6,6 +6,7 @@ import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/p_error.dart';
 import 'package:spacebar_client/components/space_x.dart';
 import 'package:spacebar_client/data/auth.dart';
+import 'package:spacebar_client/models/app_nav.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
 import 'package:spacebar_client/models/login_error.dart';
@@ -58,7 +59,8 @@ class _LoginPageState extends State<LoginPage> {
                 AuthData.getSession().then((session) {
                   loginSession = session;
                   if (session != null) {
-                    Navigator.of(context).pop();
+                    AppNav.goHome(appState);
+                    appState.userAuthenticated = true;
                   }
                 });
               }).catchError((onError) {
@@ -150,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                       Button(
                         text: "Abbrechen",
                         onPressed: () {
-                          Navigator.of(context).pop((pop) {});
+                          AppNav.goHome(appState);
                         },
                       ),
                       Expanded(

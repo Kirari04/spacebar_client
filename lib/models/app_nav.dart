@@ -4,11 +4,15 @@ import 'package:spacebar_client/models/app_state.dart';
 
 @immutable
 class AppNav {
-  static void go(AppState appState, Widget slot) {
-    Navigator.maybeOf(appState.mainNavigationContext!)!.push(
-      MaterialPageRoute(
-        builder: (context) => slot,
-      ),
-    );
+  static void goHome(AppState appState) {
+    appState.setState!(() {
+      appState.defaultLayoutPageState = 0;
+    });
+  }
+
+  static void goMe(AppState appState) {
+    appState.setState!(() {
+      appState.defaultLayoutPageState = 1;
+    });
   }
 }

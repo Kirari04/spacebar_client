@@ -3,6 +3,9 @@ import 'package:spacebar_client/components/navigation.dart';
 import 'package:spacebar_client/data/auth.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
+import 'package:spacebar_client/pages/home.dart';
+import 'package:spacebar_client/pages/login.dart';
+import 'package:spacebar_client/pages/me.dart';
 
 class DefaultLayout extends StatefulWidget {
   DefaultLayout({super.key, required this.appState, required this.slot});
@@ -42,28 +45,43 @@ class _DefaultLayoutState extends State<DefaultLayout> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         color: Theme.of(context).primaryColorLight,
-        child: Flex(
-          direction: Axis.horizontal,
-          clipBehavior: Clip.hardEdge,
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: IndexedStack(
+          index: appState.userAuthenticated ? 1 : 0,
           children: [
-            Navigation(
-              appState: appState,
-            ),
-            Expanded(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: Navigator(
-                  key: appState.mainNavigatorKey,
-                  onGenerateRoute: (route) => MaterialPageRoute(
-                    settings: route,
-                    builder: (context) {
-                      appState.mainNavigationContext = context;
-                      return slot;
-                    },
+            Flex(
+              direction: Axis.horizontal,
+              clipBehavior: Clip.hardEdge,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: LoginPage(appState: appState),
                   ),
                 ),
-              ),
+              ],
+            ),
+            Flex(
+              direction: Axis.horizontal,
+              clipBehavior: Clip.hardEdge,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Navigation(
+                  appState: appState,
+                ),
+                Expanded(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: IndexedStack(
+                      index: appState.defaultLayoutPageState,
+                      children: [
+                        HomePage(appState: appState),
+                        MePage(appState: appState),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

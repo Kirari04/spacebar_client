@@ -1,32 +1,28 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:spacebar_client/components/h1.dart';
 import 'package:spacebar_client/models/app_state.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({
+class MePage extends StatefulWidget {
+  MePage({
     super.key,
     required this.appState,
   });
   AppState appState;
-
   @override
-  State<HomePage> createState() => _HomePageState(
-        appState: appState,
-      );
+  State<MePage> createState() => _MePageState(appState: appState);
 }
 
-class _HomePageState extends State<HomePage> {
+class _MePageState extends State<MePage> {
+  _MePageState({
+    required this.appState,
+  });
   AppState appState;
-
-  _HomePageState({required this.appState});
-
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: H1(title: "Home Page"),
+        child: H1(title: "@Me Page"),
       ),
     );
   }

@@ -1,14 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:spacebar_client/models/ping.dart';
 
 class AppState {
   bool apiOnline = false;
   String apiEndpoint;
+
   String appName;
 
-  final rootNavigatorKey = GlobalKey<NavigatorState>();
-  final mainNavigatorKey = GlobalKey<NavigatorState>();
-  BuildContext? mainNavigationContext;
+  bool userAuthenticated = false;
+
+  int defaultLayoutPageState = 0;
 
   void Function(void Function())? setState;
   AppState({
@@ -16,7 +16,6 @@ class AppState {
     required this.appName,
     this.setState,
     this.apiOnline = false,
-    this.mainNavigationContext,
   });
 
   void run() {
@@ -40,6 +39,13 @@ class AppState {
           apiOnline = false;
         });
       });
+      await Future.delayed(Duration(seconds: apiOnline ? 30 : 5), () {});
+    }
+  }
+
+  void isUserAuthenticatedLoop() async {
+    while (true) {
+      //authenticate here
       await Future.delayed(Duration(seconds: apiOnline ? 30 : 5), () {});
     }
   }

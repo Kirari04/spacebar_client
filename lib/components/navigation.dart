@@ -3,7 +3,6 @@ import 'package:spacebar_client/components/navigation_button.dart';
 import 'package:spacebar_client/components/navigation_line.dart';
 import 'package:spacebar_client/models/app_nav.dart';
 import 'package:spacebar_client/models/app_state.dart';
-import 'package:spacebar_client/pages/login.dart';
 
 class Navigation extends StatefulWidget {
   Navigation({
@@ -41,7 +40,7 @@ class _NavigationState extends State<Navigation> {
             unrounded: true,
             padding: 10,
             onPressed: () {
-              AppNav.go(appState, LoginPage(appState: appState));
+              AppNav.goMe(appState);
             },
           ),
           const NavigationLine(
@@ -57,7 +56,7 @@ class _NavigationState extends State<Navigation> {
             unrounded: true,
             padding: 10,
             onPressed: () {
-              AppNav.go(appState, LoginPage(appState: appState));
+              AppNav.goHome(appState);
             },
           ),
         ]),

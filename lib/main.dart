@@ -37,7 +37,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appState.appName,
-      navigatorKey: appState.rootNavigatorKey,
       theme: ThemeData(
         brightness: ThemeColors().brightness,
         primaryColor: ThemeColors().primaryColor,
