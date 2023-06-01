@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/navigation_button.dart';
 import 'package:spacebar_client/components/navigation_line.dart';
+import 'package:spacebar_client/models/app_nav.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/pages/login.dart';
 
@@ -40,13 +41,7 @@ class _NavigationState extends State<Navigation> {
             unrounded: true,
             padding: 10,
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(
-                    appState: appState,
-                  ),
-                ),
-              );
+              AppNav.go(appState, LoginPage(appState: appState));
             },
           ),
           const NavigationLine(
@@ -62,11 +57,7 @@ class _NavigationState extends State<Navigation> {
             unrounded: true,
             padding: 10,
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(appState: appState),
-                ),
-              );
+              AppNav.go(appState, LoginPage(appState: appState));
             },
           ),
         ]),

@@ -1,15 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:spacebar_client/models/ping.dart';
 
 class AppState {
   bool apiOnline = false;
   String apiEndpoint;
   String appName;
+
+  final rootNavigatorKey = GlobalKey<NavigatorState>();
+  final mainNavigatorKey = GlobalKey<NavigatorState>();
+  BuildContext? mainNavigationContext;
+
   void Function(void Function())? setState;
   AppState({
     required this.apiEndpoint,
     required this.appName,
     this.setState,
     this.apiOnline = false,
+    this.mainNavigationContext,
   });
 
   void run() {
@@ -18,7 +25,6 @@ class AppState {
 
   void isApiOnlineLoop() async {
     while (true) {
-      print("running ping: $apiOnline");
       apiGetPing(this).then((value) {
         if (value.statusCode == 200) {
           setState!(() {

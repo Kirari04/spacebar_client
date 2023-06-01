@@ -5,19 +5,23 @@ import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
 
 class DefaultLayout extends StatefulWidget {
-  DefaultLayout({super.key, required this.appState});
+  DefaultLayout({super.key, required this.appState, required this.slot});
   AppState appState;
+  Widget slot;
   @override
   State<DefaultLayout> createState() => _DefaultLayoutState(
         appState: appState,
+        slot: slot,
       );
 }
 
 class _DefaultLayoutState extends State<DefaultLayout> {
   AppState appState;
+  Widget slot;
 
   _DefaultLayoutState({
     required this.appState,
+    required this.slot,
   });
   LoginRes? loginSession;
 
@@ -47,10 +51,18 @@ class _DefaultLayoutState extends State<DefaultLayout> {
               appState: appState,
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height,
-                color: Colors.transparent,
-                child: Text("ApiServer Online: ${appState.apiOnline}"),
+                child: Navigator(
+                  key: appState.mainNavigatorKey,
+                  onGenerateRoute: (route) => MaterialPageRoute(
+                    settings: route,
+                    builder: (context) {
+                      appState.mainNavigationContext = context;
+                      return slot;
+                    },
+                  ),
+                ),
               ),
             ),
           ],

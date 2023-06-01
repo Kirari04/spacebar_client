@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spacebar_client/layouts/default.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/colors.dart';
+import 'package:spacebar_client/pages/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appState.appName,
+      navigatorKey: appState.rootNavigatorKey,
       theme: ThemeData(
         brightness: ThemeColors().brightness,
         primaryColor: ThemeColors().primaryColor,
@@ -45,6 +47,7 @@ class _MyAppState extends State<MyApp> {
       ),
       home: DefaultLayout(
         appState: appState,
+        slot: HomePage(appState: appState),
       ),
     );
   }
