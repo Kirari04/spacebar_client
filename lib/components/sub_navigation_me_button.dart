@@ -23,6 +23,7 @@ class SubNavigationMeButton extends StatefulWidget {
     this.hoverColor,
     this.widthFactor = 1,
     this.paddingTop = 8,
+    this.closable = false,
   });
   AppState appState;
   String title;
@@ -35,6 +36,7 @@ class SubNavigationMeButton extends StatefulWidget {
   Color? hoverColor;
   double widthFactor;
   double paddingTop;
+  bool closable;
 
   @override
   State<SubNavigationMeButton> createState() => _SubNavigationMeButtonState();
@@ -99,7 +101,7 @@ class _SubNavigationMeButtonState extends State<SubNavigationMeButton> {
                       ],
                     ),
                   ),
-                  isHovered
+                  isHovered && widget.closable
                       ? ButtonIcon(
                           svg: "assets/close.svg",
                           defaultColor: ThemeColors().primaryColorLight,
