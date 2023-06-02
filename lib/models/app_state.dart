@@ -47,6 +47,10 @@ class AppState {
 
   void isUserAuthenticatedLoop() async {
     while (true) {
+      if (!apiOnline) {
+        await Future.delayed(const Duration(seconds: 1), () {});
+        continue;
+      }
       apiGetUsersMe(this).then((value) {
         if (value.statusCode == 200) {
           setState!(() {

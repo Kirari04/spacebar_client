@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:spacebar_client/components/navigation_line.dart';
-import 'package:spacebar_client/components/p.dart';
-import 'package:spacebar_client/components/space_y.dart';
+import 'package:flutter/material.dart';
+import 'package:spacebar_client/components/sub_navigation_me_button.dart';
 
 import '../models/app_state.dart';
 import '../models/colors.dart';
@@ -17,26 +16,26 @@ class SubNavigation extends StatefulWidget {
 class _SubNavigationState extends State<SubNavigation> {
   @override
   Widget build(BuildContext context) {
+    var items = List.filled(1000, 1).map((e) => SubNavigationMeButton(
+          appState: widget.appState,
+          title: "Flo🅿🅿a, dalilol07, Dalilol",
+          subtitle: "3 Mitglieder",
+        ));
     return Container(
       height: MediaQuery.of(context).size.height,
-      width: 200,
+      width: 250,
       decoration: BoxDecoration(color: ThemeColors().primaryColorMid),
-      child: SingleChildScrollView(
-        child: Column(children: [
-          ...(List.filled(20, 1)).map((e) => Column(
-                children: const [
-                  SpaceY(height: 10),
-                  P(
-                    text: "~ Channel",
-                    fontWeight: FontWeight.w200,
-                  ),
-                  SpaceY(height: 10),
-                  NavigationLine(
-                    height: 2,
-                  ),
-                ],
-              ))
-        ]),
+      child: ListView.builder(
+        itemCount: items.length,
+        prototypeItem: ListTile(
+          title: items.first,
+        ),
+        itemBuilder: (context, index) {
+          return ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: items.elementAt(index),
+          );
+        },
       ),
     );
   }

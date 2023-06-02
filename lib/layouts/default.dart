@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/navigation.dart';
 import 'package:spacebar_client/data/auth_data.dart';
-import 'package:spacebar_client/layouts/chat_column.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
 import 'package:spacebar_client/pages/home.dart';
@@ -13,20 +12,10 @@ class DefaultLayout extends StatefulWidget {
   AppState appState;
   Widget slot;
   @override
-  State<DefaultLayout> createState() => _DefaultLayoutState(
-        appState: appState,
-        slot: slot,
-      );
+  State<DefaultLayout> createState() => _DefaultLayoutState();
 }
 
 class _DefaultLayoutState extends State<DefaultLayout> {
-  AppState appState;
-  Widget slot;
-
-  _DefaultLayoutState({
-    required this.appState,
-    required this.slot,
-  });
   LoginRes? loginSession;
 
   @override
@@ -47,7 +36,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
         width: MediaQuery.of(context).size.width,
         color: Theme.of(context).primaryColorLight,
         child: IndexedStack(
-          index: appState.userAuthenticated ? 1 : 0,
+          index: widget.appState.userAuthenticated ? 1 : 0,
           children: [
             Flex(
               direction: Axis.horizontal,
@@ -57,7 +46,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
                 Expanded(
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height,
-                    child: LoginPage(appState: appState),
+                    child: LoginPage(appState: widget.appState),
                   ),
                 ),
               ],
@@ -68,20 +57,17 @@ class _DefaultLayoutState extends State<DefaultLayout> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Navigation(
-                  appState: appState,
+                  appState: widget.appState,
                 ),
                 Expanded(
-                  child: ChatColumnLayout(
-                    appState: appState,
-                    slot: SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: IndexedStack(
-                        index: appState.defaultLayoutPageState,
-                        children: [
-                          HomePage(appState: appState),
-                          MePage(appState: appState),
-                        ],
-                      ),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: IndexedStack(
+                      index: widget.appState.defaultLayoutPageState,
+                      children: [
+                        HomePage(appState: widget.appState),
+                        MePage(appState: widget.appState),
+                      ],
                     ),
                   ),
                 ),
