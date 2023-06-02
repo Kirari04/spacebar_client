@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:spacebar_client/components/button_icon.dart';
 import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/space_x.dart';
 import 'package:spacebar_client/components/status_icon.dart';
@@ -20,7 +21,7 @@ class SubNavigationMeButton extends StatefulWidget {
     this.status = "offline",
     this.defaultColor,
     this.hoverColor,
-    this.widthFactor = 0.9,
+    this.widthFactor = 1,
     this.paddingTop = 8,
   });
   AppState appState;
@@ -43,65 +44,68 @@ class _SubNavigationMeButtonState extends State<SubNavigationMeButton> {
   bool isHovered = false;
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: FractionallySizedBox(
-        widthFactor: widget.widthFactor,
-        child: Padding(
-          padding: EdgeInsets.only(top: widget.paddingTop),
-          child: InkWell(
-            onTap: () {},
-            onHover: (doHover) => setState(() {
-              isHovered = doHover;
-            }),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: isHovered
-                    ? (widget.hoverColor ?? ThemeColors().primaryColorLight)
-                    : (widget.defaultColor ??
-                        ThemeColors().primaryColorMidDark),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Flex(
-                  direction: Axis.horizontal,
-                  children: [
-                    Stack(
+    return FractionallySizedBox(
+      widthFactor: widget.widthFactor,
+      child: Padding(
+        padding: EdgeInsets.only(top: widget.paddingTop),
+        child: InkWell(
+          onTap: () {},
+          onHover: (doHover) => setState(() {
+            isHovered = doHover;
+          }),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: isHovered
+                  ? (widget.hoverColor ?? ThemeColors().primaryColorLight)
+                  : (widget.defaultColor ?? ThemeColors().primaryColorMidDark),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Stack(
+                    children: [
+                      SubNavigationButtonImage(
+                        image: widget.image,
+                        svg: widget.svg,
+                      ),
+                      !widget.statusEnabled
+                          ? const SizedBox.shrink()
+                          : Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: StatusIcon(
+                                status: widget.status,
+                              ),
+                            )
+                    ],
+                  ),
+                  const SpaceX(width: 10),
+                  Expanded(
+                    child: Flex(
+                      direction: Axis.vertical,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SubNavigationButtonImage(
-                          image: widget.image,
-                          svg: widget.svg,
-                        ),
-                        !widget.statusEnabled
-                            ? const SizedBox.shrink()
-                            : Positioned(
-                                right: 0,
-                                bottom: 0,
-                                child: StatusIcon(
-                                  status: widget.status,
-                                ),
+                        P(text: widget.title),
+                        widget.subtitle != null
+                            ? P(
+                                text: widget.subtitle!,
+                                fontWeight: FontWeight.w200,
+                                fontSize: 12,
                               )
+                            : const SizedBox.shrink(),
                       ],
                     ),
-                    const SpaceX(width: 10),
-                    Expanded(
-                      child: Flex(
-                        direction: Axis.vertical,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          P(text: widget.title),
-                          widget.subtitle != null
-                              ? P(
-                                  text: widget.subtitle!,
-                                  fontWeight: FontWeight.w200,
-                                  fontSize: 12,
-                                )
-                              : const SizedBox.shrink(),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  isHovered
+                      ? ButtonIcon(
+                          svg: "assets/close.svg",
+                          defaultColor: ThemeColors().primaryColorLight,
+                        )
+                      : const SizedBox.shrink()
+                ],
               ),
             ),
           ),
