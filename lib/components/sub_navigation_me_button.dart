@@ -18,6 +18,8 @@ class SubNavigationMeButton extends StatefulWidget {
     this.svg,
     this.statusEnabled = true,
     this.status = "offline",
+    this.defaultColor,
+    this.hoverColor,
   });
   AppState appState;
   String title;
@@ -26,6 +28,8 @@ class SubNavigationMeButton extends StatefulWidget {
   String? svg;
   String status;
   bool statusEnabled;
+  Color? defaultColor;
+  Color? hoverColor;
 
   @override
   State<SubNavigationMeButton> createState() => _SubNavigationMeButtonState();
@@ -49,8 +53,8 @@ class _SubNavigationMeButtonState extends State<SubNavigationMeButton> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: isHovered
-                    ? ThemeColors().primaryColorLight
-                    : ThemeColors().primaryColorMid,
+                    ? (widget.hoverColor ?? ThemeColors().primaryColorLight)
+                    : (widget.defaultColor ?? ThemeColors().primaryColorMid),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

@@ -24,21 +24,47 @@ class _SubNavigationState extends State<SubNavigation> {
           status: "stop",
         ));
     return Container(
-      height: MediaQuery.of(context).size.height,
-      width: 250,
-      decoration: BoxDecoration(color: ThemeColors().primaryColorMid),
-      child: ListView.builder(
-        itemCount: items.length,
-        prototypeItem: ListTile(
-          title: items.first,
-        ),
-        itemBuilder: (context, index) {
-          return ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: items.elementAt(index),
-          );
-        },
-      ),
-    );
+        height: MediaQuery.of(context).size.height,
+        width: 250,
+        decoration: BoxDecoration(color: ThemeColors().primaryColorMid),
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: items.length,
+                prototypeItem: ListTile(
+                  title: items.first,
+                ),
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: items.elementAt(index),
+                  );
+                },
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: ThemeColors().primaryColorMidDark,
+              ),
+              child: Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Expanded(
+                    child: SubNavigationMeButton(
+                      appState: widget.appState,
+                      title: "Kirari",
+                      subtitle: "Kirari21309#1230",
+                      image: "assets/example_profile.png",
+                      status: "online",
+                      defaultColor: ThemeColors().primaryColorMidDark,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }
