@@ -20,6 +20,8 @@ class SubNavigationMeButton extends StatefulWidget {
     this.status = "offline",
     this.defaultColor,
     this.hoverColor,
+    this.widthFactor = 0.9,
+    this.paddingTop = 8,
   });
   AppState appState;
   String title;
@@ -30,6 +32,8 @@ class SubNavigationMeButton extends StatefulWidget {
   bool statusEnabled;
   Color? defaultColor;
   Color? hoverColor;
+  double widthFactor;
+  double paddingTop;
 
   @override
   State<SubNavigationMeButton> createState() => _SubNavigationMeButtonState();
@@ -41,9 +45,9 @@ class _SubNavigationMeButtonState extends State<SubNavigationMeButton> {
   Widget build(BuildContext context) {
     return Center(
       child: FractionallySizedBox(
-        widthFactor: .9,
+        widthFactor: widget.widthFactor,
         child: Padding(
-          padding: const EdgeInsets.only(top: 8),
+          padding: EdgeInsets.only(top: widget.paddingTop),
           child: InkWell(
             onTap: () {},
             onHover: (doHover) => setState(() {
@@ -54,7 +58,8 @@ class _SubNavigationMeButtonState extends State<SubNavigationMeButton> {
                 borderRadius: BorderRadius.circular(10),
                 color: isHovered
                     ? (widget.hoverColor ?? ThemeColors().primaryColorLight)
-                    : (widget.defaultColor ?? ThemeColors().primaryColorMid),
+                    : (widget.defaultColor ??
+                        ThemeColors().primaryColorMidDark),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

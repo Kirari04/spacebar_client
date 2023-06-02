@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spacebar_client/components/button_icon.dart';
 import 'package:spacebar_client/components/sub_navigation_me_button.dart';
 
 import '../models/app_state.dart';
@@ -48,20 +49,33 @@ class _SubNavigationState extends State<SubNavigation> {
               decoration: BoxDecoration(
                 color: ThemeColors().primaryColorMidDark,
               ),
-              child: Flex(
-                direction: Axis.horizontal,
-                children: [
-                  Expanded(
-                    child: SubNavigationMeButton(
-                      appState: widget.appState,
-                      title: "Kirari",
-                      subtitle: "Kirari21309#1230",
-                      image: "assets/example_profile.png",
-                      status: "online",
-                      defaultColor: ThemeColors().primaryColorMidDark,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Flex(
+                  direction: Axis.horizontal,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SubNavigationMeButton(
+                          appState: widget.appState,
+                          title: "Kirari",
+                          subtitle: "Kirari21309#1230",
+                          image: "assets/example_profile.png",
+                          status: "online",
+                          defaultColor: ThemeColors().primaryColorMidDark,
+                          widthFactor: 1,
+                          paddingTop: 0,
+                        ),
+                      ),
                     ),
-                  )
-                ],
+                    ButtonIcon(
+                      svg: "assets/settings.svg",
+                    ),
+                  ],
+                ),
               ),
             )
           ],
