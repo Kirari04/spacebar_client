@@ -8,6 +8,7 @@ class AppState {
   String appName;
 
   bool userAuthenticated = false;
+  bool userTryAuthenticate = false;
 
   int defaultLayoutPageState = 0;
 
@@ -52,6 +53,9 @@ class AppState {
         continue;
       }
       apiGetUsersMe(this).then((value) {
+        setState!(() {
+          userTryAuthenticate = true;
+        });
         if (value.statusCode == 200) {
           setState!(() {
             userAuthenticated = true;

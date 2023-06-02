@@ -96,79 +96,89 @@ class _LoginPageState extends State<LoginPage> {
           child: Container(
             width: 500,
             decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: const BorderRadius.all(Radius.circular(8))),
+              color: Theme.of(context).primaryColor,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const H1(title: "Willkommen zurück!"),
-                  const P(
-                    text: "Wir freuen uns so, dich wiederzusehen",
-                    fontWeight: FontWeight.w200,
-                  ),
-                  const SpaceY(height: 20),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Input(
-                      text: "Username or E-Mail",
-                      onChange: (p0) {
-                        setState(() {
-                          username = p0;
-                        });
-                      },
-                    ),
-                  ),
-                  const SpaceY(height: 20),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Input(
-                      text: "Passwort",
-                      obscureText: true,
-                      onChange: (p0) {
-                        setState(() {
-                          password = p0;
-                        });
-                      },
-                    ),
-                  ),
-
-                  // Show Errors
-                  const SpaceY(height: 20),
-                  ...?data?.error?.errors?.login?.errors?.map((e) => PError(
-                        text: "Error: ${e.message}",
-                      )),
-                  PError(
-                    text: internalError,
-                  ),
-                  const SpaceY(height: 20),
-
-                  // Login & Abort buttons
-                  Flex(
-                    mainAxisSize: MainAxisSize.max,
-                    direction: Axis.horizontal,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Button(
-                        text: "Abbrechen",
-                        onPressed: () {
-                          AppNav.goHome(appState);
-                        },
+              child: !appState.userTryAuthenticate
+                  ? const Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                        heightFactor: 0,
+                        child: CircularProgressIndicator(),
                       ),
-                      Expanded(
-                          child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Button(
-                          text: "Login",
-                          isLoading: isLoading,
-                          onPressed: login,
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const H1(title: "Willkommen zurück!"),
+                        const P(
+                          text: "Wir freuen uns so, dich wiederzusehen",
+                          fontWeight: FontWeight.w200,
                         ),
-                      )),
-                    ],
-                  )
-                ],
-              ),
+                        const SpaceY(height: 20),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Input(
+                            text: "Username or E-Mail",
+                            onChange: (p0) {
+                              setState(() {
+                                username = p0;
+                              });
+                            },
+                          ),
+                        ),
+                        const SpaceY(height: 20),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Input(
+                            text: "Passwort",
+                            obscureText: true,
+                            onChange: (p0) {
+                              setState(() {
+                                password = p0;
+                              });
+                            },
+                          ),
+                        ),
+
+                        // Show Errors
+                        const SpaceY(height: 20),
+                        ...?data?.error?.errors?.login?.errors
+                            ?.map((e) => PError(
+                                  text: "Error: ${e.message}",
+                                )),
+                        PError(
+                          text: internalError,
+                        ),
+                        const SpaceY(height: 20),
+
+                        // Login & Abort buttons
+                        Flex(
+                          mainAxisSize: MainAxisSize.max,
+                          direction: Axis.horizontal,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Button(
+                              text: "Abbrechen",
+                              onPressed: () {
+                                AppNav.goHome(appState);
+                              },
+                            ),
+                            Expanded(
+                                child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Button(
+                                text: "Login",
+                                isLoading: isLoading,
+                                onPressed: login,
+                              ),
+                            )),
+                          ],
+                        )
+                      ],
+                    ),
             ),
           ),
         ),
