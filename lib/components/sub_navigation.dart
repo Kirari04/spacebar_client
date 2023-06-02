@@ -16,10 +16,12 @@ class SubNavigation extends StatefulWidget {
 class _SubNavigationState extends State<SubNavigation> {
   @override
   Widget build(BuildContext context) {
-    var items = List.filled(1000, 1).map((e) => SubNavigationMeButton(
+    var items = List.filled(100, 1).map((e) => SubNavigationMeButton(
           appState: widget.appState,
           title: "Flo🅿🅿a, dalilol07, Dalilol",
           subtitle: "3 Mitglieder",
+          image: "assets/example_profile.png",
+          status: "stop",
         ));
     return Container(
       height: MediaQuery.of(context).size.height,

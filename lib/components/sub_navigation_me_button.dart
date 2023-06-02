@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/space_x.dart';
+import 'package:spacebar_client/components/status_icon.dart';
+import 'package:spacebar_client/components/sub_navigation_button_image.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/colors.dart';
 
@@ -13,12 +14,18 @@ class SubNavigationMeButton extends StatefulWidget {
     required this.appState,
     required this.title,
     this.subtitle,
+    this.image,
+    this.svg,
+    this.statusEnabled = true,
+    this.status = "offline",
   });
   AppState appState;
   String title;
   String? subtitle;
   String? image;
   String? svg;
+  String status;
+  bool statusEnabled;
 
   @override
   State<SubNavigationMeButton> createState() => _SubNavigationMeButtonState();
@@ -49,31 +56,23 @@ class _SubNavigationMeButtonState extends State<SubNavigationMeButton> {
                 padding: const EdgeInsets.all(8.0),
                 child: Flex(
                   direction: Axis.horizontal,
-                  clipBehavior: Clip.hardEdge,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: ThemeColors().primaryColor,
-                          borderRadius: BorderRadius.circular(99)),
-                      height: 40,
-                      child: widget.image == null && widget.svg == null
-                          ? const Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Image(
-                                  image: AssetImage("assets/no-image.png")),
-                            )
-                          : Padding(
-                              padding: EdgeInsets.all(10),
-                              child: widget.svg != null
-                                  ? SvgPicture.asset(
-                                      widget.svg!,
-                                      fit: BoxFit.contain,
-                                    )
-                                  : Image(
-                                      image: AssetImage(widget.image!),
-                                      fit: BoxFit.fill,
-                                    ),
-                            ),
+                    Stack(
+                      children: [
+                        SubNavigationButtonImage(
+                          image: widget.image,
+                          svg: widget.svg,
+                        ),
+                        !widget.statusEnabled
+                            ? const SizedBox.shrink()
+                            : Positioned(
+                                right: 0,
+                                bottom: 0,
+                                child: StatusIcon(
+                                  status: widget.status,
+                                ),
+                              )
+                      ],
                     ),
                     const SpaceX(width: 10),
                     Expanded(
