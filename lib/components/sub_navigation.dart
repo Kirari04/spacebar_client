@@ -63,7 +63,7 @@ class _SubNavigationState extends State<SubNavigation> {
                           appState: widget.appState,
                           title: "Kirari",
                           subtitle: "Kirari21309#1230",
-                          image: "assets/example_profile.png",
+                          image: "assets/example_giphy.gif",
                           status: "online",
                           defaultColor: ThemeColors().primaryColorMidDark,
                           widthFactor: 1,

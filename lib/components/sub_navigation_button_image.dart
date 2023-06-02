@@ -24,6 +24,7 @@ class _SubNavigationButtonImageState extends State<SubNavigationButtonImage> {
       ),
       clipBehavior: Clip.hardEdge,
       height: 35,
+      width: 35,
       child: widget.image == null && widget.svg == null
           ? const Padding(
               padding: EdgeInsets.all(10),
