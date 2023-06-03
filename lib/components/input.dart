@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/space_y.dart';
 
 class Input extends StatelessWidget {
-  const Input(
-      {super.key,
-      required this.text,
-      this.obscureText,
-      required this.onChange});
+  const Input({
+    super.key,
+    required this.text,
+    this.obscureText,
+    required this.onChange,
+    this.value,
+  });
 
   final String text;
   final bool? obscureText;
   final void Function(String) onChange;
+  final String? value;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +33,7 @@ class Input extends StatelessWidget {
         ),
         const SpaceY(height: 10),
         TextField(
+          controller: TextEditingController(text: value ?? ""),
           onChanged: (value) => onChange(value),
           obscureText: obscureText ?? false,
           decoration: InputDecoration(

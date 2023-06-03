@@ -10,10 +10,12 @@ class ButtonIcon extends StatefulWidget {
     this.svg,
     this.defaultColor,
     this.hoverColor,
+    this.onTap,
   });
   final String? svg;
   Color? defaultColor;
   Color? hoverColor;
+  void Function()? onTap;
 
   @override
   State<ButtonIcon> createState() => _ButtonIconState();
@@ -25,7 +27,9 @@ class _ButtonIconState extends State<ButtonIcon> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        widget.onTap!();
+      },
       onHover: (doesHover) => setState(() {
         isHovered = doesHover;
       }),

@@ -12,6 +12,9 @@ import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
 import 'package:spacebar_client/models/login_error.dart';
 import 'package:spacebar_client/models/res.dart';
+import 'package:spacebar_client/pages/config.dart';
+
+import '../components/button_icon.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({
@@ -102,11 +105,31 @@ class _LoginPageState extends State<LoginPage> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: !appState.userTryAuthenticate
-                  ? const Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Center(
-                        heightFactor: 0,
-                        child: CircularProgressIndicator(),
+                  ? Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Stack(
+                        children: [
+                          const Align(
+                            heightFactor: 1,
+                            alignment: Alignment.center,
+                            child: CircularProgressIndicator(),
+                          ),
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: ButtonIcon(
+                              svg: "assets/settings.svg",
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (builder) =>
+                                        ConfigPage(appState: appState),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
                       ),
                     )
                   : Column(
@@ -160,10 +183,15 @@ class _LoginPageState extends State<LoginPage> {
                           direction: Axis.horizontal,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Button(
-                              text: "Abbrechen",
-                              onPressed: () {
-                                AppNav.goHome(appState);
+                            ButtonIcon(
+                              svg: "assets/settings.svg",
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (builder) =>
+                                        ConfigPage(appState: appState),
+                                  ),
+                                );
                               },
                             ),
                             Expanded(
