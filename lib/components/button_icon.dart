@@ -28,7 +28,9 @@ class _ButtonIconState extends State<ButtonIcon> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        widget.onTap!();
+        if (widget.onTap != null) {
+          widget.onTap!();
+        }
       },
       onHover: (doesHover) => setState(() {
         isHovered = doesHover;
