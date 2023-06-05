@@ -146,9 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Input(
                             text: "Username or E-Mail",
                             onChange: (p0) {
-                              setState(() {
-                                username = p0;
-                              });
+                              username = p0;
                             },
                           ),
                         ),
@@ -159,9 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                             text: "Passwort",
                             obscureText: true,
                             onChange: (p0) {
-                              setState(() {
-                                password = p0;
-                              });
+                              password = p0;
                             },
                           ),
                         ),

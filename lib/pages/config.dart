@@ -62,7 +62,7 @@ class _ConfigPageState extends State<ConfigPage> {
                       Expanded(
                         child: Input(
                             text: "ApiServer",
-                            value: apiEndpoint,
+                            defaultValue: apiEndpoint,
                             onChange: (changes) {
                               apiEndpoint = changes;
                             }),
@@ -77,29 +77,31 @@ class _ConfigPageState extends State<ConfigPage> {
                       )
                     ],
                   ),
-                  Flex(
-                    direction: Axis.horizontal,
-                    children: [
-                      Expanded(
-                        child: Input(
-                            text: "ApiToken",
-                            value: apiToken?.token ?? "",
-                            onChange: (changes) {
-                              apiToken?.token = changes;
-                            }),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          widget.appState.setState!(() {
-                            if (apiToken != null) {
-                              AuthData.saveSession(apiToken!);
-                            }
-                          });
-                        },
-                        child: const Text("Speichern"),
-                      )
-                    ],
-                  )
+                  apiToken == null
+                      ? const SizedBox.shrink()
+                      : Flex(
+                          direction: Axis.horizontal,
+                          children: [
+                            Expanded(
+                              child: Input(
+                                  text: "ApiToken",
+                                  defaultValue: apiToken?.token,
+                                  onChange: (changes) {
+                                    apiToken?.token = changes;
+                                  }),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                widget.appState.setState!(() {
+                                  if (apiToken != null) {
+                                    AuthData.saveSession(apiToken!);
+                                  }
+                                });
+                              },
+                              child: const Text("Speichern"),
+                            )
+                          ],
+                        )
                 ],
               ),
             ),

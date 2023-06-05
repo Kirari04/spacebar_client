@@ -7,13 +7,13 @@ class Input extends StatelessWidget {
     required this.text,
     this.obscureText,
     required this.onChange,
-    this.value,
+    this.defaultValue,
   });
 
   final String text;
   final bool? obscureText;
-  final void Function(String) onChange;
-  final String? value;
+  final void Function(String)? onChange;
+  final String? defaultValue;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,12 @@ class Input extends StatelessWidget {
         ),
         const SpaceY(height: 10),
         TextField(
-          controller: TextEditingController(text: value ?? ""),
-          onChanged: (value) => onChange(value),
+          controller: TextEditingController(text: defaultValue),
+          onChanged: (value) {
+            if (onChange != null) {
+              onChange!(value);
+            }
+          },
           obscureText: obscureText ?? false,
           decoration: InputDecoration(
             filled: true,

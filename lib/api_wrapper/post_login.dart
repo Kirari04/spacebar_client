@@ -31,7 +31,7 @@ Future<ApiRes<LoginRes, LoginResError>> apiPostLogin(
   if (response.statusCode != 200) {
     return ApiRes(
       statusCode: response.statusCode,
-      message: "Error",
+      message: "error",
       error: LoginResError.fromJson(jsonDecode(response.body)),
     );
   }
