@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/input.dart';
+import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/data/auth_data.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/colors.dart';
@@ -102,7 +103,16 @@ class _ConfigPageState extends State<ConfigPage> {
                               child: const Text("Speichern"),
                             )
                           ],
-                        )
+                        ),
+                  Flex(
+                    direction: Axis.vertical,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const H1(title: "Logs"),
+                      P(text: widget.appState.getLogs()),
+                    ],
+                  )
                 ],
               ),
             ),

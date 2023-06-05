@@ -9,6 +9,8 @@ import 'package:spacebar_client/models/users_me_guilds.dart';
 Future<ApiRes<List<UsersMeGuilds>, String>> apiGetUsersMeGuilds(
   AppState appState,
 ) async {
+  const logFuncName = "apiGetUsersMeGuilds";
+  appState.addLogs(LogType.info, "run $logFuncName");
   final response = await http.get(
       Uri.parse('${appState.apiEndpoint}/users/@me/guilds'),
       headers: <String, String>{
@@ -16,6 +18,8 @@ Future<ApiRes<List<UsersMeGuilds>, String>> apiGetUsersMeGuilds(
       });
   apiStatusHook(response.statusCode);
   if (response.statusCode != 200) {
+    appState.addLogs(LogType.warning,
+        "res $logFuncName: status:${response.statusCode} body:${response.body}");
     return ApiRes(
       statusCode: response.statusCode,
       message: "error",
@@ -24,11 +28,17 @@ Future<ApiRes<List<UsersMeGuilds>, String>> apiGetUsersMeGuilds(
   }
 
   List<UsersMeGuilds> res = [];
-  List<dynamic> jsonResult = jsonDecode(response.body);
-  for (var value in jsonResult) {
-    res.add(UsersMeGuilds.fromJson(value));
+  try {
+    appState.addLogs(LogType.info, "parse $logFuncName");
+    List<dynamic> jsonResult = jsonDecode(response.body);
+    for (var value in jsonResult) {
+      res.add(UsersMeGuilds.fromJson(value));
+    }
+  } catch (e) {
+    appState.addLogs(LogType.warning, "parse error $logFuncName: $e");
   }
 
+  appState.addLogs(LogType.info, "return $logFuncName");
   return ApiRes(
     statusCode: response.statusCode,
     message: "ok",

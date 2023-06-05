@@ -12,6 +12,8 @@ Future<ApiRes<LoginRes, LoginResError>> apiPostLogin(
   String login,
   String password,
 ) async {
+  const logFuncName = "apiPostLogin";
+  appState.addLogs(LogType.info, "run $logFuncName");
   final response = await http.post(
     Uri.parse('${appState.apiEndpoint}/auth/login'),
     headers: <String, String>{
@@ -29,16 +31,32 @@ Future<ApiRes<LoginRes, LoginResError>> apiPostLogin(
 
   apiStatusHook(response.statusCode);
   if (response.statusCode != 200) {
+    appState.addLogs(LogType.warning,
+        "res $logFuncName: status:${response.statusCode} body:${response.body}");
+    LoginResError? res;
+    try {
+      appState.addLogs(LogType.info, "parse $logFuncName");
+      res = LoginResError.fromJson(jsonDecode(response.body));
+    } catch (e) {
+      appState.addLogs(LogType.warning, "parse error $logFuncName: $e");
+    }
     return ApiRes(
       statusCode: response.statusCode,
       message: "error",
-      error: LoginResError.fromJson(jsonDecode(response.body)),
+      error: res,
     );
+  }
+  LoginRes? res;
+  try {
+    appState.addLogs(LogType.info, "parse $logFuncName");
+    res = LoginRes.fromJson(jsonDecode(response.body));
+  } catch (e) {
+    appState.addLogs(LogType.warning, "parse error $logFuncName: $e");
   }
 
   return ApiRes(
     statusCode: response.statusCode,
     message: "ok",
-    response: LoginRes.fromJson(jsonDecode(response.body)),
+    response: res,
   );
 }

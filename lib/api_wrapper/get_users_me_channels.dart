@@ -9,6 +9,8 @@ import 'package:spacebar_client/models/users_me_channels.dart';
 Future<ApiRes<List<UsersMeChannels>, String>> apiGetUsersMeChannels(
   AppState appState,
 ) async {
+  const logFuncName = "apiGetUsersMeChannels";
+  appState.addLogs(LogType.info, "run $logFuncName");
   final response = await http.get(
       Uri.parse('${appState.apiEndpoint}/users/@me/channels'),
       headers: <String, String>{
@@ -16,19 +18,26 @@ Future<ApiRes<List<UsersMeChannels>, String>> apiGetUsersMeChannels(
       });
   apiStatusHook(response.statusCode);
   if (response.statusCode != 200) {
+    appState.addLogs(LogType.warning,
+        "res $logFuncName: status:${response.statusCode} body:${response.body}");
     return ApiRes(
       statusCode: response.statusCode,
       message: "error",
       error: response.body,
     );
   }
-
   List<UsersMeChannels> res = [];
-  List<dynamic> jsonResult = jsonDecode(response.body);
-  for (var value in jsonResult) {
-    res.add(UsersMeChannels.fromJson(value));
+  try {
+    appState.addLogs(LogType.info, "parse $logFuncName");
+    List<dynamic> jsonResult = jsonDecode(response.body);
+    for (var value in jsonResult) {
+      res.add(UsersMeChannels.fromJson(value));
+    }
+  } catch (e) {
+    appState.addLogs(LogType.warning, "parse error $logFuncName: $e");
   }
 
+  appState.addLogs(LogType.info, "return $logFuncName");
   return ApiRes(
     statusCode: response.statusCode,
     message: "ok",

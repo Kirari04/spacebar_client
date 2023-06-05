@@ -21,6 +21,17 @@ class Navigation extends StatefulWidget {
 class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
+    Iterable<NavigationButton> guildList = [];
+    if (widget.appState.usersMeGuildsList != null) {
+      guildList =
+          widget.appState.usersMeGuildsList!.map((e) => NavigationButton(
+                title: "${e.name}",
+                onPressed: () {
+                  print("Guild Name: ${e.name}");
+                },
+              ));
+    }
+
     return Container(
       height: MediaQuery.of(context).size.height,
       width: 80,
@@ -41,10 +52,7 @@ class _NavigationState extends State<Navigation> {
           const NavigationLine(
             height: 2,
           ),
-          ...([0, 1, 2].map((e) => NavigationButton(
-                title: "title2",
-                onPressed: () {},
-              ))),
+          ...guildList,
           NavigationButton(
             title: "Add Server",
             svg: 'assets/plus.svg',

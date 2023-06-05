@@ -10,6 +10,8 @@ import 'package:spacebar_client/models/users_me_guilds.dart';
 import '../api_wrapper/get_users_me_guilds.dart';
 import 'login.dart';
 
+enum LogType { info, warning, error }
+
 class AppState {
   // API RELATED DATA
   bool _apiOnline = false;
@@ -17,8 +19,10 @@ class AppState {
 
   // CLIENT RELATED DATA
   String appName;
+  LogType logType = LogType.info;
 
   // USER RELATED STATE DATA
+  String _logs = "";
   bool _userAuthenticated = false;
   bool userTryAuthenticate = false;
   LoginRes? userLoginSession;
@@ -56,6 +60,21 @@ class AppState {
 
   bool getUserAuthenticated() {
     return _userAuthenticated;
+  }
+
+  void addLogs(LogType type, String logMessage) {
+    if (logType == LogType.info) {
+      _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
+    } else if (logType == LogType.warning &&
+        (type == LogType.warning || type == LogType.error)) {
+      _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
+    } else if (logType == LogType.error && type == LogType.error) {
+      _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
+    }
+  }
+
+  String getLogs() {
+    return _logs;
   }
 
   void setUserAuthenticated(bool value) {
