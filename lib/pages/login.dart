@@ -46,24 +46,19 @@ class _LoginPageState extends State<LoginPage> {
               isLoading = false;
               data = value;
               if (data?.response?.token == null) {
-                internalError = "Response doesn't contain login token";
+                if (data!.error!.errors!.login!.errors!.isEmpty) {
+                  internalError = "Response doesn't contain login token";
+                }
                 return;
               }
-              AuthData.saveSession(data!.response!).then((success) {
-                if (success == null || !success) {
-                  internalError = "Failed to save login token";
+
+              AuthData.login(widget.appState, data?.response).then((res) {
+                if (!res.success) {
+                  internalError = res.message;
                   return;
                 }
-                AuthData.getSession().then((session) {
-                  loginSession = session;
-                  if (session != null) {
-                    AppNav.goHome(widget.appState);
-                    widget.appState.setUserAuthenticated(true);
-                  }
-                });
-              }).catchError((onError) {
-                isLoading = false;
-                internalError = "Failed to save: ${onError.toString()}";
+
+                AppNav.goHome(widget.appState);
               });
             }))
         .catchError((onError) {

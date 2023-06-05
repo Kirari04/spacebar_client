@@ -19,7 +19,8 @@ class AppState {
 
   // CLIENT RELATED DATA
   String appName;
-  LogType logType = LogType.info;
+  LogType _logType = LogType.info;
+  bool _logStdOut = true;
 
   // USER RELATED STATE DATA
   String _logs = "";
@@ -63,14 +64,17 @@ class AppState {
   }
 
   void addLogs(LogType type, String logMessage) {
-    if (logType == LogType.info) {
-      _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
-    } else if (logType == LogType.warning &&
-        (type == LogType.warning || type == LogType.error)) {
-      _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
-    } else if (logType == LogType.error && type == LogType.error) {
-      _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
-    }
+    print("${DateTime.now().toIso8601String()} [$type] $logMessage\n");
+    setState!(() {
+      if (_logType == LogType.info) {
+        _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
+      } else if (_logType == LogType.warning &&
+          (type == LogType.warning || type == LogType.error)) {
+        _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
+      } else if (_logType == LogType.error && type == LogType.error) {
+        _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
+      }
+    });
   }
 
   String getLogs() {
@@ -79,6 +83,7 @@ class AppState {
 
   void setUserAuthenticated(bool value) {
     _userAuthenticated = value;
+    print("run setUserAuthenticated: ${userLoginSession?.token}");
     if (value == true) {
       apiGetUsersMe(this).then((value) {
         if (value.response != userMeData) {

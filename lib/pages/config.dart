@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:spacebar_client/components/button.dart';
 import 'package:spacebar_client/components/input.dart';
-import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/data/auth_data.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/colors.dart';
@@ -20,100 +20,122 @@ class ConfigPage extends StatefulWidget {
 
 class _ConfigPageState extends State<ConfigPage> {
   String apiEndpoint = "";
-  LoginRes? apiToken;
+  LoginRes? loginRes;
+  String logs = "";
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+
     if (apiEndpoint == "") {
       apiEndpoint = widget.appState.apiEndpoint;
     }
-    if (apiToken != null) {
-      AuthData.getSession().then((value) => apiToken = value);
-    }
+    loginRes = widget.appState.userLoginSession;
+    logs = widget.appState.getLogs();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: Center(
-          child: Container(
-            width: 500,
-            decoration: BoxDecoration(
-              color: ThemeColors().primaryColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Flex(
-                direction: Axis.vertical,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flex(
-                    direction: Axis.horizontal,
-                    children: [
-                      const Expanded(child: H1(title: "Client Configuration")),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).maybePop();
-                        },
-                        child: const Text("Zurück"),
-                      )
-                    ],
-                  ),
-                  Flex(
-                    direction: Axis.horizontal,
-                    children: [
-                      Expanded(
-                        child: Input(
-                            text: "ApiServer",
-                            defaultValue: apiEndpoint,
-                            onChange: (changes) {
-                              apiEndpoint = changes;
-                            }),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          widget.appState.setState!(() {
-                            widget.appState.apiEndpoint = apiEndpoint;
-                          });
-                        },
-                        child: const Text("Speichern"),
-                      )
-                    ],
-                  ),
-                  apiToken == null
-                      ? const SizedBox.shrink()
-                      : Flex(
-                          direction: Axis.horizontal,
-                          children: [
-                            Expanded(
-                              child: Input(
-                                  text: "ApiToken",
-                                  defaultValue: apiToken?.token,
-                                  onChange: (changes) {
-                                    apiToken?.token = changes;
-                                  }),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                widget.appState.setState!(() {
-                                  if (apiToken != null) {
-                                    AuthData.saveSession(apiToken!);
-                                  }
-                                });
-                              },
-                              child: const Text("Speichern"),
-                            )
-                          ],
-                        ),
-                  Flex(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Center(
+              child: Container(
+                width: 500,
+                decoration: BoxDecoration(
+                  color: ThemeColors().primaryColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Flex(
                     direction: Axis.vertical,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      const H1(title: "Logs"),
-                      P(text: widget.appState.getLogs()),
+                      Flex(
+                        direction: Axis.horizontal,
+                        children: [
+                          const Expanded(
+                              child: H1(title: "Client Configuration")),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).maybePop();
+                            },
+                            child: const Text("Zurück"),
+                          )
+                        ],
+                      ),
+                      Flex(
+                        direction: Axis.horizontal,
+                        children: [
+                          Expanded(
+                            child: Input(
+                                text: "ApiServer",
+                                defaultValue: apiEndpoint,
+                                onChange: (changes) {
+                                  apiEndpoint = changes;
+                                }),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              widget.appState.setState!(() {
+                                widget.appState.apiEndpoint = apiEndpoint;
+                              });
+                            },
+                            child: const Text("Speichern"),
+                          )
+                        ],
+                      ),
+                      loginRes == null
+                          ? const SizedBox.shrink()
+                          : Flex(
+                              direction: Axis.horizontal,
+                              children: [
+                                Expanded(
+                                  child: Input(
+                                      text: "ApiToken",
+                                      defaultValue: loginRes?.token,
+                                      onChange: ((p0) {})),
+                                )
+                              ],
+                            ),
+                      Flex(
+                        direction: Axis.vertical,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const H1(title: "Logs"),
+                          SizedBox(
+                            height: 400,
+                            child: SingleChildScrollView(
+                              child: Text(
+                                logs,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Flex(
+                        direction: Axis.vertical,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const H1(title: "User"),
+                          Button(
+                            text: "Logout",
+                            onPressed: () {
+                              AuthData.logout(widget.appState);
+                              Navigator.of(context).maybePop();
+                            },
+                          )
+                        ],
+                      )
                     ],
-                  )
-                ],
+                  ),
+                ),
               ),
             ),
           ),
