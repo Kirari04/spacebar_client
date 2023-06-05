@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:spacebar_client/api_wrapper/get_users_me.dart';
-import 'package:spacebar_client/api_wrapper/get_users_me_channels.dart';
 import 'package:spacebar_client/api_wrapper/ping.dart';
 import 'package:spacebar_client/data/auth_data.dart';
 import 'package:spacebar_client/models/users_me.dart';
 import 'package:spacebar_client/models/users_me_channels.dart';
 import 'package:spacebar_client/models/users_me_guilds.dart';
 
+import '../api_wrapper/get_users_me_channels.dart';
 import '../api_wrapper/get_users_me_guilds.dart';
 import 'login.dart';
 
@@ -83,29 +83,8 @@ class AppState {
 
   void setUserAuthenticated(bool value) {
     _userAuthenticated = value;
-    print("run setUserAuthenticated: ${userLoginSession?.token}");
     if (value == true) {
-      apiGetUsersMe(this).then((value) {
-        if (value.response != userMeData) {
-          setState!(() {
-            userMeData = value.response;
-          });
-        }
-      });
-      apiGetUsersMeGuilds(this).then((value) {
-        if (value.response != usersMeGuildsList) {
-          setState!(() {
-            usersMeGuildsList = value.response;
-          });
-        }
-      });
-      apiGetUsersMeChannels(this).then((value) {
-        if (value.response != usersMeChannelsList) {
-          setState!(() {
-            usersMeChannelsList = value.response;
-          });
-        }
-      });
+      updateMeData();
     }
   }
 
@@ -171,5 +150,30 @@ class AppState {
       });
       await Future.delayed(const Duration(seconds: 30), () {});
     }
+  }
+
+//  Updating Async data
+  void updateMeData() {
+    apiGetUsersMe(this).then((value) {
+      if (value.response != userMeData) {
+        setState!(() {
+          userMeData = value.response;
+        });
+      }
+    });
+    apiGetUsersMeGuilds(this).then((value) {
+      if (value.response != usersMeGuildsList) {
+        setState!(() {
+          usersMeGuildsList = value.response;
+        });
+      }
+    });
+    apiGetUsersMeChannels(this).then((value) {
+      if (value.response != usersMeChannelsList) {
+        setState!(() {
+          usersMeChannelsList = value.response;
+        });
+      }
+    });
   }
 }

@@ -60,11 +60,11 @@ class _ConfigPageState extends State<ConfigPage> {
                         children: [
                           const Expanded(
                               child: H1(title: "Client Configuration")),
-                          ElevatedButton(
+                          Button(
                             onPressed: () {
                               Navigator.of(context).maybePop();
                             },
-                            child: const Text("Zurück"),
+                            text: 'Zurück',
                           )
                         ],
                       ),
@@ -79,14 +79,14 @@ class _ConfigPageState extends State<ConfigPage> {
                                   apiEndpoint = changes;
                                 }),
                           ),
-                          ElevatedButton(
+                          Button(
                             onPressed: () {
                               widget.appState.setState!(() {
                                 widget.appState.apiEndpoint = apiEndpoint;
                               });
                             },
-                            child: const Text("Speichern"),
-                          )
+                            text: 'Speichern',
+                          ),
                         ],
                       ),
                       loginRes == null

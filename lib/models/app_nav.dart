@@ -14,6 +14,7 @@ class AppNav {
 
   static void goMe(AppState appState) {
     appState.addLogs(LogType.info, "AppNav goMe");
+    appState.updateMeData();
     appState.setState!(() {
       appState.defaultLayoutPageState = 1;
     });

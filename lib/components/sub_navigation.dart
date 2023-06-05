@@ -4,37 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/button_icon.dart';
 import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/sub_navigation_me_button.dart';
-import 'package:spacebar_client/data/auth_data.dart';
 
 import '../models/app_nav.dart';
 import '../models/app_state.dart';
 import '../models/colors.dart';
-import '../models/users_me_channels.dart';
 
 class SubNavigation extends StatefulWidget {
-  SubNavigation({super.key, required this.appState, this.usersMeChannels});
+  SubNavigation({super.key, required this.appState});
   AppState appState;
-  UsersMeChannels? usersMeChannels;
 
   @override
   State<SubNavigation> createState() => _SubNavigationState();
 }
 
 class _SubNavigationState extends State<SubNavigation> {
-  String userState = "offline";
-  List<Widget> items = [];
-
   @override
-  void initState() {
-    super.initState();
-
-    AuthData.getSession().then((value) {
-      if (value != null) {
-        setState(() {
-          userState = "${value.settings!.status}";
-        });
-      }
-    });
+  Widget build(BuildContext context) {
+    List<Widget> items = [];
     items.add(
       SubNavigationMeButton(
         appState: widget.appState,
@@ -47,14 +33,13 @@ class _SubNavigationState extends State<SubNavigation> {
       fontSize: 14,
     ));
 
-    if (widget.usersMeChannels != null &&
-        widget.usersMeChannels!.recipients != null) {
+    if (widget.appState.usersMeChannelsList != null) {
       items.addAll(
-        widget.usersMeChannels!.recipients!.map(
-          (recipient) => SubNavigationMeButton(
+        widget.appState.usersMeChannelsList!.map(
+          (usersMeChannel) => SubNavigationMeButton(
             appState: widget.appState,
-            title: "${recipient.username}",
-            subtitle: "${recipient.discriminator}",
+            title: "${usersMeChannel.name}",
+            subtitle: "${usersMeChannel.recipients!.map((e) => e.username)}",
             image: "assets/example_profile.png",
             status: "offline",
             closable: true,
@@ -62,10 +47,6 @@ class _SubNavigationState extends State<SubNavigation> {
         ),
       );
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
         height: MediaQuery.of(context).size.height,
         width: 250,
@@ -108,7 +89,9 @@ class _SubNavigationState extends State<SubNavigation> {
                           subtitle:
                               "#${widget.appState.userMeData?.discriminator}",
                           image: "assets/example_giphy.gif",
-                          status: userState,
+                          status: widget.appState.userLoginSession?.settings
+                                  ?.status ??
+                              "offline",
                           defaultColor: ThemeColors().primaryColorMidDark,
                           widthFactor: 1,
                           paddingTop: 0,
