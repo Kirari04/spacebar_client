@@ -1,36 +1,51 @@
 import 'package:flutter/widgets.dart';
 import 'package:spacebar_client/api_wrapper/get_users_me.dart';
+import 'package:spacebar_client/api_wrapper/get_users_me_channels.dart';
 import 'package:spacebar_client/api_wrapper/ping.dart';
 import 'package:spacebar_client/data/auth_data.dart';
 import 'package:spacebar_client/models/users_me.dart';
+import 'package:spacebar_client/models/users_me_channels.dart';
+import 'package:spacebar_client/models/users_me_guilds.dart';
 
+import '../api_wrapper/get_users_me_guilds.dart';
 import 'login.dart';
 
 class AppState {
+  // API RELATED DATA
   bool _apiOnline = false;
   String apiEndpoint;
 
+  // CLIENT RELATED DATA
   String appName;
 
+  // USER RELATED STATE DATA
   bool _userAuthenticated = false;
   bool userTryAuthenticate = false;
   LoginRes? userLoginSession;
   UsersMe? userMeData;
+  List<UsersMeGuilds>? usersMeGuildsList;
+  List<UsersMeChannels>? usersMeChannelsList;
 
+  // INPUT CONTROLLERS
   TextEditingController userLoginUsernameInputController =
       TextEditingController(text: "");
   TextEditingController userLoginPasswordInputController =
       TextEditingController(text: "");
 
+  // PAGE INDEXES
   int defaultLayoutPageState = 0;
 
+  // CALLBACKS
   void Function(void Function())? setState;
+
+  // CONSTRUCKTOR
   AppState({
     required this.apiEndpoint,
     required this.appName,
     this.setState,
   });
 
+  // GETTERS AND SETTERS FOR PRIVATE VARIABLES
   bool getApiOnline() {
     return _apiOnline;
   }
@@ -53,9 +68,24 @@ class AppState {
           });
         }
       });
+      apiGetUsersMeGuilds(this).then((value) {
+        if (value.response != usersMeGuildsList) {
+          setState!(() {
+            usersMeGuildsList = value.response;
+          });
+        }
+      });
+      apiGetUsersMeChannels(this).then((value) {
+        if (value.response != usersMeChannelsList) {
+          setState!(() {
+            usersMeChannelsList = value.response;
+          });
+        }
+      });
     }
   }
 
+  // LOOP FUNCTIONS
   void run() {
     AuthData.getSession().then((value) {
       userLoginSession = value;

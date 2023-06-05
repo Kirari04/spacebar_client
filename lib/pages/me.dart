@@ -1,12 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:spacebar_client/api_wrapper/get_users_me_channels.dart';
 import 'package:spacebar_client/components/h1.dart';
 import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/layouts/chat_column.dart';
 import 'package:spacebar_client/models/app_state.dart';
-import 'package:spacebar_client/models/users_me_channels.dart';
 
 class MePage extends StatefulWidget {
   MePage({
@@ -19,19 +17,6 @@ class MePage extends StatefulWidget {
 }
 
 class _MePageState extends State<MePage> {
-  UsersMeChannels? usersMeChannels;
-
-  @override
-  void initState() {
-    super.initState();
-
-    apiGetUsersMeChannels(widget.appState).then((value) {
-      setState(() {
-        usersMeChannels = value.response;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +34,8 @@ class _MePageState extends State<MePage> {
                 P(text: "Username: ${widget.appState.userMeData?.username}"),
                 P(text: "E-Mail: ${widget.appState.userMeData?.email}"),
                 P(text: "Discriminator: ${widget.appState.userMeData?.discriminator}"),
+                P(text: "guilds: ${widget.appState.usersMeGuildsList?.length}"),
+                P(text: "channels: ${widget.appState.usersMeChannelsList?.length}"),
               ],
             ),
           ),
