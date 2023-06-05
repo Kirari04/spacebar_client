@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -51,7 +52,7 @@ class _ButtonIconState extends State<ButtonIcon> {
                 child: Image(image: AssetImage("assets/no-image.png")),
               )
             : Padding(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 child: SvgPicture.asset(
                   widget.svg!,
                   fit: BoxFit.contain,

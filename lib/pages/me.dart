@@ -1,5 +1,6 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:spacebar_client/api_wrapper/get_users_me_channels.dart';
 import 'package:spacebar_client/components/h1.dart';
 import 'package:spacebar_client/components/p.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/navigation.dart';
 import 'package:spacebar_client/data/auth_data.dart';
@@ -36,7 +38,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
         width: MediaQuery.of(context).size.width,
         color: Theme.of(context).primaryColorLight,
         child: IndexedStack(
-          index: widget.appState.userAuthenticated ? 1 : 0,
+          index: widget.appState.getUserAuthenticated() ? 1 : 0,
           children: [
             Flex(
               direction: Axis.horizontal,

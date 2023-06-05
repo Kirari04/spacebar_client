@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:spacebar_client/components/h1.dart';
 import 'package:spacebar_client/models/app_state.dart';
 
@@ -12,16 +12,10 @@ class HomePage extends StatefulWidget {
   AppState appState;
 
   @override
-  State<HomePage> createState() => _HomePageState(
-        appState: appState,
-      );
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  AppState appState;
-
-  _HomePageState({required this.appState});
-
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

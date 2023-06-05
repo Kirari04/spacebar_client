@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/models/app_state.dart';
+
+import '../pages/config.dart';
 
 @immutable
 class AppNav {
@@ -14,5 +15,13 @@ class AppNav {
     appState.setState!(() {
       appState.defaultLayoutPageState = 1;
     });
+  }
+
+  static void goConfig(AppState appState, BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (builder) => ConfigPage(appState: appState),
+      ),
+    );
   }
 }

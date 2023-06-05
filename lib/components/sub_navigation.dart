@@ -1,10 +1,12 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/button_icon.dart';
 import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/sub_navigation_me_button.dart';
 import 'package:spacebar_client/data/auth_data.dart';
 
+import '../models/app_nav.dart';
 import '../models/app_state.dart';
 import '../models/colors.dart';
 import '../models/users_me_channels.dart';
@@ -115,6 +117,9 @@ class _SubNavigationState extends State<SubNavigation> {
                     ),
                     ButtonIcon(
                       svg: "assets/settings.svg",
+                      onTap: () {
+                        AppNav.goConfig(widget.appState, context);
+                      },
                     ),
                   ],
                 ),

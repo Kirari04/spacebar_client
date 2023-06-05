@@ -1,4 +1,3 @@
-
 class LoginResError {
   int? code;
   String? message;
@@ -13,13 +12,13 @@ class LoginResError {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["code"] = code;
-    _data["message"] = message;
-    if(errors != null) {
-      _data["errors"] = errors?.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["code"] = code;
+    data["message"] = message;
+    if (errors != null) {
+      data["errors"] = errors?.toJson();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -33,11 +32,11 @@ class Errors {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    if(login != null) {
-      _data["login"] = login?.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (login != null) {
+      data["login"] = login?.toJson();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -47,15 +46,17 @@ class Login {
   Login({this.errors});
 
   Login.fromJson(Map<String, dynamic> json) {
-    errors = json["_errors"] == null ? null : (json["_errors"] as List).map((e) => Errors1.fromJson(e)).toList();
+    errors = json["_errors"] == null
+        ? null
+        : (json["_errors"] as List).map((e) => Errors1.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    if(errors != null) {
-      _data["_errors"] = errors?.map((e) => e.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (errors != null) {
+      data["_errors"] = errors?.map((e) => e.toJson()).toList();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -71,9 +72,9 @@ class Errors1 {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["message"] = message;
-    _data["code"] = code;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["message"] = message;
+    data["code"] = code;
+    return data;
   }
 }

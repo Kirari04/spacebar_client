@@ -1,4 +1,3 @@
-
 class UsersMe {
   String? id;
   String? premiumSince;
@@ -24,7 +23,30 @@ class UsersMe {
   int? premiumUsageFlags;
   bool? disabled;
 
-  UsersMe({this.id, this.premiumSince, this.verified, this.username, this.discriminator, this.publicFlags, this.avatar, this.accentColor, this.banner, this.bio, this.bot, this.premiumType, this.themeColors, this.pronouns, this.flags, this.mfaEnabled, this.email, this.phone, this.nsfwAllowed, this.premium, this.purchasedFlags, this.premiumUsageFlags, this.disabled});
+  UsersMe(
+      {this.id,
+      this.premiumSince,
+      this.verified,
+      this.username,
+      this.discriminator,
+      this.publicFlags,
+      this.avatar,
+      this.accentColor,
+      this.banner,
+      this.bio,
+      this.bot,
+      this.premiumType,
+      this.themeColors,
+      this.pronouns,
+      this.flags,
+      this.mfaEnabled,
+      this.email,
+      this.phone,
+      this.nsfwAllowed,
+      this.premium,
+      this.purchasedFlags,
+      this.premiumUsageFlags,
+      this.disabled});
 
   UsersMe.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -39,7 +61,9 @@ class UsersMe {
     bio = json["bio"];
     bot = json["bot"];
     premiumType = json["premium_type"];
-    themeColors = json["theme_colors"] == null ? null : List<int>.from(json["theme_colors"]);
+    themeColors = json["theme_colors"] == null
+        ? null
+        : List<int>.from(json["theme_colors"]);
     pronouns = json["pronouns"];
     flags = json["flags"];
     mfaEnabled = json["mfa_enabled"];
@@ -53,32 +77,32 @@ class UsersMe {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["premium_since"] = premiumSince;
-    _data["verified"] = verified;
-    _data["username"] = username;
-    _data["discriminator"] = discriminator;
-    _data["public_flags"] = publicFlags;
-    _data["avatar"] = avatar;
-    _data["accent_color"] = accentColor;
-    _data["banner"] = banner;
-    _data["bio"] = bio;
-    _data["bot"] = bot;
-    _data["premium_type"] = premiumType;
-    if(themeColors != null) {
-      _data["theme_colors"] = themeColors;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["premium_since"] = premiumSince;
+    data["verified"] = verified;
+    data["username"] = username;
+    data["discriminator"] = discriminator;
+    data["public_flags"] = publicFlags;
+    data["avatar"] = avatar;
+    data["accent_color"] = accentColor;
+    data["banner"] = banner;
+    data["bio"] = bio;
+    data["bot"] = bot;
+    data["premium_type"] = premiumType;
+    if (themeColors != null) {
+      data["theme_colors"] = themeColors;
     }
-    _data["pronouns"] = pronouns;
-    _data["flags"] = flags;
-    _data["mfa_enabled"] = mfaEnabled;
-    _data["email"] = email;
-    _data["phone"] = phone;
-    _data["nsfw_allowed"] = nsfwAllowed;
-    _data["premium"] = premium;
-    _data["purchased_flags"] = purchasedFlags;
-    _data["premium_usage_flags"] = premiumUsageFlags;
-    _data["disabled"] = disabled;
-    return _data;
+    data["pronouns"] = pronouns;
+    data["flags"] = flags;
+    data["mfa_enabled"] = mfaEnabled;
+    data["email"] = email;
+    data["phone"] = phone;
+    data["nsfw_allowed"] = nsfwAllowed;
+    data["premium"] = premium;
+    data["purchased_flags"] = purchasedFlags;
+    data["premium_usage_flags"] = premiumUsageFlags;
+    data["disabled"] = disabled;
+    return data;
   }
 }

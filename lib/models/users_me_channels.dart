@@ -34,18 +34,18 @@ class UsersMeChannels {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["icon"] = icon;
-    _data["id"] = id;
-    _data["last_message_id"] = lastMessageId;
-    _data["name"] = name;
-    _data["origin_channel_id"] = originChannelId;
-    _data["owner_id"] = ownerId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["icon"] = icon;
+    data["id"] = id;
+    data["last_message_id"] = lastMessageId;
+    data["name"] = name;
+    data["origin_channel_id"] = originChannelId;
+    data["owner_id"] = ownerId;
     if (recipients != null) {
-      _data["recipients"] = recipients?.map((e) => e.toJson()).toList();
+      data["recipients"] = recipients?.map((e) => e.toJson()).toList();
     }
-    _data["type"] = type;
-    return _data;
+    data["type"] = type;
+    return data;
   }
 }
 
@@ -72,12 +72,12 @@ class Recipients {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["avatar"] = avatar;
-    _data["discriminator"] = discriminator;
-    _data["id"] = id;
-    _data["public_flags"] = publicFlags;
-    _data["username"] = username;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["avatar"] = avatar;
+    data["discriminator"] = discriminator;
+    data["id"] = id;
+    data["public_flags"] = publicFlags;
+    data["username"] = username;
+    return data;
   }
 }

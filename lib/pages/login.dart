@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/api_wrapper/post_login.dart';
 import 'package:spacebar_client/components/button.dart';
@@ -12,7 +14,6 @@ import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
 import 'package:spacebar_client/models/login_error.dart';
 import 'package:spacebar_client/models/res.dart';
-import 'package:spacebar_client/pages/config.dart';
 
 import '../components/button_icon.dart';
 
@@ -23,17 +24,10 @@ class LoginPage extends StatefulWidget {
   });
   AppState appState;
   @override
-  State<LoginPage> createState() => _LoginPageState(
-        appState: appState,
-      );
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  AppState appState;
-  _LoginPageState({
-    required this.appState,
-  });
-
   ApiRes<LoginRes, LoginResError>? data;
   String username = "";
   String password = "";
@@ -47,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLoading = true;
     });
-    apiPostLogin(appState, username, password)
+    apiPostLogin(widget.appState, username, password)
         .then((value) => setState(() {
               isLoading = false;
               data = value;
@@ -63,8 +57,8 @@ class _LoginPageState extends State<LoginPage> {
                 AuthData.getSession().then((session) {
                   loginSession = session;
                   if (session != null) {
-                    AppNav.goHome(appState);
-                    appState.userAuthenticated = true;
+                    AppNav.goHome(widget.appState);
+                    widget.appState.setUserAuthenticated(true);
                   }
                 });
               }).catchError((onError) {
@@ -104,7 +98,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
             child: Padding(
               padding: const EdgeInsets.all(20),
-              child: !appState.userTryAuthenticate
+              child: !widget.appState.userTryAuthenticate ||
+                      !widget.appState.getApiOnline()
                   ? Padding(
                       padding: const EdgeInsets.all(20),
                       child: Stack(
@@ -120,12 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: ButtonIcon(
                               svg: "assets/settings.svg",
                               onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (builder) =>
-                                        ConfigPage(appState: appState),
-                                  ),
-                                );
+                                AppNav.goConfig(widget.appState, context);
                               },
                             ),
                           )
@@ -144,6 +134,8 @@ class _LoginPageState extends State<LoginPage> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Input(
+                            controller: widget
+                                .appState.userLoginUsernameInputController,
                             text: "Username or E-Mail",
                             onChange: (p0) {
                               username = p0;
@@ -154,6 +146,8 @@ class _LoginPageState extends State<LoginPage> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Input(
+                            controller: widget
+                                .appState.userLoginPasswordInputController,
                             text: "Passwort",
                             obscureText: true,
                             onChange: (p0) {
@@ -182,12 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                             ButtonIcon(
                               svg: "assets/settings.svg",
                               onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (builder) =>
-                                        ConfigPage(appState: appState),
-                                  ),
-                                );
+                                AppNav.goConfig(widget.appState, context);
                               },
                             ),
                             Expanded(

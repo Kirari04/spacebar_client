@@ -12,12 +12,12 @@ class PingRes {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["ping"] = ping;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["ping"] = ping;
     if (instance != null) {
-      _data["instance"] = instance?.toJson();
+      data["instance"] = instance?.toJson();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -53,15 +53,15 @@ class PingResInstance {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name"] = name;
-    _data["description"] = description;
-    _data["image"] = image;
-    _data["correspondenceEmail"] = correspondenceEmail;
-    _data["correspondenceUserID"] = correspondenceUserId;
-    _data["frontPage"] = frontPage;
-    _data["tosPage"] = tosPage;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["name"] = name;
+    data["description"] = description;
+    data["image"] = image;
+    data["correspondenceEmail"] = correspondenceEmail;
+    data["correspondenceUserID"] = correspondenceUserId;
+    data["frontPage"] = frontPage;
+    data["tosPage"] = tosPage;
+    return data;
   }
 }

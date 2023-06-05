@@ -11,12 +11,12 @@ class LoginRes {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["token"] = token;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["token"] = token;
     if (settings != null) {
-      _data["settings"] = settings?.toJson();
+      data["settings"] = settings?.toJson();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -136,50 +136,50 @@ class Settings {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["index"] = index;
-    _data["afk_timeout"] = afkTimeout;
-    _data["allow_accessibility_detection"] = allowAccessibilityDetection;
-    _data["animate_emoji"] = animateEmoji;
-    _data["animate_stickers"] = animateStickers;
-    _data["contact_sync_enabled"] = contactSyncEnabled;
-    _data["convert_emoticons"] = convertEmoticons;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["index"] = index;
+    data["afk_timeout"] = afkTimeout;
+    data["allow_accessibility_detection"] = allowAccessibilityDetection;
+    data["animate_emoji"] = animateEmoji;
+    data["animate_stickers"] = animateStickers;
+    data["contact_sync_enabled"] = contactSyncEnabled;
+    data["convert_emoticons"] = convertEmoticons;
     if (customStatus != null) {
-      _data["custom_status"] = customStatus?.toJson();
+      data["custom_status"] = customStatus?.toJson();
     }
-    _data["default_guilds_restricted"] = defaultGuildsRestricted;
-    _data["detect_platform_accounts"] = detectPlatformAccounts;
-    _data["developer_mode"] = developerMode;
-    _data["disable_games_tab"] = disableGamesTab;
-    _data["enable_tts_command"] = enableTtsCommand;
-    _data["explicit_content_filter"] = explicitContentFilter;
+    data["default_guilds_restricted"] = defaultGuildsRestricted;
+    data["detect_platform_accounts"] = detectPlatformAccounts;
+    data["developer_mode"] = developerMode;
+    data["disable_games_tab"] = disableGamesTab;
+    data["enable_tts_command"] = enableTtsCommand;
+    data["explicit_content_filter"] = explicitContentFilter;
     if (friendSourceFlags != null) {
-      _data["friend_source_flags"] = friendSourceFlags?.toJson();
+      data["friend_source_flags"] = friendSourceFlags?.toJson();
     }
-    _data["gateway_connected"] = gatewayConnected;
-    _data["gif_auto_play"] = gifAutoPlay;
+    data["gateway_connected"] = gatewayConnected;
+    data["gif_auto_play"] = gifAutoPlay;
     if (guildFolders != null) {
-      _data["guild_folders"] = guildFolders?.map((e) => e.toJson()).toList();
+      data["guild_folders"] = guildFolders?.map((e) => e.toJson()).toList();
     }
     if (guildPositions != null) {
-      _data["guild_positions"] = guildPositions;
+      data["guild_positions"] = guildPositions;
     }
-    _data["inline_attachment_media"] = inlineAttachmentMedia;
-    _data["inline_embed_media"] = inlineEmbedMedia;
-    _data["locale"] = locale;
-    _data["message_display_compact"] = messageDisplayCompact;
-    _data["native_phone_integration_enabled"] = nativePhoneIntegrationEnabled;
-    _data["render_embeds"] = renderEmbeds;
-    _data["render_reactions"] = renderReactions;
+    data["inline_attachment_media"] = inlineAttachmentMedia;
+    data["inline_embed_media"] = inlineEmbedMedia;
+    data["locale"] = locale;
+    data["message_display_compact"] = messageDisplayCompact;
+    data["native_phone_integration_enabled"] = nativePhoneIntegrationEnabled;
+    data["render_embeds"] = renderEmbeds;
+    data["render_reactions"] = renderReactions;
     if (restrictedGuilds != null) {
-      _data["restricted_guilds"] = restrictedGuilds;
+      data["restricted_guilds"] = restrictedGuilds;
     }
-    _data["show_current_game"] = showCurrentGame;
-    _data["status"] = status;
-    _data["stream_notifications_enabled"] = streamNotificationsEnabled;
-    _data["theme"] = theme;
-    _data["timezone_offset"] = timezoneOffset;
-    return _data;
+    data["show_current_game"] = showCurrentGame;
+    data["status"] = status;
+    data["stream_notifications_enabled"] = streamNotificationsEnabled;
+    data["theme"] = theme;
+    data["timezone_offset"] = timezoneOffset;
+    return data;
   }
 }
 
@@ -200,14 +200,14 @@ class GuildFolders {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["color"] = color;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["color"] = color;
     if (guildIds != null) {
-      _data["guild_ids"] = guildIds;
+      data["guild_ids"] = guildIds;
     }
-    _data["id"] = id;
-    _data["name"] = name;
-    return _data;
+    data["id"] = id;
+    data["name"] = name;
+    return data;
   }
 }
 
@@ -221,9 +221,9 @@ class FriendSourceFlags {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["all"] = all;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["all"] = all;
+    return data;
   }
 }
 
@@ -243,11 +243,11 @@ class CustomStatus {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["emoji_id"] = emojiId;
-    _data["emoji_name"] = emojiName;
-    _data["expires_at"] = expiresAt;
-    _data["text"] = text;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["emoji_id"] = emojiId;
+    data["emoji_name"] = emojiName;
+    data["expires_at"] = expiresAt;
+    data["text"] = text;
+    return data;
   }
 }

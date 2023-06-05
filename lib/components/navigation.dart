@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/navigation_button.dart';
 import 'package:spacebar_client/components/navigation_line.dart';
@@ -13,17 +15,10 @@ class Navigation extends StatefulWidget {
   AppState appState;
 
   @override
-  State<Navigation> createState() => _NavigationState(
-        appState: appState,
-      );
+  State<Navigation> createState() => _NavigationState();
 }
 
 class _NavigationState extends State<Navigation> {
-  AppState appState;
-  _NavigationState({
-    required this.appState,
-  });
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,14 +28,14 @@ class _NavigationState extends State<Navigation> {
       child: SingleChildScrollView(
         child: Column(children: [
           NavigationButton(
-            isOnline: appState.apiOnline,
+            isOnline: widget.appState.getApiOnline(),
             showIsOnline: true,
             title: "Home",
             svg: 'assets/logo.svg',
             unrounded: true,
             padding: 10,
             onPressed: () {
-              AppNav.goMe(appState);
+              AppNav.goMe(widget.appState);
             },
           ),
           const NavigationLine(
@@ -56,7 +51,7 @@ class _NavigationState extends State<Navigation> {
             unrounded: true,
             padding: 10,
             onPressed: () {
-              AppNav.goHome(appState);
+              AppNav.goHome(widget.appState);
             },
           ),
         ]),
