@@ -5,6 +5,7 @@ import 'package:spacebar_client/components/navigation_button.dart';
 import 'package:spacebar_client/components/navigation_line.dart';
 import 'package:spacebar_client/models/app_nav.dart';
 import 'package:spacebar_client/models/app_state.dart';
+import 'package:spacebar_client/models/colors.dart';
 
 class Navigation extends StatefulWidget {
   Navigation({
@@ -25,6 +26,9 @@ class _NavigationState extends State<Navigation> {
     if (widget.appState.usersMeGuildsList != null) {
       guildList =
           widget.appState.usersMeGuildsList!.map((e) => NavigationButton(
+                isActive: (e.id == widget.appState.getActiveGuild()?.id &&
+                    widget.appState.defaultLayoutPageState == 2),
+                isHighlightable: true,
                 title: "${e.name}",
                 onPressed: () {
                   AppNav.goGuild(widget.appState, e);
@@ -39,6 +43,8 @@ class _NavigationState extends State<Navigation> {
       child: SingleChildScrollView(
         child: Column(children: [
           NavigationButton(
+            defaultHighlighted: false,
+            isHighlightable: true,
             isOnline: widget.appState.getApiOnline(),
             showIsOnline: true,
             title: "Home",
@@ -54,10 +60,11 @@ class _NavigationState extends State<Navigation> {
           ),
           ...guildList,
           NavigationButton(
+            primaryColor: ThemeColors().primaryColorLight,
             title: "Add Server",
             svg: 'assets/plus.svg',
             unrounded: true,
-            padding: 10,
+            padding: 14,
             onPressed: () {
               AppNav.goHome(widget.appState);
             },

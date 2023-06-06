@@ -15,6 +15,10 @@ class NavigationButton extends StatefulWidget {
     required this.onPressed,
     this.isOnline = false,
     this.showIsOnline = false,
+    this.isActive = false,
+    this.isHighlightable = false,
+    this.defaultHighlighted = true,
+    this.primaryColor,
   });
 
   final String title;
@@ -23,8 +27,12 @@ class NavigationButton extends StatefulWidget {
   final bool? unrounded;
   final double? padding;
   final void Function() onPressed;
+  bool isActive = false;
+  bool isHighlightable = false;
+  bool defaultHighlighted = true;
   bool isOnline = false;
   bool showIsOnline = false;
+  Color? primaryColor;
 
   @override
   State<NavigationButton> createState() => _NavigationButtonState();
@@ -38,6 +46,7 @@ class _NavigationButtonState extends State<NavigationButton> {
   double borderRadiusMax = 0;
   double borderRadiusMin = 0;
   double imagePadding = 0;
+  double defaultHighlighHeight = 0;
 
   bool loads() => (isLoading != null && isLoading == true);
 
@@ -48,6 +57,7 @@ class _NavigationButtonState extends State<NavigationButton> {
         (widget.unrounded != null && widget.unrounded! == true) ? 20 : 50;
     borderRadiusMin = 10;
     borderRadius = borderRadiusMax;
+    defaultHighlighHeight = (widget.defaultHighlighted ? 10 : 0);
 
     imagePadding = widget.padding != null ? widget.padding! : 0;
 
@@ -58,93 +68,119 @@ class _NavigationButtonState extends State<NavigationButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      child: Center(
-        child: FractionallySizedBox(
-          widthFactor: .9,
-          child: InkWell(
-            hoverColor: Colors.black,
-            onTapDown: (details) {
-              setState(() {
-                focused = true;
-              });
-            },
-            onTapUp: (details) {
-              setState(() {
-                focused = false;
-              });
-            },
-            onHover: (isHover) {
-              setState(() {
-                borderRadius = isHover ? borderRadiusMin : borderRadiusMax;
-              });
-            },
-            onTap: () {
-              if (!loads()) {
-                widget.onPressed();
-              }
-            },
-            child: AnimatedContainer(
-              curve: Curves.ease,
-              duration: const Duration(milliseconds: 600),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(borderRadius),
-              ),
-              child: Stack(children: [
-                AspectRatio(
-                  aspectRatio: 1 / 1,
-                  child: widget.image == null && widget.svg == null
-                      ? Padding(
-                          padding: EdgeInsets.all(focused ? 10 + 2 : 10),
-                          child: const Image(
-                              image: AssetImage("assets/no-image.png")),
-                        )
-                      : Padding(
-                          padding: EdgeInsets.all(
-                              focused ? imagePadding + 2 : imagePadding),
-                          child: widget.svg != null
-                              ? SvgPicture.asset(
-                                  widget.svg!,
-                                  fit: BoxFit.contain,
-                                )
-                              : Image(
-                                  image: AssetImage(widget.image!),
-                                  fit: BoxFit.fill,
-                                ),
-                        ),
-                ),
-                !widget.showIsOnline
-                    ? const SizedBox.shrink()
-                    : Positioned(
-                        right: 0,
-                        child: Container(
-                          height: 12,
-                          width: 12,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
+    return Stack(
+      alignment: Alignment.centerLeft,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          child: Center(
+            child: FractionallySizedBox(
+              widthFactor: .9,
+              child: InkWell(
+                hoverColor: Colors.black,
+                onTapDown: (details) {
+                  setState(() {
+                    focused = true;
+                  });
+                },
+                onTapUp: (details) {
+                  setState(() {
+                    focused = false;
+                  });
+                },
+                onHover: (isHover) {
+                  setState(() {
+                    borderRadius = isHover ? borderRadiusMin : borderRadiusMax;
+                    defaultHighlighHeight =
+                        isHover ? 25 : (widget.defaultHighlighted ? 10 : 0);
+                  });
+                },
+                onTap: () {
+                  if (!loads()) {
+                    widget.onPressed();
+                  }
+                },
+                child: AnimatedContainer(
+                  curve: Curves.ease,
+                  duration: const Duration(milliseconds: 600),
+                  decoration: BoxDecoration(
+                    color:
+                        widget.primaryColor ?? Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(borderRadius),
+                  ),
+                  child: Stack(alignment: Alignment.centerLeft, children: [
+                    AspectRatio(
+                      aspectRatio: 1 / 1,
+                      child: widget.image == null && widget.svg == null
+                          ? Padding(
+                              padding: EdgeInsets.all(focused ? 10 + 2 : 10),
+                              child: const Image(
+                                  image: AssetImage("assets/no-image.png")),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.all(
+                                  focused ? imagePadding + 2 : imagePadding),
+                              child: widget.svg != null
+                                  ? SvgPicture.asset(
+                                      widget.svg!,
+                                      fit: BoxFit.contain,
+                                    )
+                                  : Image(
+                                      image: AssetImage(widget.image!),
+                                      fit: BoxFit.fill,
+                                    ),
+                            ),
+                    ),
+                    !widget.showIsOnline
+                        ? const SizedBox.shrink()
+                        : Positioned(
+                            top: 0,
+                            right: 0,
+                            child: Container(
+                              height: 12,
+                              width: 12,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: widget.isOnline
+                                        ? ThemeColors().successColor
+                                        : ThemeColors().errorColor,
+                                    blurRadius: 10,
+                                    blurStyle: BlurStyle.outer,
+                                  )
+                                ],
                                 color: widget.isOnline
                                     ? ThemeColors().successColor
                                     : ThemeColors().errorColor,
-                                blurRadius: 10,
-                                blurStyle: BlurStyle.outer,
-                              )
-                            ],
-                            color: widget.isOnline
-                                ? ThemeColors().successColor
-                                : ThemeColors().errorColor,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(99),
-                            ),
-                          ),
-                        ))
-              ]),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(99),
+                                ),
+                              ),
+                            ))
+                  ]),
+                ),
+              ),
             ),
           ),
         ),
-      ),
+        !widget.isHighlightable
+            ? const SizedBox.shrink()
+            : Positioned(
+                left: 0,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  height: widget.isActive ? 40 : defaultHighlighHeight,
+                  width: 5,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+      ],
     );
   }
 }
