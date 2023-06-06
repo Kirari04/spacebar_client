@@ -5,6 +5,7 @@ import 'package:spacebar_client/components/navigation.dart';
 import 'package:spacebar_client/data/auth_data.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
+import 'package:spacebar_client/pages/guild.dart';
 import 'package:spacebar_client/pages/home.dart';
 import 'package:spacebar_client/pages/login.dart';
 import 'package:spacebar_client/pages/me.dart';
@@ -69,6 +70,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
                       children: [
                         HomePage(appState: widget.appState),
                         MePage(appState: widget.appState),
+                        GuildPage(appState: widget.appState),
                       ],
                     ),
                   ),

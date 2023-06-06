@@ -27,7 +27,7 @@ class _NavigationState extends State<Navigation> {
           widget.appState.usersMeGuildsList!.map((e) => NavigationButton(
                 title: "${e.name}",
                 onPressed: () {
-                  print("Guild Name: ${e.name}");
+                  AppNav.goGuild(widget.appState, e);
                 },
               ));
     }

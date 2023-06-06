@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:spacebar_client/api_wrapper/get_users_me.dart';
 import 'package:spacebar_client/api_wrapper/ping.dart';
@@ -19,8 +20,8 @@ class AppState {
 
   // CLIENT RELATED DATA
   String appName;
-  LogType _logType = LogType.info;
-  bool _logStdOut = true;
+  final LogType _logType = LogType.info;
+  final bool _logStdOut = true;
 
   // USER RELATED STATE DATA
   String _logs = "";
@@ -28,6 +29,7 @@ class AppState {
   bool userTryAuthenticate = false;
   LoginRes? userLoginSession;
   UsersMe? userMeData;
+  UsersMeGuilds? _activeGuild;
   List<UsersMeGuilds>? usersMeGuildsList;
   List<UsersMeChannels>? usersMeChannelsList;
 
@@ -59,12 +61,26 @@ class AppState {
     _apiOnline = value;
   }
 
+  void setActiveGuild(UsersMeGuilds? openNewGuild) {
+    if (openNewGuild != null) {
+      _activeGuild = openNewGuild;
+    }
+  }
+
+  UsersMeGuilds? getActiveGuild() {
+    return _activeGuild;
+  }
+
   bool getUserAuthenticated() {
     return _userAuthenticated;
   }
 
   void addLogs(LogType type, String logMessage) {
-    print("${DateTime.now().toIso8601String()} [$type] $logMessage\n");
+    if (_logStdOut && kDebugMode) {
+      // ignore: avoid_print
+      print("${DateTime.now().toIso8601String()} [$type] $logMessage\n");
+    }
+
     setState!(() {
       if (_logType == LogType.info) {
         _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";

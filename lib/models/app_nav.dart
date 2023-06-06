@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/models/app_state.dart';
+import 'package:spacebar_client/models/users_me_guilds.dart';
 
 import '../pages/config.dart';
 
@@ -17,6 +18,14 @@ class AppNav {
     appState.updateMeData();
     appState.setState!(() {
       appState.defaultLayoutPageState = 1;
+    });
+  }
+
+  static void goGuild(AppState appState, UsersMeGuilds newActiveGuild) {
+    appState.addLogs(LogType.info, "AppNav goGuild");
+    appState.setState!(() {
+      appState.setActiveGuild(newActiveGuild);
+      appState.defaultLayoutPageState = 2;
     });
   }
 
