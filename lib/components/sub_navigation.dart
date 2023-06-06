@@ -1,11 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:spacebar_client/components/button_icon.dart';
 import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/sub_navigation_me_button.dart';
+import 'package:spacebar_client/components/sub_navigation_userbar.dart';
 
-import '../models/app_nav.dart';
 import '../models/app_state.dart';
 import '../models/colors.dart';
 
@@ -75,37 +74,7 @@ class _SubNavigationState extends State<SubNavigation> {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Flex(
-                  direction: Axis.horizontal,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: SubNavigationMeButton(
-                          appState: widget.appState,
-                          title: "${widget.appState.userMeData?.username}",
-                          subtitle:
-                              "#${widget.appState.userMeData?.discriminator}",
-                          image: "assets/example_giphy.gif",
-                          status: widget.appState.userLoginSession?.settings
-                                  ?.status ??
-                              "offline",
-                          defaultColor: ThemeColors().primaryColorMidDark,
-                          widthFactor: 1,
-                          paddingTop: 0,
-                        ),
-                      ),
-                    ),
-                    ButtonIcon(
-                      svg: "assets/settings.svg",
-                      onTap: () {
-                        AppNav.goConfig(widget.appState, context);
-                      },
-                    ),
-                  ],
-                ),
+                child: SubNavigationUserbar(appState: widget.appState),
               ),
             )
           ],
