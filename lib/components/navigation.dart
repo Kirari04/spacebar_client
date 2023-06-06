@@ -1,11 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:spacebar_client/components/navigation_button.dart';
-import 'package:spacebar_client/components/navigation_line.dart';
-import 'package:spacebar_client/models/app_nav.dart';
-import 'package:spacebar_client/models/app_state.dart';
-import 'package:spacebar_client/models/colors.dart';
+import 'package:spacebar_client/models/theme_colors.dart';
+
+import '../models/app_nav.dart';
+import '../models/app_state.dart';
+import 'navigation_button.dart';
+import 'navigation_line.dart';
 
 class Navigation extends StatefulWidget {
   Navigation({
@@ -60,7 +61,11 @@ class _NavigationState extends State<Navigation> {
           ),
           ...guildList,
           NavigationButton(
-            primaryColor: ThemeColors().primaryColorLight,
+            isCircle: true,
+            primaryColor: const ThemeColors().successColorDark,
+            primaryBackgroundColor: const ThemeColors().primaryColorLight,
+            secundaryColor: Colors.white,
+            secundaryBackgroundColor: const ThemeColors().successColorDark,
             title: "Add Server",
             svg: 'assets/plus.svg',
             unrounded: true,

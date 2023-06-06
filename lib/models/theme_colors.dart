@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 @immutable
 class ThemeColors {
@@ -10,4 +11,7 @@ class ThemeColors {
   final primaryColorDark = const Color.fromARGB(255, 24, 24, 24);
   final errorColor = const Color.fromARGB(255, 230, 49, 49);
   final successColor = const Color.fromARGB(255, 49, 202, 72);
+  final successColorDark = const Color.fromARGB(255, 41, 170, 61);
+
+  const ThemeColors();
 }
