@@ -7,14 +7,14 @@ class NavigationLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
+    return Padding(
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
       child: Center(
-        heightFactor: 1,
+        heightFactor: 0,
         child: FractionallySizedBox(
-          heightFactor: 1,
           widthFactor: .8,
           child: Container(
+            height: height,
             color: Theme.of(context).primaryColorLight,
           ),
         ),

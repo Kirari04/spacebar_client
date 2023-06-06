@@ -1,12 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:spacebar_client/components/navigation_line.dart';
 
 import '../models/app_nav.dart';
 import '../models/app_state.dart';
 import '../models/theme_colors.dart';
 import 'navigation_button.dart';
-import 'navigation_line.dart';
 
 class Navigation extends StatefulWidget {
   Navigation({
@@ -25,23 +25,25 @@ class _NavigationState extends State<Navigation> {
   Widget build(BuildContext context) {
     List<Widget> guildList = [];
     guildList.add(
-      NavigationButton(
-        defaultHighlighted: false,
-        isHighlightable: true,
-        isOnline: widget.appState.getApiOnline(),
-        showIsOnline: true,
-        title: "Home",
-        svg: 'assets/logo.svg',
-        unrounded: true,
-        padding: 10,
-        onPressed: () {
-          AppNav.goMe(widget.appState);
-        },
+      Column(
+        children: [
+          NavigationButton(
+            defaultHighlighted: false,
+            isHighlightable: true,
+            isOnline: widget.appState.getApiOnline(),
+            showIsOnline: true,
+            title: "Home",
+            svg: 'assets/logo.svg',
+            unrounded: true,
+            padding: 10,
+            onPressed: () {
+              AppNav.goMe(widget.appState);
+            },
+          ),
+          const NavigationLine(height: 2),
+        ],
       ),
     );
-    guildList.add(const NavigationLine(
-      height: 2,
-    ));
     if (widget.appState.usersMeGuildsList != null) {
       guildList.addAll(
         widget.appState.usersMeGuildsList!.map(
@@ -87,10 +89,10 @@ class _NavigationState extends State<Navigation> {
         itemBuilder: (context, index) {
           return ListTile(
             minVerticalPadding: 0,
-            minLeadingWidth: 0,
-            enableFeedback: true,
             contentPadding: EdgeInsets.zero,
+            style: ListTileStyle.drawer,
             dense: true,
+            visualDensity: const VisualDensity(vertical: -4),
             title: guildList.elementAt(index),
           );
         },
