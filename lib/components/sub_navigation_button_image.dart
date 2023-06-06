@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../models/colors.dart';
+import '../models/theme_colors.dart';
 
 class SubNavigationButtonImage extends StatefulWidget {
   const SubNavigationButtonImage({super.key, this.image, this.svg});
@@ -17,7 +17,7 @@ class _SubNavigationButtonImageState extends State<SubNavigationButtonImage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ThemeColors().primaryColor,
+        color: const ThemeColors().primaryColor,
         borderRadius: BorderRadius.circular(99),
       ),
       clipBehavior: Clip.hardEdge,

@@ -105,6 +105,7 @@ class _NavigationButtonState extends State<NavigationButton> {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      clipBehavior: Clip.none,
       alignment: Alignment.centerLeft,
       children: [
         Container(
@@ -216,6 +217,10 @@ class _NavigationButtonState extends State<NavigationButton> {
                   ),
                 ),
               ),
+        const Positioned(
+          right: -10,
+          child: Text("Test Server Name"),
+        ),
       ],
     );
   }

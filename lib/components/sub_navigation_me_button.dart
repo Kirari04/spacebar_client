@@ -7,7 +7,8 @@ import 'package:spacebar_client/components/space_x.dart';
 import 'package:spacebar_client/components/status_icon.dart';
 import 'package:spacebar_client/components/sub_navigation_button_image.dart';
 import 'package:spacebar_client/models/app_state.dart';
-import 'package:spacebar_client/models/colors.dart';
+
+import '../models/theme_colors.dart';
 
 class SubNavigationMeButton extends StatefulWidget {
   SubNavigationMeButton({
@@ -59,8 +60,9 @@ class _SubNavigationMeButtonState extends State<SubNavigationMeButton> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: isHovered
-                  ? (widget.hoverColor ?? ThemeColors().primaryColorLight)
-                  : (widget.defaultColor ?? ThemeColors().primaryColorMidDark),
+                  ? (widget.hoverColor ?? const ThemeColors().primaryColorLight)
+                  : (widget.defaultColor ??
+                      const ThemeColors().primaryColorMidDark),
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -104,7 +106,7 @@ class _SubNavigationMeButtonState extends State<SubNavigationMeButton> {
                   isHovered && widget.closable
                       ? ButtonIcon(
                           svg: "assets/close.svg",
-                          defaultColor: ThemeColors().primaryColorLight,
+                          defaultColor: const ThemeColors().primaryColorLight,
                         )
                       : const SizedBox.shrink()
                 ],

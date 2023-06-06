@@ -6,7 +6,7 @@ import 'package:spacebar_client/components/sub_navigation_me_button.dart';
 import 'package:spacebar_client/components/sub_navigation_userbar.dart';
 
 import '../models/app_state.dart';
-import '../models/colors.dart';
+import '../models/theme_colors.dart';
 
 class SubNavigation extends StatefulWidget {
   SubNavigation({super.key, required this.appState});
@@ -49,7 +49,7 @@ class _SubNavigationState extends State<SubNavigation> {
     return Container(
         height: MediaQuery.of(context).size.height,
         width: 250,
-        decoration: BoxDecoration(color: ThemeColors().primaryColorMid),
+        decoration: BoxDecoration(color: const ThemeColors().primaryColorMid),
         child: Flex(
           direction: Axis.vertical,
           children: [
@@ -70,7 +70,7 @@ class _SubNavigationState extends State<SubNavigation> {
             ),
             Container(
               decoration: BoxDecoration(
-                color: ThemeColors().primaryColorMidDark,
+                color: const ThemeColors().primaryColorMidDark,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10),

@@ -5,7 +5,7 @@ import 'package:spacebar_client/components/button.dart';
 import 'package:spacebar_client/components/input.dart';
 import 'package:spacebar_client/data/auth_data.dart';
 import 'package:spacebar_client/models/app_state.dart';
-import 'package:spacebar_client/models/colors.dart';
+import 'package:spacebar_client/models/theme_colors.dart';
 
 import '../components/h1.dart';
 import '../models/login.dart';
@@ -46,7 +46,7 @@ class _ConfigPageState extends State<ConfigPage> {
               child: Container(
                 width: 500,
                 decoration: BoxDecoration(
-                  color: ThemeColors().primaryColor,
+                  color: const ThemeColors().primaryColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Padding(

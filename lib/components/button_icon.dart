@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../models/colors.dart';
+import '../models/theme_colors.dart';
 
 class ButtonIcon extends StatefulWidget {
   ButtonIcon({
@@ -39,8 +39,10 @@ class _ButtonIconState extends State<ButtonIcon> {
       child: Container(
         decoration: BoxDecoration(
           color: isHovered
-              ? (widget.hoverColor ?? ThemeColors().primaryColorLightLight)
-              : (widget.defaultColor ?? ThemeColors().primaryColorMidDark),
+              ? (widget.hoverColor ??
+                  const ThemeColors().primaryColorLightLight)
+              : (widget.defaultColor ??
+                  const ThemeColors().primaryColorMidDark),
           borderRadius: BorderRadius.circular(5),
         ),
         clipBehavior: Clip.hardEdge,

@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../models/colors.dart';
+import '../models/theme_colors.dart';
 
 class StatusIcon extends StatefulWidget {
   StatusIcon({
@@ -18,22 +18,22 @@ class StatusIcon extends StatefulWidget {
 }
 
 class _StatusIconState extends State<StatusIcon> {
-  Color color = ThemeColors().primaryColorLightLight;
+  Color color = const ThemeColors().primaryColorLightLight;
 
   @override
   Widget build(BuildContext context) {
     switch (widget.status) {
       case "offline":
-        color = ThemeColors().primaryColorLightLight;
+        color = const ThemeColors().primaryColorLightLight;
         break;
       case "sleep":
-        color = ThemeColors().warningColor;
+        color = const ThemeColors().warningColor;
         break;
       case "stop":
-        color = ThemeColors().errorColor;
+        color = const ThemeColors().errorColor;
         break;
       case "online":
-        color = ThemeColors().successColor;
+        color = const ThemeColors().successColor;
         break;
       default:
     }
@@ -42,7 +42,7 @@ class _StatusIconState extends State<StatusIcon> {
       height: 15,
       width: 15,
       decoration: BoxDecoration(
-        color: ThemeColors().primaryColorMid,
+        color: const ThemeColors().primaryColorMid,
         borderRadius: BorderRadius.circular(99),
       ),
       child: Center(
@@ -66,7 +66,7 @@ class _StatusIconState extends State<StatusIcon> {
                     height: 5,
                     width: 5,
                     decoration: BoxDecoration(
-                      color: ThemeColors().primaryColorMid,
+                      color: const ThemeColors().primaryColorMid,
                       borderRadius: BorderRadius.circular(99),
                     ),
                   ),

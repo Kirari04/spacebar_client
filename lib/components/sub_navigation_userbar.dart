@@ -5,7 +5,7 @@ import 'package:spacebar_client/components/sub_navigation_me_button.dart';
 import 'package:spacebar_client/models/app_state.dart';
 
 import '../models/app_nav.dart';
-import '../models/colors.dart';
+import '../models/theme_colors.dart';
 import 'button_icon.dart';
 
 class SubNavigationUserbar extends StatefulWidget {
@@ -33,7 +33,7 @@ class _SubNavigationUserbarState extends State<SubNavigationUserbar> {
               image: "assets/example_giphy.gif",
               status: widget.appState.userLoginSession?.settings?.status ??
                   "offline",
-              defaultColor: ThemeColors().primaryColorMidDark,
+              defaultColor: const ThemeColors().primaryColorMidDark,
               widthFactor: 1,
               paddingTop: 0,
             ),
