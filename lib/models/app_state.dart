@@ -41,6 +41,7 @@ class AppState {
 
   // PAGE INDEXES
   int defaultLayoutPageState = 0;
+  List<Widget> popupList = [];
 
   // CALLBACKS
   void Function(void Function())? setState;

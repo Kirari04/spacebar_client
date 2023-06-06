@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/navigation_line.dart';
+import 'package:spacebar_client/popups/join_guild.dart';
 
 import '../models/app_nav.dart';
 import '../models/app_state.dart';
@@ -65,14 +66,17 @@ class _NavigationState extends State<Navigation> {
         isCircle: true,
         primaryColor: ThemeColors.successColorDark,
         primaryBackgroundColor: ThemeColors.primaryColorLight,
-        secundaryColor: Colors.white,
+        secundaryColor: ThemeColors.primaryFont,
         secundaryBackgroundColor: ThemeColors.successColorDark,
         title: "Add Server",
         svg: 'assets/plus.svg',
         unrounded: true,
         padding: 14,
         onPressed: () {
-          AppNav.goHome(widget.appState);
+          widget.appState.setState!(() {
+            widget.appState.popupList
+                .add(JoinGuildPopup(appState: widget.appState));
+          });
         },
       ),
     );

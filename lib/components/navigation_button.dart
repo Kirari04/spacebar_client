@@ -94,8 +94,8 @@ class _NavigationButtonState extends State<NavigationButton> {
         widget.svg!,
         fit: BoxFit.contain,
         color: hovered
-            ? (widget.secundaryColor ?? Colors.white)
-            : (widget.primaryColor ?? Colors.white),
+            ? (widget.secundaryColor ?? ThemeColors.primaryFont)
+            : (widget.primaryColor ?? ThemeColors.primaryFont),
         colorBlendMode: BlendMode.srcIn,
         cacheColorFilter: true,
       ),
@@ -208,9 +208,9 @@ class _NavigationButtonState extends State<NavigationButton> {
                   duration: const Duration(milliseconds: 200),
                   height: widget.isActive ? 40 : defaultHighlighHeight,
                   width: 5,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: ThemeColors.primaryFont,
+                    borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(10),
                       bottomRight: Radius.circular(10),
                     ),

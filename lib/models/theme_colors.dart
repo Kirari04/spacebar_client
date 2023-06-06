@@ -14,4 +14,6 @@ class ThemeColors {
   static var warningColor = const Color.fromARGB(255, 230, 133, 49);
   static var successColor = const Color.fromARGB(255, 49, 202, 72);
   static var successColorDark = const Color.fromARGB(255, 41, 170, 61);
+  static var primaryFont = const Color.fromARGB(255, 255, 255, 255);
+  static var secundaryFont = const Color.fromARGB(255, 188, 220, 250);
 }
