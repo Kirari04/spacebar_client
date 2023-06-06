@@ -97,7 +97,7 @@ class _NavigationButtonState extends State<NavigationButton> {
             ? (widget.secundaryColor ?? Colors.white)
             : (widget.primaryColor ?? Colors.white),
         colorBlendMode: BlendMode.srcIn,
-        cacheColorFilter: false,
+        cacheColorFilter: true,
       ),
     );
   }

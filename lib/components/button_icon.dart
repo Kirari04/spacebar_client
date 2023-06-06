@@ -56,6 +56,9 @@ class _ButtonIconState extends State<ButtonIcon> {
                 child: SvgPicture.asset(
                   widget.svg!,
                   fit: BoxFit.contain,
+                  color: Colors.white,
+                  colorBlendMode: BlendMode.srcIn,
+                  cacheColorFilter: true,
                 ),
               ),
       ),
