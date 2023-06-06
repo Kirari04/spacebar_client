@@ -33,7 +33,7 @@ class _SubNavigationUserbarState extends State<SubNavigationUserbar> {
               image: "assets/example_giphy.gif",
               status: widget.appState.userLoginSession?.settings?.status ??
                   "offline",
-              defaultColor: const ThemeColors().primaryColorMidDark,
+              defaultColor: ThemeColors.primaryColorMidDark,
               widthFactor: 1,
               paddingTop: 0,
             ),

@@ -46,7 +46,7 @@ class _ConfigPageState extends State<ConfigPage> {
               child: Container(
                 width: 500,
                 decoration: BoxDecoration(
-                  color: const ThemeColors().primaryColor,
+                  color: ThemeColors.primaryColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Padding(

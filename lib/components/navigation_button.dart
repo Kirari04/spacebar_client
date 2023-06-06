@@ -180,15 +180,15 @@ class _NavigationButtonState extends State<NavigationButton> {
                                 boxShadow: [
                                   BoxShadow(
                                     color: widget.isOnline
-                                        ? const ThemeColors().successColor
-                                        : const ThemeColors().errorColor,
+                                        ? ThemeColors.successColor
+                                        : ThemeColors.errorColor,
                                     blurRadius: 10,
                                     blurStyle: BlurStyle.outer,
                                   )
                                 ],
                                 color: widget.isOnline
-                                    ? const ThemeColors().successColor
-                                    : const ThemeColors().errorColor,
+                                    ? ThemeColors.successColor
+                                    : ThemeColors.errorColor,
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(99),
                                 ),
@@ -217,10 +217,10 @@ class _NavigationButtonState extends State<NavigationButton> {
                   ),
                 ),
               ),
-        const Positioned(
-          right: -10,
-          child: Text("Test Server Name"),
-        ),
+        // const Positioned(
+        //   right: -10,
+        //   child: Text("Test Server Name"),
+        // ),
       ],
     );
   }

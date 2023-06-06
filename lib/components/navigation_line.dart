@@ -10,7 +10,9 @@ class NavigationLine extends StatelessWidget {
     return SizedBox(
       height: height,
       child: Center(
+        heightFactor: 1,
         child: FractionallySizedBox(
+          heightFactor: 1,
           widthFactor: .8,
           child: Container(
             color: Theme.of(context).primaryColorLight,

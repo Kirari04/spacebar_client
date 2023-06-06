@@ -61,10 +61,10 @@ class _NavigationState extends State<Navigation> {
     guildList.add(
       NavigationButton(
         isCircle: true,
-        primaryColor: const ThemeColors().successColorDark,
-        primaryBackgroundColor: const ThemeColors().primaryColorLight,
+        primaryColor: ThemeColors.successColorDark,
+        primaryBackgroundColor: ThemeColors.primaryColorLight,
         secundaryColor: Colors.white,
-        secundaryBackgroundColor: const ThemeColors().successColorDark,
+        secundaryBackgroundColor: ThemeColors.successColorDark,
         title: "Add Server",
         svg: 'assets/plus.svg',
         unrounded: true,
@@ -80,11 +80,20 @@ class _NavigationState extends State<Navigation> {
       height: MediaQuery.of(context).size.height,
       width: 80,
       decoration: BoxDecoration(color: Theme.of(context).primaryColorDark),
-      child: SingleChildScrollView(
+      child: ListView.builder(
+        padding: EdgeInsets.zero,
         clipBehavior: Clip.none,
-        child: Column(
-          children: guildList,
-        ),
+        itemCount: guildList.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            minVerticalPadding: 0,
+            minLeadingWidth: 0,
+            enableFeedback: true,
+            contentPadding: EdgeInsets.zero,
+            dense: true,
+            title: guildList.elementAt(index),
+          );
+        },
       ),
     );
   }

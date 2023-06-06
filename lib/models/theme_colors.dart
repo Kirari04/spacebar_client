@@ -3,17 +3,15 @@ import 'package:flutter/material.dart';
 
 @immutable
 class ThemeColors {
-  final brightness = Brightness.dark;
-  final primaryColor = const Color.fromARGB(255, 71, 77, 157);
-  final primaryColorLight = const Color.fromARGB(255, 38, 38, 38);
-  final primaryColorLightLight = const Color.fromARGB(255, 59, 59, 59);
-  final primaryColorMid = const Color.fromARGB(255, 32, 32, 32);
-  final primaryColorMidDark = const Color.fromARGB(255, 27, 27, 27);
-  final primaryColorDark = const Color.fromARGB(255, 24, 24, 24);
-  final errorColor = const Color.fromARGB(255, 230, 49, 49);
-  final warningColor = const Color.fromARGB(255, 230, 133, 49);
-  final successColor = const Color.fromARGB(255, 49, 202, 72);
-  final successColorDark = const Color.fromARGB(255, 41, 170, 61);
-
-  const ThemeColors();
+  static var brightness = Brightness.dark;
+  static var primaryColor = const Color.fromARGB(255, 71, 77, 157);
+  static var primaryColorLight = const Color.fromARGB(255, 38, 38, 38);
+  static var primaryColorLightLight = const Color.fromARGB(255, 59, 59, 59);
+  static var primaryColorMid = const Color.fromARGB(255, 32, 32, 32);
+  static var primaryColorMidDark = const Color.fromARGB(255, 27, 27, 27);
+  static var primaryColorDark = const Color.fromARGB(255, 24, 24, 24);
+  static var errorColor = const Color.fromARGB(255, 230, 49, 49);
+  static var warningColor = const Color.fromARGB(255, 230, 133, 49);
+  static var successColor = const Color.fromARGB(255, 49, 202, 72);
+  static var successColorDark = const Color.fromARGB(255, 41, 170, 61);
 }

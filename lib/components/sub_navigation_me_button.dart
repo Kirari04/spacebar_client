@@ -60,9 +60,8 @@ class _SubNavigationMeButtonState extends State<SubNavigationMeButton> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: isHovered
-                  ? (widget.hoverColor ?? const ThemeColors().primaryColorLight)
-                  : (widget.defaultColor ??
-                      const ThemeColors().primaryColorMidDark),
+                  ? (widget.hoverColor ?? ThemeColors.primaryColorLight)
+                  : (widget.defaultColor ?? ThemeColors.primaryColorMidDark),
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -106,7 +105,7 @@ class _SubNavigationMeButtonState extends State<SubNavigationMeButton> {
                   isHovered && widget.closable
                       ? ButtonIcon(
                           svg: "assets/close.svg",
-                          defaultColor: const ThemeColors().primaryColorLight,
+                          defaultColor: ThemeColors.primaryColorLight,
                         )
                       : const SizedBox.shrink()
                 ],

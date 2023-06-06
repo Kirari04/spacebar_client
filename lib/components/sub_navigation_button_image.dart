@@ -17,7 +17,7 @@ class _SubNavigationButtonImageState extends State<SubNavigationButtonImage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const ThemeColors().primaryColor,
+        color: ThemeColors.primaryColor,
         borderRadius: BorderRadius.circular(99),
       ),
       clipBehavior: Clip.hardEdge,

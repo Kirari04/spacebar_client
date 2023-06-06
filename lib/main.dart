@@ -38,11 +38,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: appState.appName,
       theme: ThemeData(
-        brightness: const ThemeColors().brightness,
-        primaryColor: const ThemeColors().primaryColor,
-        primaryColorLight: const ThemeColors().primaryColorLight,
-        primaryColorDark: const ThemeColors().primaryColorDark,
-        errorColor: const ThemeColors().errorColor,
+        brightness: ThemeColors.brightness,
+        primaryColor: ThemeColors.primaryColor,
+        primaryColorLight: ThemeColors.primaryColorLight,
+        primaryColorDark: ThemeColors.primaryColorDark,
+        errorColor: ThemeColors.errorColor,
       ),
       home: DefaultLayout(
         appState: appState,

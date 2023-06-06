@@ -49,7 +49,7 @@ class _SubNavigationState extends State<SubNavigation> {
     return Container(
         height: MediaQuery.of(context).size.height,
         width: 250,
-        decoration: BoxDecoration(color: const ThemeColors().primaryColorMid),
+        decoration: BoxDecoration(color: ThemeColors.primaryColorMid),
         child: Flex(
           direction: Axis.vertical,
           children: [
@@ -70,7 +70,7 @@ class _SubNavigationState extends State<SubNavigation> {
             ),
             Container(
               decoration: BoxDecoration(
-                color: const ThemeColors().primaryColorMidDark,
+                color: ThemeColors.primaryColorMidDark,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10),

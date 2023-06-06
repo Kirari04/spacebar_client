@@ -18,22 +18,22 @@ class StatusIcon extends StatefulWidget {
 }
 
 class _StatusIconState extends State<StatusIcon> {
-  Color color = const ThemeColors().primaryColorLightLight;
+  Color color = ThemeColors.primaryColorLightLight;
 
   @override
   Widget build(BuildContext context) {
     switch (widget.status) {
       case "offline":
-        color = const ThemeColors().primaryColorLightLight;
+        color = ThemeColors.primaryColorLightLight;
         break;
       case "sleep":
-        color = const ThemeColors().warningColor;
+        color = ThemeColors.warningColor;
         break;
       case "stop":
-        color = const ThemeColors().errorColor;
+        color = ThemeColors.errorColor;
         break;
       case "online":
-        color = const ThemeColors().successColor;
+        color = ThemeColors.successColor;
         break;
       default:
     }
@@ -42,7 +42,7 @@ class _StatusIconState extends State<StatusIcon> {
       height: 15,
       width: 15,
       decoration: BoxDecoration(
-        color: const ThemeColors().primaryColorMid,
+        color: ThemeColors.primaryColorMid,
         borderRadius: BorderRadius.circular(99),
       ),
       child: Center(
@@ -66,7 +66,7 @@ class _StatusIconState extends State<StatusIcon> {
                     height: 5,
                     width: 5,
                     decoration: BoxDecoration(
-                      color: const ThemeColors().primaryColorMid,
+                      color: ThemeColors.primaryColorMid,
                       borderRadius: BorderRadius.circular(99),
                     ),
                   ),

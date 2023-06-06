@@ -39,10 +39,8 @@ class _ButtonIconState extends State<ButtonIcon> {
       child: Container(
         decoration: BoxDecoration(
           color: isHovered
-              ? (widget.hoverColor ??
-                  const ThemeColors().primaryColorLightLight)
-              : (widget.defaultColor ??
-                  const ThemeColors().primaryColorMidDark),
+              ? (widget.hoverColor ?? ThemeColors.primaryColorLightLight)
+              : (widget.defaultColor ?? ThemeColors.primaryColorMidDark),
           borderRadius: BorderRadius.circular(5),
         ),
         clipBehavior: Clip.hardEdge,
