@@ -169,7 +169,7 @@ class _JoinGuildCreateState extends State<JoinGuildCreate> {
                 ),
                 const SpaceY(height: 10),
                 Button(
-                  text: "Choose File",
+                  text: "Choose Image",
                   onPressed: chooseFile,
                 ),
                 const SpaceY(height: 10),
