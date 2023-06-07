@@ -34,7 +34,9 @@ class AuthData {
   }
 
   static Future<LoginResponse> login(
-      AppState appState, LoginRes? session) async {
+    AppState appState,
+    LoginRes? session,
+  ) async {
     if (session == null) {
       return LoginResponse(message: "session is null", success: false);
     }

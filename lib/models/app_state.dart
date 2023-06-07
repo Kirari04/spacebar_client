@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spacebar_client/api_wrapper/get_users_me.dart';
 import 'package:spacebar_client/api_wrapper/ping.dart';
 import 'package:spacebar_client/data/auth_data.dart';
@@ -129,64 +130,85 @@ class AppState {
   void run() {
     AuthData.getSession().then((value) {
       userLoginSession = value;
-      isApiOnlineLoop();
-      isUserAuthenticatedLoop();
+      _setVarsFromPref();
+      _isApiOnlineLoop();
+      _isUserAuthenticatedLoop();
     });
   }
 
-  void isApiOnlineLoop() async {
+  void _setVarsFromPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? apiEndpointSaved = prefs.getString("apiEndpoint");
+    if (apiEndpointSaved != null) {
+      apiEndpoint = apiEndpointSaved;
+    }
+    String? cdnEndpointSaved = prefs.getString("cdnEndpoint");
+    if (cdnEndpointSaved != null) {
+      cdnEndpoint = cdnEndpointSaved;
+    }
+  }
+
+  void _isApiOnlineLoop() async {
     while (true) {
-      apiGetPing(this).then((value) {
-        if (_apiOnline != true) {
-          setState!(() {
-            _apiOnline = true;
-          });
-        }
-      }).catchError((err) {
-        if (_apiOnline != false) {
-          setState!(() {
-            _apiOnline = false;
-          });
-        }
-      });
+      isApiOnlineLoop();
       await Future.delayed(Duration(seconds: _apiOnline ? 30 : 2), () {});
     }
   }
 
-  void isUserAuthenticatedLoop() async {
+  void isApiOnlineLoop() async {
+    apiGetPing(this).then((value) {
+      if (_apiOnline != true) {
+        setState!(() {
+          _apiOnline = true;
+        });
+      }
+    }).catchError((err) {
+      if (_apiOnline != false) {
+        setState!(() {
+          _apiOnline = false;
+        });
+      }
+    });
+  }
+
+  void _isUserAuthenticatedLoop() async {
     while (true) {
       if (!getApiOnline()) {
         await Future.delayed(const Duration(seconds: 1), () {});
         continue;
       }
-      apiGetUsersMe(this).then((value) {
-        if (userTryAuthenticate != true) {
+      isUserAuthenticatedLoop();
+      await Future.delayed(const Duration(seconds: 30), () {});
+    }
+  }
+
+  void isUserAuthenticatedLoop() async {
+    apiGetUsersMe(this).then((value) {
+      if (userTryAuthenticate != true) {
+        setState!(() {
+          userTryAuthenticate = true;
+        });
+      }
+      if (value.statusCode == 200) {
+        if (getUserAuthenticated() != true) {
           setState!(() {
-            userTryAuthenticate = true;
+            setUserAuthenticated(true);
           });
         }
-        if (value.statusCode == 200) {
-          if (getUserAuthenticated() != true) {
-            setState!(() {
-              setUserAuthenticated(true);
-            });
-          }
-        } else {
-          if (getUserAuthenticated() != false) {
-            setState!(() {
-              setUserAuthenticated(false);
-            });
-          }
-        }
-      }).catchError((err) {
+      } else {
         if (getUserAuthenticated() != false) {
           setState!(() {
             setUserAuthenticated(false);
           });
         }
-      });
-      await Future.delayed(const Duration(seconds: 30), () {});
-    }
+      }
+    }).catchError((err) {
+      if (getUserAuthenticated() != false) {
+        setState!(() {
+          setUserAuthenticated(false);
+        });
+      }
+    });
   }
 
 //  Updating Async data

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spacebar_client/components/button.dart';
 import 'package:spacebar_client/components/input.dart';
 import 'package:spacebar_client/data/auth_data.dart';
@@ -19,18 +20,33 @@ class ConfigPage extends StatefulWidget {
 }
 
 class _ConfigPageState extends State<ConfigPage> {
+  TextEditingController? apiEndpointController;
+  TextEditingController? cdnEndpointController;
+
+  SharedPreferences? prefs;
   String apiEndpoint = "";
+  String cdnEndpoint = "";
   LoginRes? loginRes;
   String logs = "";
   @override
   void initState() {
     super.initState();
+    initVars();
 
-    if (apiEndpoint == "") {
-      apiEndpoint = widget.appState.apiEndpoint;
-    }
     loginRes = widget.appState.userLoginSession;
     logs = widget.appState.getLogs();
+  }
+
+  void initVars() async {
+    if (apiEndpoint == "") {
+      apiEndpoint = widget.appState.apiEndpoint;
+      apiEndpointController = TextEditingController(text: apiEndpoint);
+    }
+
+    if (cdnEndpoint == "") {
+      cdnEndpoint = widget.appState.cdnEndpoint;
+      cdnEndpointController = TextEditingController(text: cdnEndpoint);
+    }
   }
 
   @override
@@ -68,13 +84,14 @@ class _ConfigPageState extends State<ConfigPage> {
                           )
                         ],
                       ),
+                      // ApiServer
                       Flex(
                         direction: Axis.horizontal,
                         children: [
                           Expanded(
                             child: Input(
                                 text: "ApiServer",
-                                defaultValue: apiEndpoint,
+                                controller: apiEndpointController,
                                 onChange: (changes) {
                                   apiEndpoint = changes;
                                 }),
@@ -83,6 +100,30 @@ class _ConfigPageState extends State<ConfigPage> {
                             onPressed: () {
                               widget.appState.setState!(() {
                                 widget.appState.apiEndpoint = apiEndpoint;
+                                prefs!.setString("apiEndpoint", apiEndpoint);
+                              });
+                            },
+                            text: 'Speichern',
+                          ),
+                        ],
+                      ),
+                      // cdnEndpoint
+                      Flex(
+                        direction: Axis.horizontal,
+                        children: [
+                          Expanded(
+                            child: Input(
+                                text: "CdnServer",
+                                controller: cdnEndpointController,
+                                onChange: (changes) {
+                                  cdnEndpoint = changes;
+                                }),
+                          ),
+                          Button(
+                            onPressed: () {
+                              widget.appState.setState!(() {
+                                widget.appState.cdnEndpoint = cdnEndpoint;
+                                prefs!.setString("cdnEndpoint", cdnEndpoint);
                               });
                             },
                             text: 'Speichern',
