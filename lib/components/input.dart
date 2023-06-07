@@ -55,7 +55,7 @@ class Input extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             fillColor: backgroundColor ?? ThemeColors.primaryColorDark,
-            hoverColor: backgroundHoverColor ?? ThemeColors.primaryColor,
+            hoverColor: backgroundHoverColor ?? ThemeColors.primaryColorLight,
             border: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(5)),

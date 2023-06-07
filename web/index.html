@@ -20,6 +20,15 @@
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
 
+  <style>
+    html, body{
+      background: black;
+    }
+    .loading{
+      color: white;
+    }
+  </style>
+
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -32,6 +41,8 @@
   <title>spacebar_client</title>
   <link rel="manifest" href="manifest.json">
 
+
+
   <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
@@ -40,6 +51,7 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  <p class="loading">Loading Client...</p>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
@@ -50,6 +62,7 @@
       }).then(function(engineInitializer) {
         return engineInitializer.initializeEngine();
       }).then(function(appRunner) {
+        document.querySelector('.loading').style.display = "none";
         return appRunner.runApp();
       });
     });
