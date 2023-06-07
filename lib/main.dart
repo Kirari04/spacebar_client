@@ -21,6 +21,7 @@ extension ColorSchemeExtension on ColorScheme {
 class _MyAppState extends State<MyApp> {
   AppState appState = AppState(
     apiEndpoint: "http://localhost:3001/api",
+    cdnEndpoint: "http://localhost:3001",
     appName: "Spacebar Client",
   );
   @override

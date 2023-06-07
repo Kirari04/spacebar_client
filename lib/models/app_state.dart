@@ -17,6 +17,7 @@ class AppState {
   // API RELATED DATA
   bool _apiOnline = false;
   String apiEndpoint;
+  String cdnEndpoint;
 
   // CLIENT RELATED DATA
   String appName;
@@ -67,6 +68,7 @@ class AppState {
   // CONSTRUCKTOR
   AppState({
     required this.apiEndpoint,
+    required this.cdnEndpoint,
     required this.appName,
     this.setState,
   });

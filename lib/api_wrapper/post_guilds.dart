@@ -8,7 +8,7 @@ import 'package:spacebar_client/models/post_guilds.dart';
 import 'package:spacebar_client/models/res.dart';
 
 Future<ApiRes<PostGuilds?, String>> apiPostGuilds(
-    AppState appState, String guildName) async {
+    AppState appState, String guildName, String? icon) async {
   const logFuncName = "apiPapiPostGuildsostGuilds";
   appState.addLogs(LogType.info, "run $logFuncName");
   final response = await http.post(
@@ -20,7 +20,7 @@ Future<ApiRes<PostGuilds?, String>> apiPostGuilds(
     body: jsonEncode(<String, dynamic>{
       "name": guildName,
       "region": "",
-      "icon": "",
+      "icon": icon ?? "",
       "channels": [
         {
           "name": "coffee",

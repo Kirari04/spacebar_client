@@ -26,7 +26,9 @@ class _GuildPageState extends State<GuildPage> {
           children: [
             const H1(title: "Guild Page"),
             P(text: "${widget.appState.getActiveGuild()?.name}"),
-            P(text: "${widget.appState.getActiveGuild()?.description}")
+            P(text: "${widget.appState.getActiveGuild()?.description}"),
+            SelectableText(
+                "${widget.appState.cdnEndpoint}/icons/${widget.appState.getActiveGuild()?.id}/${widget.appState.getActiveGuild()?.icon}"),
           ],
         ),
       ),

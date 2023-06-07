@@ -53,6 +53,9 @@ class _NavigationState extends State<Navigation> {
                 widget.appState.defaultLayoutPageState == 2),
             isHighlightable: true,
             title: "${e.name}",
+            networkImage: e.icon == null
+                ? null
+                : "${widget.appState.cdnEndpoint}/icons/${e.id}/${e.icon}.png",
             onPressed: () {
               AppNav.goGuild(widget.appState, e);
             },

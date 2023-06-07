@@ -9,6 +9,7 @@ class NavigationButton extends StatefulWidget {
     super.key,
     required this.title,
     this.image,
+    this.networkImage,
     this.svg,
     this.unrounded,
     this.padding,
@@ -27,6 +28,7 @@ class NavigationButton extends StatefulWidget {
 
   final String title;
   final String? image;
+  final String? networkImage;
   final String? svg;
   final bool? unrounded;
   final double? padding;
@@ -76,7 +78,7 @@ class _NavigationButtonState extends State<NavigationButton> {
     borderRadius = borderRadiusMax;
     defaultHighlighHeight = (widget.defaultHighlighted ? 10 : 0);
 
-    imagePadding = widget.padding != null ? widget.padding! : 0;
+    imagePadding = widget.padding ?? 0;
 
     if (widget.image != null && widget.svg != null) {
       throw "Can't have image and svg defined at the same time.";
@@ -114,7 +116,6 @@ class _NavigationButtonState extends State<NavigationButton> {
             child: FractionallySizedBox(
               widthFactor: .9,
               child: InkWell(
-                hoverColor: Colors.black,
                 onTapDown: (details) {
                   setState(() {
                     focused = true;
@@ -138,64 +139,70 @@ class _NavigationButtonState extends State<NavigationButton> {
                     widget.onPressed();
                   }
                 },
-                child: AnimatedContainer(
-                  curve: Curves.ease,
-                  duration: const Duration(milliseconds: 400),
-                  decoration: BoxDecoration(
-                    color: (hovered
-                            ? widget.secundaryBackgroundColor
-                            : widget.primaryBackgroundColor) ??
-                        Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(borderRadius),
-                  ),
-                  child: Stack(alignment: Alignment.centerLeft, children: [
-                    AspectRatio(
+                child: Stack(alignment: Alignment.centerLeft, children: [
+                  AnimatedContainer(
+                    curve: Curves.ease,
+                    duration: const Duration(milliseconds: 400),
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      color: (hovered
+                              ? widget.secundaryBackgroundColor
+                              : widget.primaryBackgroundColor) ??
+                          ThemeColors.primaryColor,
+                      borderRadius: BorderRadius.circular(borderRadius),
+                    ),
+                    child: AspectRatio(
                       aspectRatio: 1 / 1,
-                      child: widget.image == null && widget.svg == null
-                          ? Padding(
-                              padding: EdgeInsets.all(focused ? 10 + 2 : 10),
-                              child: const Image(
+                      child: widget.image == null &&
+                              widget.svg == null &&
+                              widget.networkImage == null
+                          ? const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Image(
                                   image: AssetImage("assets/no-image.png")),
                             )
                           : Padding(
-                              padding: EdgeInsets.all(
-                                  focused ? imagePadding + 2 : imagePadding),
+                              padding: EdgeInsets.all(imagePadding),
                               child: widget.svg != null
+                                  // SVG IMAGE
                                   ? getSvg()
-                                  : Image(
-                                      image: AssetImage(widget.image!),
-                                      fit: BoxFit.fill,
-                                    ),
+                                  : widget.networkImage != null
+                                      // NETWORK IMAGE
+                                      ? Image.network(widget.networkImage!,
+                                          fit: BoxFit.fill)
+                                      // LOCALE IMAGE
+                                      : Image.asset(widget.image!,
+                                          fit: BoxFit.fill),
                             ),
                     ),
-                    !widget.showIsOnline
-                        ? const SizedBox.shrink()
-                        : Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Container(
-                              height: 12,
-                              width: 12,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: widget.isOnline
-                                        ? ThemeColors.successColor
-                                        : ThemeColors.errorColor,
-                                    blurRadius: 10,
-                                    blurStyle: BlurStyle.outer,
-                                  )
-                                ],
-                                color: widget.isOnline
-                                    ? ThemeColors.successColor
-                                    : ThemeColors.errorColor,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(99),
-                                ),
+                  ),
+                  !widget.showIsOnline
+                      ? const SizedBox.shrink()
+                      : Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Container(
+                            height: 12,
+                            width: 12,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: widget.isOnline
+                                      ? ThemeColors.successColor
+                                      : ThemeColors.errorColor,
+                                  blurRadius: 10,
+                                  blurStyle: BlurStyle.outer,
+                                )
+                              ],
+                              color: widget.isOnline
+                                  ? ThemeColors.successColor
+                                  : ThemeColors.errorColor,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(99),
                               ),
-                            ))
-                  ]),
-                ),
+                            ),
+                          ))
+                ]),
               ),
             ),
           ),
