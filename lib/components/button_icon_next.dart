@@ -5,7 +5,10 @@ import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/models/theme_colors.dart';
 
 class ButtonIconNext extends StatefulWidget {
-  const ButtonIconNext({super.key});
+  ButtonIconNext({super.key, required this.title, required this.onTap});
+
+  final String title;
+  void Function() onTap;
 
   @override
   State<ButtonIconNext> createState() => _ButtonIconNextState();
@@ -17,12 +20,13 @@ class _ButtonIconNextState extends State<ButtonIconNext> {
   Widget build(BuildContext context) {
     return InkWell(
       onHover: (e) {
-        print("hoveres");
         setState(() {
           hovered = e;
         });
       },
-      onTap: () {},
+      onTap: () {
+        widget.onTap();
+      },
       child: AnimatedContainer(
         key: ValueKey<bool>(hovered),
         duration: const Duration(milliseconds: 1000),
@@ -54,13 +58,13 @@ class _ButtonIconNextState extends State<ButtonIconNext> {
                   cacheColorFilter: true,
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: P(
-                      text: "Selbst Erstellen",
+                      text: widget.title,
                     ),
                   ),
                 ),

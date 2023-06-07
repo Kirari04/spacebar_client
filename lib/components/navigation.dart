@@ -74,8 +74,8 @@ class _NavigationState extends State<Navigation> {
         padding: 14,
         onPressed: () {
           widget.appState.setState!(() {
-            widget.appState.popupList
-                .add(JoinGuildPopup(appState: widget.appState));
+            widget.appState
+                .popupListOpen(JoinGuildPopup(appState: widget.appState));
           });
         },
       ),

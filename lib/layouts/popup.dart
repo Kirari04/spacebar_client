@@ -19,7 +19,7 @@ class _PopupLayoutState extends State<PopupLayout> {
         GestureDetector(
           onTap: () {
             widget.appState.setState!(() {
-              widget.appState.popupList.removeLast();
+              widget.appState.popupListClose();
             });
           },
           child: Container(
@@ -29,14 +29,14 @@ class _PopupLayoutState extends State<PopupLayout> {
             width: widget.appState.popupList.isEmpty
                 ? 0
                 : MediaQuery.of(context).size.width,
-            color: Colors.black54,
+            color: Colors.black87,
           ),
         ),
         widget.appState.popupList.isNotEmpty
             ? SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                child: widget.appState.popupList.first,
+                child: widget.appState.popupList.last,
               )
             : const SizedBox.shrink()
       ],

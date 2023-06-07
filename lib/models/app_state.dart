@@ -43,6 +43,24 @@ class AppState {
   int defaultLayoutPageState = 0;
   List<Widget> popupList = [];
 
+  void popupListOpen(Widget popup) {
+    setState!(() {
+      popupList.add(popup);
+    });
+  }
+
+  void popupListClose() {
+    setState!(() {
+      popupList = [];
+    });
+  }
+
+  void popupListBack() {
+    setState!(() {
+      popupList.removeLast();
+    });
+  }
+
   // CALLBACKS
   void Function(void Function())? setState;
 
