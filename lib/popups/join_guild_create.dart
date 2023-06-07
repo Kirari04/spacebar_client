@@ -28,6 +28,7 @@ class JoinGuildCreate extends StatefulWidget {
 
 class _JoinGuildCreateState extends State<JoinGuildCreate> {
   bool isLoading = false;
+  bool chooseImageHovered = false;
   String guildName = "";
   Uint8List? icon;
   String? iconExt;
@@ -49,10 +50,13 @@ class _JoinGuildCreateState extends State<JoinGuildCreate> {
   }
 
   void chooseFile() async {
+    setState(() {
+      isLoading = true;
+    });
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         withData: true,
         type: FileType.custom,
-        allowedExtensions: ["jpg", "jpeg", "png", "svg", "gif"]);
+        allowedExtensions: ["jpg", "jpeg", "png", "gif"]);
     if (result != null) {
       setState(() {
         iconIsSvg = (result.files.first.extension! == "svg");
@@ -64,6 +68,9 @@ class _JoinGuildCreateState extends State<JoinGuildCreate> {
       icon = null;
       iconExt = null;
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   String validGuildName() {
@@ -136,26 +143,35 @@ class _JoinGuildCreateState extends State<JoinGuildCreate> {
                     text: "Don't forget about touching grass!",
                     color: ThemeColors.secundaryFont),
                 const SpaceY(height: 20),
-                Container(
-                  height: 100,
-                  width: 100,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(99),
-                    color: ThemeColors.primaryColorLight,
+                InkWell(
+                  onTap: chooseFile,
+                  onHover: (h) {
+                    setState(() {
+                      chooseImageHovered = h;
+                    });
+                  },
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(99),
+                      color: chooseImageHovered
+                          ? ThemeColors.primaryColorLightLight
+                          : ThemeColors.primaryColorLight,
+                    ),
+                    child: icon == null
+                        ? const SizedBox.shrink()
+                        : iconIsSvg
+                            ? SvgPicture.memory(icon!, fit: BoxFit.cover)
+                            : Image.memory(icon!, fit: BoxFit.cover),
                   ),
-                  child: icon == null
-                      ? const SizedBox.shrink()
-                      : iconIsSvg
-                          ? SvgPicture.memory(icon!, fit: BoxFit.cover)
-                          : Image.memory(icon!, fit: BoxFit.cover),
                 ),
                 const SpaceY(height: 10),
                 Button(
-                    text: "Choose FIle",
-                    onPressed: () {
-                      chooseFile();
-                    }),
+                  text: "Choose File",
+                  onPressed: chooseFile,
+                ),
                 const SpaceY(height: 10),
                 Align(
                   alignment: Alignment.centerLeft,
