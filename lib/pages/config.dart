@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spacebar_client/components/button.dart';
 import 'package:spacebar_client/components/input.dart';
+import 'package:spacebar_client/components/input_save.dart';
 import 'package:spacebar_client/data/auth_data.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/theme_colors.dart';
@@ -20,14 +21,10 @@ class ConfigPage extends StatefulWidget {
 }
 
 class _ConfigPageState extends State<ConfigPage> {
-  TextEditingController? apiEndpointController;
-  TextEditingController? cdnEndpointController;
-
   SharedPreferences? prefs;
-  String apiEndpoint = "";
-  String cdnEndpoint = "";
   LoginRes? loginRes;
   String logs = "";
+
   @override
   void initState() {
     super.initState();
@@ -38,15 +35,7 @@ class _ConfigPageState extends State<ConfigPage> {
   }
 
   void initVars() async {
-    if (apiEndpoint == "") {
-      apiEndpoint = widget.appState.apiEndpoint;
-      apiEndpointController = TextEditingController(text: apiEndpoint);
-    }
-
-    if (cdnEndpoint == "") {
-      cdnEndpoint = widget.appState.cdnEndpoint;
-      cdnEndpointController = TextEditingController(text: cdnEndpoint);
-    }
+    prefs = await SharedPreferences.getInstance();
   }
 
   @override
@@ -85,51 +74,26 @@ class _ConfigPageState extends State<ConfigPage> {
                         ],
                       ),
                       // ApiServer
-                      Flex(
-                        direction: Axis.horizontal,
-                        children: [
-                          Expanded(
-                            child: Input(
-                                text: "ApiServer",
-                                controller: apiEndpointController,
-                                onChange: (changes) {
-                                  apiEndpoint = changes;
-                                }),
-                          ),
-                          Button(
-                            onPressed: () {
-                              widget.appState.setState!(() {
-                                widget.appState.apiEndpoint = apiEndpoint;
-                                prefs!.setString("apiEndpoint", apiEndpoint);
-                              });
-                            },
-                            text: 'Speichern',
-                          ),
-                        ],
+                      InputSave(
+                        value: widget.appState.apiEndpoint,
+                        onSave: (s) {
+                          widget.appState.setState!((() {
+                            widget.appState.apiEndpoint = s;
+                            prefs!.setString("apiEndpoint", s);
+                          }));
+                        },
                       ),
                       // cdnEndpoint
-                      Flex(
-                        direction: Axis.horizontal,
-                        children: [
-                          Expanded(
-                            child: Input(
-                                text: "CdnServer",
-                                controller: cdnEndpointController,
-                                onChange: (changes) {
-                                  cdnEndpoint = changes;
-                                }),
-                          ),
-                          Button(
-                            onPressed: () {
-                              widget.appState.setState!(() {
-                                widget.appState.cdnEndpoint = cdnEndpoint;
-                                prefs!.setString("cdnEndpoint", cdnEndpoint);
-                              });
-                            },
-                            text: 'Speichern',
-                          ),
-                        ],
+                      InputSave(
+                        value: widget.appState.cdnEndpoint,
+                        onSave: (s) {
+                          widget.appState.setState!((() {
+                            widget.appState.cdnEndpoint = s;
+                            prefs!.setString("cdnEndpoint", s);
+                          }));
+                        },
                       ),
+                      // Login Token
                       loginRes == null
                           ? const SizedBox.shrink()
                           : Flex(
@@ -138,6 +102,7 @@ class _ConfigPageState extends State<ConfigPage> {
                                 Expanded(
                                   child: Input(
                                       text: "ApiToken",
+                                      readonly: true,
                                       defaultValue: loginRes?.token,
                                       onChange: ((p0) {})),
                                 )

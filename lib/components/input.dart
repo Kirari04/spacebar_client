@@ -8,6 +8,7 @@ class Input extends StatelessWidget {
     this.text,
     this.obscureText,
     required this.onChange,
+    this.onEditingComplete,
     this.defaultValue,
     this.controller,
     this.backgroundColor,
@@ -19,6 +20,7 @@ class Input extends StatelessWidget {
   final bool? obscureText;
   final bool? readonly;
   final void Function(String)? onChange;
+  final void Function()? onEditingComplete;
   final String? defaultValue;
   final TextEditingController? controller;
   final Color? backgroundColor;
@@ -51,8 +53,14 @@ class Input extends StatelessWidget {
               onChange!(value);
             }
           },
+          onEditingComplete: () {
+            if (onEditingComplete != null) {
+              onEditingComplete!();
+            }
+          },
           obscureText: obscureText ?? false,
           decoration: InputDecoration(
+            labelText: "",
             filled: true,
             fillColor: backgroundColor ?? ThemeColors.primaryColorDark,
             hoverColor: backgroundHoverColor ?? ThemeColors.primaryColorLight,

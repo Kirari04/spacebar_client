@@ -40,6 +40,8 @@ class AppState {
       TextEditingController(text: "");
   TextEditingController userLoginPasswordInputController =
       TextEditingController(text: "");
+  TextEditingController userConfigCdnServerInputController =
+      TextEditingController(text: "");
 
   // PAGE INDEXES
   int defaultLayoutPageState = 0;
@@ -102,17 +104,14 @@ class AppState {
       // ignore: avoid_print
       print("${DateTime.now().toIso8601String()} [$type] $logMessage\n");
     }
-
-    setState!(() {
-      if (_logType == LogType.info) {
-        _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
-      } else if (_logType == LogType.warning &&
-          (type == LogType.warning || type == LogType.error)) {
-        _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
-      } else if (_logType == LogType.error && type == LogType.error) {
-        _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
-      }
-    });
+    if (_logType == LogType.info) {
+      _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
+    } else if (_logType == LogType.warning &&
+        (type == LogType.warning || type == LogType.error)) {
+      _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
+    } else if (_logType == LogType.error && type == LogType.error) {
+      _logs += "${DateTime.now().toIso8601String()} [$type] $logMessage\n";
+    }
   }
 
   String getLogs() {
@@ -128,30 +127,34 @@ class AppState {
 
   // LOOP FUNCTIONS
   void run() {
-    AuthData.getSession().then((value) {
+    AuthData.getSession().then((value) async {
       userLoginSession = value;
-      _setVarsFromPref();
+      await _setVarsFromPref();
       _isApiOnlineLoop();
       _isUserAuthenticatedLoop();
     });
   }
 
-  void _setVarsFromPref() async {
+  Future _setVarsFromPref() async {
     final prefs = await SharedPreferences.getInstance();
     String? apiEndpointSaved = prefs.getString("apiEndpoint");
     if (apiEndpointSaved != null) {
-      apiEndpoint = apiEndpointSaved;
+      setState!(() {
+        apiEndpoint = apiEndpointSaved;
+      });
     }
     String? cdnEndpointSaved = prefs.getString("cdnEndpoint");
     if (cdnEndpointSaved != null) {
-      cdnEndpoint = cdnEndpointSaved;
+      setState!(() {
+        cdnEndpoint = cdnEndpointSaved;
+      });
     }
   }
 
   void _isApiOnlineLoop() async {
     while (true) {
       isApiOnlineLoop();
-      await Future.delayed(Duration(seconds: _apiOnline ? 30 : 2), () {});
+      await Future.delayed(Duration(seconds: _apiOnline ? 15 : 2), () {});
     }
   }
 

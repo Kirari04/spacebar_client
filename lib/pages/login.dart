@@ -28,6 +28,71 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Theme.of(context).primaryColorLight,
+        child: Center(
+          child: Container(
+            width: 500,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: !widget.appState.userTryAuthenticate ||
+                      !widget.appState.getApiOnline()
+                  ? Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Stack(
+                        children: [
+                          const Align(
+                            heightFactor: 1,
+                            alignment: Alignment.center,
+                            child: CircularProgressIndicator(),
+                          ),
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: ButtonIcon(
+                              svg: "assets/settings.svg",
+                              onTap: () {
+                                AppNav.goConfig(widget.appState, context);
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  : IndexedStack(
+                      index: 0,
+                      children: [
+                        LoginPageSpacebar(appState: widget.appState),
+                      ],
+                    ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginPageSpacebar extends StatefulWidget {
+  LoginPageSpacebar({
+    super.key,
+    required this.appState,
+  });
+  AppState appState;
+  @override
+  State<LoginPageSpacebar> createState() => _LoginPageSpacebarState();
+}
+
+class _LoginPageSpacebarState extends State<LoginPageSpacebar> {
   ApiRes<LoginRes, LoginResError>? data;
   String username = "";
   String password = "";
@@ -79,118 +144,72 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        color: Theme.of(context).primaryColorLight,
-        child: Center(
-          child: Container(
-            width: 500,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: !widget.appState.userTryAuthenticate ||
-                      !widget.appState.getApiOnline()
-                  ? Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Stack(
-                        children: [
-                          const Align(
-                            heightFactor: 1,
-                            alignment: Alignment.center,
-                            child: CircularProgressIndicator(),
-                          ),
-                          Positioned(
-                            right: 0,
-                            top: 0,
-                            child: ButtonIcon(
-                              svg: "assets/settings.svg",
-                              onTap: () {
-                                AppNav.goConfig(widget.appState, context);
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const H1(title: "Willkommen zurück!"),
-                        const P(
-                          text: "Wir freuen uns so, dich wiederzusehen",
-                          fontWeight: FontWeight.w200,
-                        ),
-                        const SpaceY(height: 20),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Input(
-                            controller: widget
-                                .appState.userLoginUsernameInputController,
-                            text: "Username or E-Mail",
-                            onChange: (p0) {
-                              username = p0;
-                            },
-                          ),
-                        ),
-                        const SpaceY(height: 20),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Input(
-                            controller: widget
-                                .appState.userLoginPasswordInputController,
-                            text: "Passwort",
-                            obscureText: true,
-                            onChange: (p0) {
-                              password = p0;
-                            },
-                          ),
-                        ),
-
-                        // Show Errors
-                        const SpaceY(height: 20),
-                        ...?data?.error?.errors?.login?.errors
-                            ?.map((e) => PError(
-                                  text: "Error: ${e.message}",
-                                )),
-                        PError(
-                          text: internalError,
-                        ),
-                        const SpaceY(height: 20),
-
-                        // Login & Abort buttons
-                        Flex(
-                          mainAxisSize: MainAxisSize.max,
-                          direction: Axis.horizontal,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ButtonIcon(
-                              svg: "assets/settings.svg",
-                              onTap: () {
-                                AppNav.goConfig(widget.appState, context);
-                              },
-                            ),
-                            Expanded(
-                                child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Button(
-                                text: "Login",
-                                isLoading: isLoading,
-                                onPressed: login,
-                              ),
-                            )),
-                          ],
-                        )
-                      ],
-                    ),
-            ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const H1(title: "Willkommen zurück!"),
+        const P(
+          text: "Wir freuen uns so, dich wiederzusehen",
+          fontWeight: FontWeight.w200,
+        ),
+        const SpaceY(height: 20),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Input(
+            controller: widget.appState.userLoginUsernameInputController,
+            text: "Username or E-Mail",
+            onChange: (p0) {
+              username = p0;
+            },
           ),
         ),
-      ),
+        const SpaceY(height: 20),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Input(
+            controller: widget.appState.userLoginPasswordInputController,
+            text: "Passwort",
+            obscureText: true,
+            onChange: (p0) {
+              password = p0;
+            },
+          ),
+        ),
+
+        // Show Errors
+        const SpaceY(height: 20),
+        ...?data?.error?.errors?.login?.errors?.map((e) => PError(
+              text: "Error: ${e.message}",
+            )),
+        PError(
+          text: internalError,
+        ),
+        const SpaceY(height: 20),
+
+        // Login & Abort buttons
+        Flex(
+          mainAxisSize: MainAxisSize.max,
+          direction: Axis.horizontal,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ButtonIcon(
+              svg: "assets/settings.svg",
+              onTap: () {
+                AppNav.goConfig(widget.appState, context);
+              },
+            ),
+            Expanded(
+                child: Align(
+              alignment: Alignment.centerRight,
+              child: Button(
+                text: "Login",
+                isLoading: isLoading,
+                onPressed: login,
+              ),
+            )),
+          ],
+        )
+      ],
     );
   }
 }
