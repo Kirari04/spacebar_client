@@ -22,14 +22,19 @@ class AppNav {
     });
   }
 
-  static void goGuild(AppState appState, UsersMeGuilds newActiveGuild) async {
+  static void goGuild({
+    required AppState appState,
+    required UsersMeGuilds newActiveGuild,
+    bool noCache = false,
+  }) async {
     appState.addLogs(LogType.info, "AppNav goGuild ${newActiveGuild.id}");
     appState.setState!(() {
       appState.setActiveGuild(newActiveGuild);
       appState.setActiveGuildChannels([]);
       appState.defaultLayoutPageState = 2;
     });
-    apiGetGuildsChannels(appState: appState, guildId: newActiveGuild.id!)
+    apiGetGuildsChannels(
+            appState: appState, guildId: newActiveGuild.id!, noCache: noCache)
         .then((value) {
       if (value.response != null) {
         appState.setState!(() {

@@ -20,6 +20,18 @@ class JoinGuildPopup extends StatefulWidget {
 
 class _JoinGuildPopupState extends State<JoinGuildPopup> {
   @override
+  void initState() {
+    super.initState();
+    if (widget.appState.isFullScalePopupList != true) {
+      Future.delayed(const Duration(milliseconds: 10), () {
+        widget.appState.setState!(() {
+          widget.appState.isFullScalePopupList = true;
+        });
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: Stack(
@@ -47,8 +59,13 @@ class _JoinGuildPopupState extends State<JoinGuildPopup> {
                 ButtonIconNext(
                     title: "Selbst Erstellen",
                     onTap: () {
-                      widget.appState.popupListOpen(
-                          JoinGuildCreate(appState: widget.appState));
+                      widget.appState.setState!(() {
+                        widget.appState.isFullScalePopupList = false;
+                      });
+                      Future.delayed(const Duration(milliseconds: 250), () {
+                        widget.appState.popupListOpen(
+                            JoinGuildCreate(appState: widget.appState));
+                      });
                     }),
                 const SpaceY(height: 20),
                 Align(
@@ -85,7 +102,12 @@ class _JoinGuildPopupState extends State<JoinGuildPopup> {
             child: ButtonIcon(
               svg: "assets/close.svg",
               onTap: () {
-                widget.appState.popupListClose();
+                widget.appState.setState!(() {
+                  widget.appState.isFullScalePopupList = false;
+                });
+                Future.delayed(const Duration(milliseconds: 250), () {
+                  widget.appState.popupListClose();
+                });
               },
             ),
           )

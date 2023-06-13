@@ -47,6 +47,8 @@ class AppState {
   int defaultLayoutPageState = 0;
   int meLayoutPageState = 0;
   int guildLayoutPageState = 0;
+
+  bool isFullScalePopupList = false;
   List<Widget> popupList = [];
 
   SharedPreferences? prefs;

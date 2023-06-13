@@ -57,7 +57,7 @@ class _NavigationState extends State<Navigation> {
                 ? null
                 : "${widget.appState.cdnEndpoint}/icons/${e.id}/${e.icon}.png",
             onPressed: () {
-              AppNav.goGuild(widget.appState, e);
+              AppNav.goGuild(appState: widget.appState, newActiveGuild: e);
             },
           ),
         ),

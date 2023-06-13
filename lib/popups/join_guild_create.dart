@@ -41,6 +41,14 @@ class _JoinGuildCreateState extends State<JoinGuildCreate> {
     super.initState();
     guildName = "Server von ${widget.appState.userMeData?.username}";
     guildNameInput.text = guildName;
+
+    if (widget.appState.isFullScalePopupList != true) {
+      Future.delayed(const Duration(milliseconds: 10), () {
+        widget.appState.setState!(() {
+          widget.appState.isFullScalePopupList = true;
+        });
+      });
+    }
   }
 
   String uint8ListTob64(Uint8List uint8list) {
@@ -62,7 +70,6 @@ class _JoinGuildCreateState extends State<JoinGuildCreate> {
         iconIsSvg = (result.files.first.extension! == "svg");
         icon = result.files.first.bytes;
         iconExt = result.files.first.extension!;
-        error = "Picked: ${(icon != null)}";
       });
     } else {
       icon = null;
@@ -89,17 +96,27 @@ class _JoinGuildCreateState extends State<JoinGuildCreate> {
     }
     apiPostGuilds(widget.appState, validGuildName(), base64Icon).then((value) {
       if (value.error == null) {
-        apiGetUsersMeGuilds(appState: widget.appState).then((newGuildList) {
+        apiGetUsersMeGuilds(appState: widget.appState, noCache: true)
+            .then((newGuildList) {
           if (newGuildList.response != widget.appState.usersMeGuildsList) {
             widget.appState.setState!(() {
               widget.appState.usersMeGuildsList = newGuildList.response;
             });
             for (var usersMeGuild in widget.appState.usersMeGuildsList!) {
               if (usersMeGuild.id == value.response?.id) {
-                AppNav.goGuild(widget.appState, usersMeGuild);
+                AppNav.goGuild(
+                  appState: widget.appState,
+                  newActiveGuild: usersMeGuild,
+                  noCache: true,
+                );
               }
             }
-            widget.appState.popupListClose();
+            widget.appState.setState!(() {
+              widget.appState.isFullScalePopupList = false;
+            });
+            Future.delayed(const Duration(milliseconds: 250), () {
+              widget.appState.popupListClose();
+            });
           }
         });
       } else {
@@ -206,7 +223,13 @@ class _JoinGuildCreateState extends State<JoinGuildCreate> {
                         child: Button(
                             text: "Zurück",
                             onPressed: () {
-                              widget.appState.popupListBack();
+                              widget.appState.setState!(() {
+                                widget.appState.isFullScalePopupList = false;
+                              });
+                              Future.delayed(const Duration(milliseconds: 250),
+                                  () {
+                                widget.appState.popupListBack();
+                              });
                             }),
                       ),
                     ),
@@ -230,7 +253,12 @@ class _JoinGuildCreateState extends State<JoinGuildCreate> {
             child: ButtonIcon(
               svg: "assets/close.svg",
               onTap: () {
-                widget.appState.popupListClose();
+                widget.appState.setState!(() {
+                  widget.appState.isFullScalePopupList = false;
+                });
+                Future.delayed(const Duration(milliseconds: 250), () {
+                  widget.appState.popupListClose();
+                });
               },
             ),
           )

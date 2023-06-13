@@ -13,32 +13,45 @@ class PopupLayout extends StatefulWidget {
 class _PopupLayoutState extends State<PopupLayout> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: () {
-            widget.appState.setState!(() {
-              widget.appState.popupListClose();
-            });
-          },
-          child: Container(
-            height: widget.appState.popupList.isEmpty
-                ? 0
-                : MediaQuery.of(context).size.height,
-            width: widget.appState.popupList.isEmpty
-                ? 0
-                : MediaQuery.of(context).size.width,
-            color: Colors.black87,
+    return Visibility(
+      visible: widget.appState.popupList.isNotEmpty,
+      maintainAnimation: true,
+      maintainState: true,
+      child: Stack(
+        children: [
+          GestureDetector(
+            onTap: () {
+              widget.appState.setState!(() {
+                widget.appState.popupListClose();
+              });
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              color: widget.appState.popupList.isNotEmpty
+                  ? Colors.black87
+                  : Colors.transparent,
+            ),
           ),
-        ),
-        widget.appState.popupList.isNotEmpty
-            ? SizedBox(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: widget.appState.popupList.last,
-              )
-            : const SizedBox.shrink()
-      ],
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: AnimatedOpacity(
+              opacity: widget.appState.isFullScalePopupList ? 1 : 0,
+              duration: const Duration(milliseconds: 250),
+              child: AnimatedScale(
+                curve: Curves.ease,
+                duration: const Duration(milliseconds: 250),
+                scale: widget.appState.isFullScalePopupList ? 1 : .8,
+                child: widget.appState.popupList.isNotEmpty
+                    ? widget.appState.popupList.last
+                    : const SizedBox.shrink(),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
