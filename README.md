@@ -1,6 +1,6 @@
 # spacebar_client
 
-An OS Discord & Spacebar Chat compatible Client written in Flutter.
+An OS Spacebar Chat compatible Client written in Flutter.
 
 ![Client Preview](doc/client.png)
 
