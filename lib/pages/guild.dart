@@ -25,6 +25,7 @@ class _GuildPageState extends State<GuildPage> {
           direction: Axis.vertical,
           children: [
             const H1(title: "Guild Page"),
+            SelectableText("ID: ${widget.appState.getActiveGuild()?.id}"),
             P(text: "${widget.appState.getActiveGuild()?.name}"),
             P(text: "${widget.appState.getActiveGuild()?.description}"),
             SelectableText(

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spacebar_client/api_wrapper/get_users_me.dart';
 import 'package:spacebar_client/api_wrapper/ping.dart';
 import 'package:spacebar_client/data/auth_data.dart';
+import 'package:spacebar_client/models/guilds_channels.dart';
 import 'package:spacebar_client/models/users_me.dart';
 import 'package:spacebar_client/models/users_me_channels.dart';
 import 'package:spacebar_client/models/users_me_guilds.dart';
@@ -31,7 +32,6 @@ class AppState {
   bool userTryAuthenticate = false;
   LoginRes? userLoginSession;
   UsersMe? userMeData;
-  UsersMeGuilds? _activeGuild;
   List<UsersMeGuilds>? usersMeGuildsList;
   List<UsersMeChannels>? usersMeChannelsList;
 
@@ -46,7 +46,10 @@ class AppState {
   // PAGE INDEXES
   int defaultLayoutPageState = 0;
   int meLayoutPageState = 0;
+  int guildLayoutPageState = 0;
   List<Widget> popupList = [];
+
+  SharedPreferences? prefs;
 
   void popupListOpen(Widget popup) {
     setState!(() {
@@ -86,6 +89,7 @@ class AppState {
     _apiOnline = value;
   }
 
+  UsersMeGuilds? _activeGuild;
   void setActiveGuild(UsersMeGuilds? openNewGuild) {
     if (openNewGuild != null) {
       _activeGuild = openNewGuild;
@@ -94,6 +98,17 @@ class AppState {
 
   UsersMeGuilds? getActiveGuild() {
     return _activeGuild;
+  }
+
+  List<GuildsChannels> _activeGuildChannels = [];
+  void setActiveGuildChannels(List<GuildsChannels> openNewGuild) {
+    if (openNewGuild != null) {
+      _activeGuildChannels = openNewGuild;
+    }
+  }
+
+  List<GuildsChannels> getActiveGuildChannels() {
+    return _activeGuildChannels;
   }
 
   bool getUserAuthenticated() {
@@ -137,14 +152,14 @@ class AppState {
   }
 
   Future _setVarsFromPref() async {
-    final prefs = await SharedPreferences.getInstance();
-    String? apiEndpointSaved = prefs.getString("apiEndpoint");
+    prefs = await SharedPreferences.getInstance();
+    String? apiEndpointSaved = prefs!.getString("apiEndpoint");
     if (apiEndpointSaved != null) {
       setState!(() {
         apiEndpoint = apiEndpointSaved;
       });
     }
-    String? cdnEndpointSaved = prefs.getString("cdnEndpoint");
+    String? cdnEndpointSaved = prefs!.getString("cdnEndpoint");
     if (cdnEndpointSaved != null) {
       setState!(() {
         cdnEndpoint = cdnEndpointSaved;
@@ -224,7 +239,7 @@ class AppState {
         });
       }
     });
-    apiGetUsersMeGuilds(this).then((value) {
+    apiGetUsersMeGuilds(appState: this).then((value) {
       if (value.response != usersMeGuildsList) {
         setState!(() {
           usersMeGuildsList = value.response;

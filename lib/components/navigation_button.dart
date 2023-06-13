@@ -143,7 +143,7 @@ class _NavigationButtonState extends State<NavigationButton> {
                   AnimatedContainer(
                     curve: Curves.ease,
                     duration: const Duration(milliseconds: 400),
-                    clipBehavior: Clip.hardEdge,
+                    clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
                       color: (hovered
                               ? widget.secundaryBackgroundColor
@@ -156,10 +156,13 @@ class _NavigationButtonState extends State<NavigationButton> {
                       child: widget.image == null &&
                               widget.svg == null &&
                               widget.networkImage == null
-                          ? const Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Image(
-                                  image: AssetImage("assets/no-image.png")),
+                          ? Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Image.asset(
+                                "assets/no-image.png",
+                                cacheWidth: 50,
+                                cacheHeight: 50,
+                              ),
                             )
                           : Padding(
                               padding: EdgeInsets.all(imagePadding),
@@ -168,11 +171,19 @@ class _NavigationButtonState extends State<NavigationButton> {
                                   ? getSvg()
                                   : widget.networkImage != null
                                       // NETWORK IMAGE
-                                      ? Image.network(widget.networkImage!,
-                                          fit: BoxFit.fill)
+                                      ? Image.network(
+                                          widget.networkImage!,
+                                          fit: BoxFit.fill,
+                                          cacheWidth: 50,
+                                          cacheHeight: 50,
+                                        )
                                       // LOCALE IMAGE
-                                      : Image.asset(widget.image!,
-                                          fit: BoxFit.fill),
+                                      : Image.asset(
+                                          widget.image!,
+                                          fit: BoxFit.fill,
+                                          cacheWidth: 50,
+                                          cacheHeight: 50,
+                                        ),
                             ),
                     ),
                   ),

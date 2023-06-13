@@ -36,10 +36,16 @@ Future<ApiRes<List<GuildsChannels>, String>> apiGetGuildsChannels({
       );
     }
     jsonResponse = response.body;
-    appState.prefs!.setString(cacheKey, jsonResponse);
-    Future.delayed(cacheExpire, () {
+
+    if (!noCache) {
+      appState.prefs!.setString(cacheKey, jsonResponse);
+      Future.delayed(cacheExpire, () {
+        appState.prefs!.remove(cacheKey);
+      });
+    }
+    if (noCache) {
       appState.prefs!.remove(cacheKey);
-    });
+    }
   }
 
   List<GuildsChannels> res = [];

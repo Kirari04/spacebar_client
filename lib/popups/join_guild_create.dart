@@ -89,7 +89,7 @@ class _JoinGuildCreateState extends State<JoinGuildCreate> {
     }
     apiPostGuilds(widget.appState, validGuildName(), base64Icon).then((value) {
       if (value.error == null) {
-        apiGetUsersMeGuilds(widget.appState).then((newGuildList) {
+        apiGetUsersMeGuilds(appState: widget.appState).then((newGuildList) {
           if (newGuildList.response != widget.appState.usersMeGuildsList) {
             widget.appState.setState!(() {
               widget.appState.usersMeGuildsList = newGuildList.response;

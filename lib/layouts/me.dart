@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:spacebar_client/layouts/chat_column.dart';
+import 'package:spacebar_client/components/p.dart';
+import 'package:spacebar_client/components/sub_navigation_me_button.dart';
+import 'package:spacebar_client/layouts/sidebar_column.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/pages/me.dart';
 
@@ -16,10 +18,38 @@ class MeLayout extends StatefulWidget {
 class _MeLayoutState extends State<MeLayout> {
   @override
   Widget build(BuildContext context) {
+    List<Widget> sidebarItems = [];
+    sidebarItems.add(
+      SubNavigationMeButton(
+        appState: widget.appState,
+        title: "Friends",
+        statusEnabled: false,
+      ),
+    );
+    sidebarItems.add(P(
+      text: 'Direktnachrichten'.toUpperCase(),
+      fontSize: 14,
+    ));
+
+    if (widget.appState.usersMeChannelsList != null) {
+      sidebarItems.addAll(
+        widget.appState.usersMeChannelsList!.map(
+          (usersMeChannel) => SubNavigationMeButton(
+            appState: widget.appState,
+            title: "${usersMeChannel.name}",
+            subtitle: "${usersMeChannel.recipients!.map((e) => e.username)}",
+            image: "assets/example_profile.png",
+            status: "offline",
+            closable: true,
+          ),
+        ),
+      );
+    }
     return Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: ChatColumnLayout(
+        child: SidebarColumnLayout(
+          sidebarItems: sidebarItems,
           appState: widget.appState,
           slot: IndexedStack(
             index: widget.appState.meLayoutPageState,

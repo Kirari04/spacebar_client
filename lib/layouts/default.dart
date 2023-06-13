@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:spacebar_client/components/navigation.dart';
 import 'package:spacebar_client/data/auth_data.dart';
+import 'package:spacebar_client/layouts/guild.dart';
 import 'package:spacebar_client/layouts/me.dart';
 import 'package:spacebar_client/layouts/popup.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
-import 'package:spacebar_client/pages/guild.dart';
 import 'package:spacebar_client/pages/login.dart';
 
 import '../pages/home.dart';
@@ -75,7 +75,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
                           children: [
                             HomePage(appState: widget.appState),
                             MeLayout(appState: widget.appState),
-                            GuildPage(appState: widget.appState),
+                            GuildLayout(appState: widget.appState),
                           ],
                         ),
                       ),

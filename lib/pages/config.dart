@@ -117,7 +117,7 @@ class _ConfigPageState extends State<ConfigPage> {
                           SizedBox(
                             height: 400,
                             child: SingleChildScrollView(
-                              child: Text(
+                              child: SelectableText(
                                 logs,
                               ),
                             ),
