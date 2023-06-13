@@ -45,6 +45,7 @@ class AppState {
 
   // PAGE INDEXES
   int defaultLayoutPageState = 0;
+  int meLayoutPageState = 0;
   List<Widget> popupList = [];
 
   void popupListOpen(Widget popup) {
