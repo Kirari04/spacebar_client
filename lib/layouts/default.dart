@@ -13,9 +13,8 @@ import 'package:spacebar_client/pages/login.dart';
 import '../pages/home.dart';
 
 class DefaultLayout extends StatefulWidget {
-  DefaultLayout({super.key, required this.appState, required this.slot});
+  DefaultLayout({super.key, required this.appState});
   AppState appState;
-  Widget slot;
   @override
   State<DefaultLayout> createState() => _DefaultLayoutState();
 }
