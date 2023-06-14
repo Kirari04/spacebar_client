@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:spacebar_client/api_wrapper/post_login.dart';
 import 'package:spacebar_client/components/button.dart';
 import 'package:spacebar_client/components/h1.dart';
@@ -103,6 +104,7 @@ class _LoginPageSpacebarState extends State<LoginPageSpacebar> {
   LoginRes? loginSession;
 
   void login() {
+    TextInput.finishAutofillContext();
     internalError = "";
     data = null;
     setState(() {
@@ -159,7 +161,11 @@ class _LoginPageSpacebarState extends State<LoginPageSpacebar> {
           Align(
             alignment: Alignment.centerLeft,
             child: Input(
-              autofillHints: const [AutofillHints.email],
+              autofillHints: const [
+                AutofillHints.email,
+                AutofillHints.username
+              ],
+              keyboardType: TextInputType.emailAddress,
               controller: widget.appState.userLoginUsernameInputController,
               text: "E-Mail",
               onChange: (p0) {
