@@ -195,7 +195,9 @@ class AppState {
 
   void _isUserAuthenticatedLoop() async {
     while (true) {
-      if (!getApiOnline()) {
+      if (!getApiOnline() ||
+          userLoginSession?.token == null ||
+          userLoginSession?.token == "") {
         await Future.delayed(const Duration(seconds: 1), () {});
         continue;
       }
