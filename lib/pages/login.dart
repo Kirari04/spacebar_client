@@ -14,6 +14,7 @@ import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/login.dart';
 import 'package:spacebar_client/models/login_error.dart';
 import 'package:spacebar_client/models/res.dart';
+import 'package:spacebar_client/models/theme_colors.dart';
 
 import '../components/button_icon.dart';
 
@@ -60,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                             top: 0,
                             child: ButtonIcon(
                               svg: "assets/settings.svg",
+                              defaultColor: Colors.transparent,
                               onTap: () {
                                 AppNav.goConfig(widget.appState, context);
                               },
@@ -144,72 +146,78 @@ class _LoginPageSpacebarState extends State<LoginPageSpacebar> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const H1(title: "Willkommen zurück!"),
-        const P(
-          text: "Wir freuen uns so, dich wiederzusehen",
-          fontWeight: FontWeight.w200,
-        ),
-        const SpaceY(height: 20),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Input(
-            controller: widget.appState.userLoginUsernameInputController,
-            text: "Username or E-Mail",
-            onChange: (p0) {
-              username = p0;
-            },
+    return AutofillGroup(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const H1(title: "Willkommen zurück!"),
+          const P(
+            text: "Wir freuen uns so, dich wiederzusehen",
+            fontWeight: FontWeight.w300,
           ),
-        ),
-        const SpaceY(height: 20),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Input(
-            controller: widget.appState.userLoginPasswordInputController,
-            text: "Passwort",
-            obscureText: true,
-            onChange: (p0) {
-              password = p0;
-            },
-          ),
-        ),
-
-        // Show Errors
-        const SpaceY(height: 20),
-        ...?data?.error?.errors?.login?.errors?.map((e) => PError(
-              text: "Error: ${e.message}",
-            )),
-        PError(
-          text: internalError,
-        ),
-        const SpaceY(height: 20),
-
-        // Login & Abort buttons
-        Flex(
-          mainAxisSize: MainAxisSize.max,
-          direction: Axis.horizontal,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ButtonIcon(
-              svg: "assets/settings.svg",
-              onTap: () {
-                AppNav.goConfig(widget.appState, context);
+          const SpaceY(height: 20),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Input(
+              autofillHints: const [AutofillHints.email],
+              controller: widget.appState.userLoginUsernameInputController,
+              text: "E-Mail",
+              onChange: (p0) {
+                username = p0;
               },
             ),
-            Expanded(
-                child: Align(
-              alignment: Alignment.centerRight,
-              child: Button(
-                text: "Login",
-                isLoading: isLoading,
-                onPressed: login,
+          ),
+          const SpaceY(height: 20),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Input(
+              autofillHints: const [AutofillHints.password],
+              controller: widget.appState.userLoginPasswordInputController,
+              text: "Passwort",
+              obscureText: true,
+              onChange: (p0) {
+                password = p0;
+              },
+            ),
+          ),
+
+          // Show Errors
+          const SpaceY(height: 20),
+          ...?data?.error?.errors?.login?.errors?.map((e) => PError(
+                text: "Error: ${e.message}",
+              )),
+          PError(
+            text: internalError,
+          ),
+          const SpaceY(height: 20),
+
+          // Login & Abort buttons
+          Flex(
+            mainAxisSize: MainAxisSize.max,
+            direction: Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ButtonIcon(
+                svg: "assets/settings.svg",
+                defaultColor: Colors.transparent,
+                onTap: () {
+                  AppNav.goConfig(widget.appState, context);
+                },
               ),
-            )),
-          ],
-        )
-      ],
+              Expanded(
+                  child: Align(
+                alignment: Alignment.centerRight,
+                child: Button(
+                  text: "Login",
+                  color: ThemeColors.primaryFont,
+                  isLoading: isLoading,
+                  onPressed: login,
+                ),
+              )),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

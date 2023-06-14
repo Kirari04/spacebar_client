@@ -38,6 +38,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: appState.appName,
       theme: ThemeData(
+        fontFamily: "Poppins",
         brightness: ThemeColors.brightness,
         primaryColor: ThemeColors.primaryColor,
         primaryColorLight: ThemeColors.primaryColorLight,

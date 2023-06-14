@@ -26,6 +26,7 @@ class P extends StatelessWidget {
         overflow: overflow ?? TextOverflow.ellipsis,
         fontWeight: fontWeight ?? FontWeight.w400,
         color: color ?? ThemeColors.primaryFont,
+        letterSpacing: 0.5,
       ),
     );
   }

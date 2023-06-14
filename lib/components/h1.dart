@@ -13,7 +13,8 @@ class H1 extends StatelessWidget {
       textAlign: textAlign ?? TextAlign.center,
       style: const TextStyle(
         fontSize: 28,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 1.5,
       ),
     );
   }

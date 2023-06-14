@@ -14,6 +14,7 @@ class Input extends StatelessWidget {
     this.backgroundColor,
     this.backgroundHoverColor,
     this.readonly,
+    this.autofillHints,
   });
 
   final String? text;
@@ -25,6 +26,7 @@ class Input extends StatelessWidget {
   final TextEditingController? controller;
   final Color? backgroundColor;
   final Color? backgroundHoverColor;
+  final Iterable<String>? autofillHints;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class Input extends StatelessWidget {
               ),
         text == null ? const SizedBox.shrink() : const SpaceY(height: 10),
         TextField(
+          autofillHints: autofillHints,
           readOnly: readonly ?? false,
           controller: controller ?? TextEditingController(text: defaultValue),
           onChanged: (value) {
@@ -60,7 +63,6 @@ class Input extends StatelessWidget {
           },
           obscureText: obscureText ?? false,
           decoration: InputDecoration(
-            labelText: "",
             filled: true,
             fillColor: backgroundColor ?? ThemeColors.primaryColorDark,
             hoverColor: backgroundHoverColor ?? ThemeColors.primaryColorLight,
