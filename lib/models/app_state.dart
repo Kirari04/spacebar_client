@@ -200,6 +200,7 @@ class AppState {
         continue;
       }
 
+      // don't do request if there isn't a token anyway
       if (userLoginSession?.token == null || userLoginSession?.token == "") {
         if (userTryAuthenticate != true) {
           setState!(() {
