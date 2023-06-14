@@ -195,12 +195,21 @@ class AppState {
 
   void _isUserAuthenticatedLoop() async {
     while (true) {
-      if (!getApiOnline() ||
-          userLoginSession?.token == null ||
-          userLoginSession?.token == "") {
+      if (!getApiOnline()) {
         await Future.delayed(const Duration(seconds: 1), () {});
         continue;
       }
+
+      if (userLoginSession?.token == null || userLoginSession?.token == "") {
+        if (userTryAuthenticate != true) {
+          setState!(() {
+            userTryAuthenticate = true;
+          });
+        }
+        await Future.delayed(const Duration(seconds: 1), () {});
+        continue;
+      }
+
       isUserAuthenticatedLoop();
       await Future.delayed(const Duration(seconds: 30), () {});
     }
