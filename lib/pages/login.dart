@@ -12,6 +12,7 @@ import 'package:spacebar_client/components/space_y.dart';
 import 'package:spacebar_client/data/auth_data.dart';
 import 'package:spacebar_client/models/app_nav.dart';
 import 'package:spacebar_client/models/app_state.dart';
+import 'package:spacebar_client/models/i10n.dart';
 import 'package:spacebar_client/models/login.dart';
 import 'package:spacebar_client/models/login_error.dart';
 import 'package:spacebar_client/models/res.dart';
@@ -116,7 +117,7 @@ class _LoginPageSpacebarState extends State<LoginPageSpacebar> {
               data = value;
               if (data?.response?.token == null) {
                 if (data!.error!.errors!.login!.errors!.isEmpty) {
-                  internalError = "Response doesn't contain login token";
+                  internalError = I10n.of(context)!.resNoLoginToken;
                 }
                 return;
               }
@@ -152,9 +153,9 @@ class _LoginPageSpacebarState extends State<LoginPageSpacebar> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const H1(title: "Willkommen zurück!"),
-          const P(
-            text: "Wir freuen uns so, dich wiederzusehen",
+          H1(title: I10n.of(context)!.loginTitle),
+          P(
+            text: I10n.of(context)!.loginSubtitle,
             fontWeight: FontWeight.w300,
           ),
           const SpaceY(height: 20),
@@ -167,7 +168,7 @@ class _LoginPageSpacebarState extends State<LoginPageSpacebar> {
               ],
               keyboardType: TextInputType.emailAddress,
               controller: widget.appState.userLoginUsernameInputController,
-              text: "E-Mail",
+              text: I10n.of(context)!.email,
               onChange: (p0) {
                 username = p0;
               },
@@ -179,7 +180,7 @@ class _LoginPageSpacebarState extends State<LoginPageSpacebar> {
             child: Input(
               autofillHints: const [AutofillHints.password],
               controller: widget.appState.userLoginPasswordInputController,
-              text: "Passwort",
+              text: I10n.of(context)!.password,
               obscureText: true,
               onChange: (p0) {
                 password = p0;
@@ -214,7 +215,7 @@ class _LoginPageSpacebarState extends State<LoginPageSpacebar> {
                   child: Align(
                 alignment: Alignment.centerRight,
                 child: Button(
-                  text: "Login",
+                  text: I10n.of(context)!.loginButton,
                   color: ThemeColors.primaryFont,
                   isLoading: isLoading,
                   onPressed: login,

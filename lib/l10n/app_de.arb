@@ -1,0 +1,9 @@
+{
+  "appName": "Spacebar Client",
+  "loginTitle": "Willkommen zurück!",
+  "loginSubtitle": "Wir freuen uns so, dich wiederzusehen",
+  "email": "E-Mail",
+  "password": "Passwort",
+  "loginButton": "Anmelden",
+  "resNoLoginToken": "Der Server hat keinen Token zurück gesendet."
+}

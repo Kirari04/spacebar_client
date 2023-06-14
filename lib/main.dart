@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:spacebar_client/layouts/default.dart';
 import 'package:spacebar_client/models/app_state.dart';
 import 'package:spacebar_client/models/theme_colors.dart';
@@ -37,6 +39,15 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appState.appName,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('de', 'CH'),
+      ],
       theme: ThemeData(
         fontFamily: "Poppins",
         brightness: ThemeColors.brightness,
