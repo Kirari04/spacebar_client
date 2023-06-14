@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('de', 'CH'),
+        Locale('de'),
       ],
       theme: ThemeData(
         fontFamily: "Poppins",
