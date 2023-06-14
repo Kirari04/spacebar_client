@@ -1,4 +1,3 @@
-
 class GuildsChannels {
   String? id;
   int? type;
@@ -16,7 +15,22 @@ class GuildsChannels {
   IconEmoji? iconEmoji;
   dynamic themeColor;
 
-  GuildsChannels({this.id, this.type, this.lastMessageId, this.flags, this.lastPinTimestamp, this.guildId, this.name, this.parentId, this.rateLimitPerUser, this.topic, this.position, this.permissionOverwrites, this.nsfw, this.iconEmoji, this.themeColor});
+  GuildsChannels(
+      {this.id,
+      this.type,
+      this.lastMessageId,
+      this.flags,
+      this.lastPinTimestamp,
+      this.guildId,
+      this.name,
+      this.parentId,
+      this.rateLimitPerUser,
+      this.topic,
+      this.position,
+      this.permissionOverwrites,
+      this.nsfw,
+      this.iconEmoji,
+      this.themeColor});
 
   GuildsChannels.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -30,34 +44,41 @@ class GuildsChannels {
     rateLimitPerUser = json["rate_limit_per_user"];
     topic = json["topic"];
     position = json["position"];
-    permissionOverwrites = json["permission_overwrites"] == null ? null : (json["permission_overwrites"] as List).map((e) => PermissionOverwrites.fromJson(e)).toList();
+    permissionOverwrites = json["permission_overwrites"] == null
+        ? null
+        : (json["permission_overwrites"] as List)
+            .map((e) => PermissionOverwrites.fromJson(e))
+            .toList();
     nsfw = json["nsfw"];
-    iconEmoji = json["icon_emoji"] == null ? null : IconEmoji.fromJson(json["icon_emoji"]);
+    iconEmoji = json["icon_emoji"] == null
+        ? null
+        : IconEmoji.fromJson(json["icon_emoji"]);
     themeColor = json["theme_color"];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["type"] = type;
-    _data["last_message_id"] = lastMessageId;
-    _data["flags"] = flags;
-    _data["last_pin_timestamp"] = lastPinTimestamp;
-    _data["guild_id"] = guildId;
-    _data["name"] = name;
-    _data["parent_id"] = parentId;
-    _data["rate_limit_per_user"] = rateLimitPerUser;
-    _data["topic"] = topic;
-    _data["position"] = position;
-    if(permissionOverwrites != null) {
-      _data["permission_overwrites"] = permissionOverwrites?.map((e) => e.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["type"] = type;
+    data["last_message_id"] = lastMessageId;
+    data["flags"] = flags;
+    data["last_pin_timestamp"] = lastPinTimestamp;
+    data["guild_id"] = guildId;
+    data["name"] = name;
+    data["parent_id"] = parentId;
+    data["rate_limit_per_user"] = rateLimitPerUser;
+    data["topic"] = topic;
+    data["position"] = position;
+    if (permissionOverwrites != null) {
+      data["permission_overwrites"] =
+          permissionOverwrites?.map((e) => e.toJson()).toList();
     }
-    _data["nsfw"] = nsfw;
-    if(iconEmoji != null) {
-      _data["icon_emoji"] = iconEmoji?.toJson();
+    data["nsfw"] = nsfw;
+    if (iconEmoji != null) {
+      data["icon_emoji"] = iconEmoji?.toJson();
     }
-    _data["theme_color"] = themeColor;
-    return _data;
+    data["theme_color"] = themeColor;
+    return data;
   }
 }
 
@@ -73,10 +94,10 @@ class IconEmoji {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name"] = name;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["name"] = name;
+    return data;
   }
 }
 
@@ -96,11 +117,11 @@ class PermissionOverwrites {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["type"] = type;
-    _data["allow"] = allow;
-    _data["deny"] = deny;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["type"] = type;
+    data["allow"] = allow;
+    data["deny"] = deny;
+    return data;
   }
 }

@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/sub_navigation_me_button.dart';
 import 'package:spacebar_client/layouts/sidebar_column.dart';

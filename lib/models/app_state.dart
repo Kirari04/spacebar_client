@@ -105,9 +105,7 @@ class AppState {
 
   List<GuildsChannels> _activeGuildChannels = [];
   void setActiveGuildChannels(List<GuildsChannels> openNewGuild) {
-    if (openNewGuild != null) {
-      _activeGuildChannels = openNewGuild;
-    }
+    _activeGuildChannels = openNewGuild;
   }
 
   List<GuildsChannels> getActiveGuildChannels() {

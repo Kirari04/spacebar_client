@@ -1,5 +1,6 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:spacebar_client/components/button_icon.dart';
 import 'package:spacebar_client/components/p.dart';
 import 'package:spacebar_client/components/sidebar_top.dart';
@@ -38,7 +39,7 @@ class _SidebarTopServerState extends State<SidebarTopServer> {
                 ? "assets/close.svg"
                 : "assets/expand.svg",
             padding: widget.appState.showPupupGuildSettings
-                ? EdgeInsets.all(5)
+                ? const EdgeInsets.all(5)
                 : EdgeInsets.zero,
             defaultColor: ThemeColors.primaryColorMid,
             onTap: () {
