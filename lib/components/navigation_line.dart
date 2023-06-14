@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class NavigationLine extends StatelessWidget {
-  const NavigationLine({super.key, required this.height});
+  const NavigationLine({super.key, required this.height, this.widthFactor});
 
   final double height;
+  final double? widthFactor;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class NavigationLine extends StatelessWidget {
       child: Center(
         heightFactor: 0,
         child: FractionallySizedBox(
-          widthFactor: .8,
+          widthFactor: widthFactor ?? .8,
           child: Container(
             height: height,
             color: Theme.of(context).primaryColorLight,

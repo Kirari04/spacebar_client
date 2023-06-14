@@ -11,11 +11,13 @@ class ButtonIcon extends StatefulWidget {
     this.svg,
     this.defaultColor,
     this.hoverColor,
+    this.padding,
     this.onTap,
   });
   final String? svg;
   Color? defaultColor;
   Color? hoverColor;
+  EdgeInsetsGeometry? padding;
   void Function()? onTap;
 
   @override
@@ -52,7 +54,7 @@ class _ButtonIconState extends State<ButtonIcon> {
                 child: Image(image: AssetImage("assets/no-image.png")),
               )
             : Padding(
-                padding: const EdgeInsets.all(5),
+                padding: widget.padding ?? const EdgeInsets.all(5),
                 child: SvgPicture.asset(
                   widget.svg!,
                   fit: BoxFit.contain,

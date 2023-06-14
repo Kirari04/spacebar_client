@@ -48,6 +48,7 @@ class AppState {
   int meLayoutPageState = 0;
   int guildLayoutPageState = 0;
 
+  bool showPupupGuildSettings = false;
   bool isFullScalePopupList = false;
   List<Widget> popupList = [];
 

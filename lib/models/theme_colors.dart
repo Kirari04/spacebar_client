@@ -16,4 +16,5 @@ class ThemeColors {
   static var successColorDark = const Color.fromARGB(255, 41, 170, 61);
   static var primaryFont = const Color.fromARGB(255, 255, 255, 255);
   static var secundaryFont = const Color.fromARGB(255, 188, 220, 250);
+  static var secundaryFontVibe = const Color.fromARGB(255, 87, 94, 194);
 }

@@ -11,6 +11,7 @@ class Button extends StatelessWidget {
     required this.onPressed,
     this.isLoading,
     this.expandX,
+    this.align,
   });
 
   final String text;
@@ -20,6 +21,7 @@ class Button extends StatelessWidget {
   final void Function() onPressed;
   final bool? isLoading;
   final bool? expandX;
+  final AlignmentGeometry? align;
 
   bool loads() => (isLoading != null && isLoading == true);
 
@@ -35,6 +37,7 @@ class Button extends StatelessWidget {
             }
           },
           style: ButtonStyle(
+            alignment: align ?? Alignment.center,
             mouseCursor: MaterialStateProperty.all(
               loads() ? MouseCursor.uncontrolled : null,
             ),

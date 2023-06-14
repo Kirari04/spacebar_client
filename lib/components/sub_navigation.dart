@@ -7,9 +7,15 @@ import '../models/app_state.dart';
 import '../models/theme_colors.dart';
 
 class SubNavigation extends StatefulWidget {
-  SubNavigation({super.key, required this.appState, required this.items});
+  SubNavigation({
+    super.key,
+    required this.appState,
+    required this.items,
+    this.topSlot,
+  });
   AppState appState;
   List<Widget> items = [];
+  Widget? topSlot;
 
   @override
   State<SubNavigation> createState() => _SubNavigationState();
@@ -25,19 +31,17 @@ class _SubNavigationState extends State<SubNavigation> {
         child: Flex(
           direction: Axis.vertical,
           children: [
+            widget.topSlot != null ? widget.topSlot! : const SizedBox.shrink(),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: ListView.builder(
-                  itemCount: widget.items.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      minVerticalPadding: 0,
-                      contentPadding: EdgeInsets.zero,
-                      title: widget.items.elementAt(index),
-                    );
-                  },
-                ),
+              child: ListView.builder(
+                itemCount: widget.items.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    minVerticalPadding: 0,
+                    contentPadding: EdgeInsets.zero,
+                    title: widget.items.elementAt(index),
+                  );
+                },
               ),
             ),
             Container(

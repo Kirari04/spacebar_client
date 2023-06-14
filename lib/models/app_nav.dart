@@ -8,6 +8,7 @@ import '../pages/config.dart';
 @immutable
 class AppNav {
   static void goHome(AppState appState) {
+    _resetOnNav(appState);
     appState.addLogs(LogType.info, "AppNav goHome");
     appState.setState!(() {
       appState.defaultLayoutPageState = 0;
@@ -15,6 +16,7 @@ class AppNav {
   }
 
   static void goMe(AppState appState) {
+    _resetOnNav(appState);
     appState.addLogs(LogType.info, "AppNav goMe");
     appState.updateMeData();
     appState.setState!(() {
@@ -27,6 +29,7 @@ class AppNav {
     required UsersMeGuilds newActiveGuild,
     bool noCache = false,
   }) async {
+    _resetOnNav(appState);
     appState.addLogs(LogType.info, "AppNav goGuild ${newActiveGuild.id}");
     appState.setState!(() {
       appState.setActiveGuild(newActiveGuild);
@@ -45,11 +48,18 @@ class AppNav {
   }
 
   static void goConfig(AppState appState, BuildContext context) {
+    _resetOnNav(appState);
     appState.addLogs(LogType.info, "AppNav goConfig");
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (builder) => ConfigPage(appState: appState),
       ),
     );
+  }
+
+  static void _resetOnNav(AppState appState) {
+    appState.setState!(() {
+      appState.showPupupGuildSettings = false;
+    });
   }
 }

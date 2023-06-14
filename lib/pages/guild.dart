@@ -28,6 +28,7 @@ class _GuildPageState extends State<GuildPage> {
             SelectableText("ID: ${widget.appState.getActiveGuild()?.id}"),
             P(text: "${widget.appState.getActiveGuild()?.name}"),
             P(text: "${widget.appState.getActiveGuild()?.description}"),
+            P(text: "showPupupGuildSettings: ${widget.appState.showPupupGuildSettings}"),
             SelectableText(
                 "${widget.appState.cdnEndpoint}/icons/${widget.appState.getActiveGuild()?.id}/${widget.appState.getActiveGuild()?.icon}"),
           ],

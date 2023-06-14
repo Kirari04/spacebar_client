@@ -19,28 +19,34 @@ class _MeLayoutState extends State<MeLayout> {
   @override
   Widget build(BuildContext context) {
     List<Widget> sidebarItems = [];
-    sidebarItems.add(
-      SubNavigationMeButton(
+    sidebarItems.add(Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      child: SubNavigationMeButton(
         appState: widget.appState,
         title: "Friends",
         statusEnabled: false,
       ),
-    );
-    sidebarItems.add(P(
-      text: 'Direktnachrichten'.toUpperCase(),
-      fontSize: 14,
     ));
+    sidebarItems.add(Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: P(
+          text: 'Direktnachrichten'.toUpperCase(),
+          fontSize: 14,
+        )));
 
     if (widget.appState.usersMeChannelsList != null) {
       sidebarItems.addAll(
         widget.appState.usersMeChannelsList!.map(
-          (usersMeChannel) => SubNavigationMeButton(
-            appState: widget.appState,
-            title: "${usersMeChannel.name}",
-            subtitle: "${usersMeChannel.recipients!.map((e) => e.username)}",
-            image: "assets/example_profile.png",
-            status: "offline",
-            closable: true,
+          (usersMeChannel) => Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: SubNavigationMeButton(
+              appState: widget.appState,
+              title: "${usersMeChannel.name}",
+              subtitle: "${usersMeChannel.recipients!.map((e) => e.username)}",
+              image: "assets/example_profile.png",
+              status: "offline",
+              closable: true,
+            ),
           ),
         ),
       );
