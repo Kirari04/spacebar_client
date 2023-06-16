@@ -19,7 +19,7 @@ class P extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SelectableText(
+    return Text(
       text,
       style: TextStyle(
         fontSize: fontSize ?? 18,
